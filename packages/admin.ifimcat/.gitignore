@@ -1,18 +1,26 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+/src/coreui-new
+/src/coreui-icons
+/src/coreui-charts
 
 # testing
 /coverage
+/src/coreui-new
+/src/coreui-icons
+/src/coreui-charts
 
 # production
 /build
+/src/coreui-new
+/src/coreui-icons
+/src/coreui-charts
 
 # misc
 .DS_Store
+.idea
 .env.local
 .env.development.local
 .env.test.local

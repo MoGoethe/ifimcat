@@ -1,0 +1,139 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Blog {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  title: String!
+  description: String!
+  body: String!
+  tags: [Tag]
+  category: Category!
+  topic: Topic
+  glance: Float!
+  awesome: Float!
+  author: User!
+  is_show: Boolean!
+}
+
+type Category {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  author: User!
+  blogs: Blog!
+}
+
+input ChangePasswordInput {
+  password: String!
+  token: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input CreateTopicInput {
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  register(data: RegisterInput!): User!
+  login(data: LoginInput!): User!
+  logout: Boolean!
+  confirmUser(token: String!): Boolean!
+  changePassword(data: ChangePasswordInput!): User
+  forgotPassword(email: String!): Boolean!
+  updateTopic(name: String!, id: Float!): Topic!
+  deleteTopic(id: Float!): Topic!
+  createTopic(data: CreateTopicInput!): Topic!
+  createBlog(id: Float!): Blog!
+  updateBlog(data: UpdateBlogInput!): Blog!
+  updateCategory(name: String!, id: Float!): Category!
+  deleteCategory(id: Float!): Category!
+  createCategory(data: CreateCategoryInput!): Category!
+  updateTag(name: String!, id: Float!): Tag!
+  deleteTag(id: Float!): Tag!
+  createTag(data: CreateTagInput!): Tag!
+}
+
+type Query {
+  hello: String
+  currentUser: User
+  getTopics: [Topic]
+  getBlogs: [Blog]
+  getCategories: [Category]
+  getTags: [Tag]
+}
+
+input RegisterInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+type Tag {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  author: User!
+}
+
+type Topic {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  author: User!
+  blogs: Blog!
+}
+
+input UpdateBlogInput {
+  id: Float!
+  title: String!
+  description: String!
+  body: String!
+  tags: [Float!]!
+  category: Float!
+  topic: Float!
+  glance: Int!
+  awesome: Int!
+  is_show: Boolean!
+}
+
+type User {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  email: String!
+  username: String!
+  roles: [String]!
+  confirmed: Boolean!
+  blogs: [Blog]
+  topics: [Topic]
+  categories: [Category]
+  tags: [Tag]
+}
