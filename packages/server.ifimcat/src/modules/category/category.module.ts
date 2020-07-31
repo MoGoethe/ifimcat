@@ -8,6 +8,7 @@ import {
   CreateCategoryResolver,
   UpdateCategoryResolver,
   DeleteCategoryResolver,
+  GetAdminCategoriesResolver,
 } from "./resolvers";
 
 @Module({
@@ -19,6 +20,7 @@ import {
     CreateCategoryResolver,
     UpdateCategoryResolver,
     DeleteCategoryResolver,
+    GetAdminCategoriesResolver,
   ],
 })
 export class CategoryModule{}

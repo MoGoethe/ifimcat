@@ -12,27 +12,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateBlogInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
-const IsNameAlreadyExist_1 = require("../decorator/IsNameAlreadyExist");
+const IsTitleAlreadyExist_1 = require("../decorator/IsTitleAlreadyExist");
 let CreateBlogInput = class CreateBlogInput {
 };
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(2),
     class_validator_1.MaxLength(24),
-    IsNameAlreadyExist_1.IsNameAlreadyExist({ message: "此标题已存在" }),
+    IsTitleAlreadyExist_1.IsTitleAlreadyExist({ message: "此标题已存在" }),
+    graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], CreateBlogInput.prototype, "title", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(8),
     class_validator_1.MaxLength(128),
+    graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], CreateBlogInput.prototype, "description", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(64),
+    graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], CreateBlogInput.prototype, "body", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    graphql_1.Field(() => Number, { nullable: true }),
+    __metadata("design:type", Number)
+], CreateBlogInput.prototype, "categoryId", void 0);
+__decorate([
+    graphql_1.Field(() => Number, { nullable: true }),
+    __metadata("design:type", Number)
+], CreateBlogInput.prototype, "topicId", void 0);
+__decorate([
+    graphql_1.Field(() => [Number], { nullable: 'itemsAndList' }),
+    __metadata("design:type", Array)
+], CreateBlogInput.prototype, "tagsId", void 0);
 CreateBlogInput = __decorate([
     graphql_1.InputType()
 ], CreateBlogInput);

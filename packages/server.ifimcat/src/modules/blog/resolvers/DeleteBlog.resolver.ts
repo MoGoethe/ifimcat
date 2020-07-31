@@ -11,7 +11,7 @@ export class DeleteBlogResolver {
 
   @UseGuards(new GQLAuthGuard(UserRoleType.EDITOR))
   @Mutation(() => Blog)
-  async createBlog(@Args('id') id: number): Promise<Blog> {
+  async deleteBlog(@Args('id') id: number): Promise<Blog> {
     return this.blogService.deleteBlog(id);
   }
 }

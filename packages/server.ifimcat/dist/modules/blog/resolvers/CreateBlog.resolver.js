@@ -35,6 +35,7 @@ let CreateBlogResolver = class CreateBlogResolver {
     }
     createBlog(createBlogInput, context) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(context.req.currentUser);
             return this.blogService.createBlog(context.req.currentUser, createBlogInput);
         });
     }

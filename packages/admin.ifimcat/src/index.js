@@ -21,7 +21,7 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
   }
 })
 const uploadLink = createUploadLink({
-  uri: `/graphql`,
+  uri: `http://localhost:8008/graphql`,
   credentials: 'include'
 })
 const link = ApolloLink.from([errorLink, uploadLink])

@@ -25,6 +25,7 @@ CategoryModule = __decorate([
             resolvers_1.CreateCategoryResolver,
             resolvers_1.UpdateCategoryResolver,
             resolvers_1.DeleteCategoryResolver,
+            resolvers_1.GetAdminCategoriesResolver,
         ],
     })
 ], CategoryModule);

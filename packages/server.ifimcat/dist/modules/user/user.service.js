@@ -46,8 +46,9 @@ let UserService = class UserService {
     }
     register(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userRepository.create(Object.assign({}, data)).save();
+            const user = yield this.userRepository.create(Object.assign({}, data));
             yield sendEmail_1.sendMail(data.email, createConfirmationUrl_1.createConfirmationUrl(user.id));
+            yield this.userRepository.save(user);
             return user;
         });
     }

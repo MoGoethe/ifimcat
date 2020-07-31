@@ -10,7 +10,6 @@ import {
   UpdateBlogResolver,
 } from './resolvers';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([Blog])],
   controllers: [BlogController],

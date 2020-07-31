@@ -14,7 +14,6 @@ import { GraphQLContext } from '../../shared/context';
 import { ChangePasswordInput } from './input/changePassword.input';
 import { UpdateUserInput } from './input/updateUser.input';
 import { UserRoleType } from '../../constants/userRoles.constants';
-// import { UserRole } from '../userRole/entity/userRole.entity';
 import config from '../../config';
 
 @Injectable()
@@ -31,8 +30,9 @@ export class UserService {
   }
 
   async register(data: RegisterInput): Promise<User> {
-    const user = await this.userRepository.create({...data}).save();
+    const user = await this.userRepository.create({...data});
     await sendMail(data.email, createConfirmationUrl(user.id));
+    await this.userRepository.save(user);
     return user;
   }
 
@@ -111,12 +111,7 @@ export class UserService {
     if (email) user.email = email;
     if (username) user.username = username;
     console.log(roleId)
-    // if (roleId) {
-    //   const role = await UserRole.findOneOrFail({id: roleId})
-    //   user.roles = role;
-    //   await user.save();
-    //   return user
-    // }
+
     return user
   }
 

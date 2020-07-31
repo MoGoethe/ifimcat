@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbstractEntity = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
-const uuid_1 = require("uuid");
 let AbstractEntity = class AbstractEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,7 +20,8 @@ __decorate([
     __metadata("design:type", Number)
 ], AbstractEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column('varchar', { default: uuid_1.v4() }),
+    typeorm_1.Column(),
+    typeorm_1.Generated("uuid"),
     graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], AbstractEntity.prototype, "key", void 0);

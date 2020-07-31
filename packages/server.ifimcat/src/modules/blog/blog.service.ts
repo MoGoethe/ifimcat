@@ -8,12 +8,13 @@ import { UpdateBlogInput } from "./input/UpdateBlog.input";
 import { Tag } from "../tag/entity/tag.entity";
 import { Topic } from "../topic/entity/topic.entity";
 import { Category } from "../category/entity/category.entity";
+import { UserRoleType } from "../../constants/userRoles.constants";
 
 @Injectable()
 export class BlogService {
   constructor(
     @InjectRepository(Blog)
-    private readonly blogRepository: Repository<Blog>,
+    private readonly blogRepository: Repository<Blog>
   ){}
 
   hello(): string {
@@ -21,11 +22,26 @@ export class BlogService {
   }
 
   async getBlogs(): Promise<Blog[]> {
-    return await this.blogRepository.find();
+    return await this.blogRepository.find({relations:['author', 'topic', 'category', 'tags']});
   }
 
   async createBlog(author: User, createBlogInput: CreateBlogInput): Promise<Blog> {
-    return await this.blogRepository.create({...createBlogInput, author}).save();
+    const { title, description, body, categoryId, topicId, tagsId } = createBlogInput;
+
+    const category = await Category.findOneOrFail(categoryId);
+    const topic = await Topic.findOneOrFail(topicId);
+    
+    const tags = await Tag.findByIds(tagsId);
+    const blog = await this.blogRepository.create({
+      title,
+      description,
+      body,
+      category,
+      topic,
+      tags,
+      author
+    });
+    return await blog.save()
   }
 
   async deleteBlog(id: number): Promise<Blog> {
@@ -48,10 +64,10 @@ export class BlogService {
     if (body) blog.body = body;
     if (glance) blog.glance = glance;
     if (awesome) blog.awesome = awesome;
-    blog.is_show = is_show;
+    if (is_show) blog.is_show = is_show;
 
     if (updateBlogInput.tags) {
-      const tags = await Tag.findByIds([updateBlogInput.tags]);
+      const tags = await Tag.findByIds(updateBlogInput.tags);
       if (!tags.length) {
         throw new NotFoundException("该博客至少需要一个标签");
       }
@@ -73,5 +89,16 @@ export class BlogService {
     }
 
     return this.blogRepository.save(blog);
+  }
+
+  async getAdminBlogs(admin: User): Promise<Blog[]> {
+    if (admin.roles.includes(UserRoleType.ADMIN)) {
+      return this.blogRepository.find({relations:['author', 'topic', 'category', 'tags']})
+    }
+    return this.blogRepository.find({where: {author: admin}, relations:['author', 'topic', 'category', 'tags']})
+  }
+
+  async getBlogByKey(key: string): Promise<Blog | null> {
+    return this.blogRepository.findOneOrFail({key});
   }
 }

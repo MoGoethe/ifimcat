@@ -3,3 +3,29 @@
   background: url('../assets//full-bg-1.svg') no-repeat center;
   background-size: cover;
 }
+.user {
+  &-form {
+    .input-group-text {
+      width: 44px;
+      justify-content: center;
+    }
+  }
+}
+.c-sidebar-brand-minimized,
+.c-sidebar-brand-full {
+  height: 35px;
+  background: transparent url("../assets//logo.svg") no-repeat left center;
+  background-size: 35px;
+  color: #fff;
+  font-size: 20px;
+  text-indent: 47px;
+  line-height: 35px;
+}
+.c-sidebar-brand-minimized{
+  width: 35px
+}
+
+// 自定义
+table td a + a {
+  margin-left: 8px;
+}

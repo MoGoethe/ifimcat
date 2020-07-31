@@ -34,6 +34,15 @@ input ChangePasswordInput {
   token: String!
 }
 
+input CreateBlogInput {
+  title: String!
+  description: String!
+  body: String!
+  categoryId: Float
+  topicId: Float
+  tagsId: [Float]
+}
+
 input CreateCategoryInput {
   name: String!
 }
@@ -66,7 +75,8 @@ type Mutation {
   updateTopic(name: String!, id: Float!): Topic!
   deleteTopic(id: Float!): Topic!
   createTopic(data: CreateTopicInput!): Topic!
-  createBlog(id: Float!): Blog!
+  createBlog(data: CreateBlogInput!): Blog!
+  deleteBlog(id: Float!): Blog!
   updateBlog(data: UpdateBlogInput!): Blog!
   updateCategory(name: String!, id: Float!): Category!
   deleteCategory(id: Float!): Category!
@@ -81,7 +91,10 @@ type Query {
   currentUser: User
   getTopics: [Topic]
   getBlogs: [Blog]
+  getAdminBlogs: [Blog]
+  getBlogByKey(key: String!): Blog
   getCategories: [Category]
+  getAdminCategories: [Category]
   getTags: [Tag]
 }
 
@@ -111,16 +124,16 @@ type Topic {
 }
 
 input UpdateBlogInput {
-  id: Float!
-  title: String!
-  description: String!
-  body: String!
-  tags: [Float!]!
-  category: Float!
-  topic: Float!
-  glance: Int!
-  awesome: Int!
-  is_show: Boolean!
+  id: Int!
+  title: String
+  description: String
+  body: String
+  tags: [Int!]
+  category: Int
+  topic: Int
+  glance: Int
+  awesome: Int
+  is_show: Boolean
 }
 
 type User {

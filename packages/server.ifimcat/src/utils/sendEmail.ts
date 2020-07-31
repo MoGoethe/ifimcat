@@ -1,27 +1,33 @@
 import nodemailer from 'nodemailer';
+import config from '../config';
 
 export async function sendMail(email: string, url: string) {
-  const account = await nodemailer.createTestAccount();
-
+  const { host, port, secure, auth: {user, pass}, tls: { rejectUnauthorized } } = config.mailServer;
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
+    host,
+    port: Number(port),
+    secure: !!secure,
     auth: {
-      user: account.user,
-      pass: account.pass,
+      user,
+      pass,
+    },
+    tls:{
+      rejectUnauthorized: !!rejectUnauthorized,
     }
   });
 
-  const info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>',
-    to: email,
-    subject: "Hello ✔",
-    text: "Hello world?",
-    html: `<a hrf="${url}">${url}</a>`
-  });
+  const output = `
+    <h3>您正在使用Ifimcat, 点击链接查看详情</h3>
+    <p style="font-size:14px"><a href="${url}" style="color:#321fdb">${url}</a></p>
+  `;
 
-  console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  let mailOptions = {
+    from: user,
+    to: email,
+    subject: '欢迎使用Ifimcat',
+    html: output
+  };
+  await transporter.sendMail(mailOptions);
+
 }
 

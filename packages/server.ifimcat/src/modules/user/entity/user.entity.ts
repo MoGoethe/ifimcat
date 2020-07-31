@@ -8,7 +8,6 @@ import {
 import { Field, ObjectType } from '@nestjs/graphql';
 import bcrypt from 'bcryptjs';
 import { AbstractEntity } from '../../../shared/abstract.entity';
-// import { UserRole } from '../../userRole/entity/userRole.entity';
 import { UserRoleType } from '../../../constants/userRoles.constants';
 import { Blog } from '../../blog/entity/blog.entity';
 import { Topic } from '../../topic/entity/topic.entity';
@@ -29,19 +28,6 @@ export class User extends AbstractEntity{
 
   @Column()
   password: string;
-
-  // @Field(() => [UserRole], {nullable: true})
-  // @ManyToMany(() => UserRole, userRole => userRole.users)
-  // @JoinTable({
-  //   name: 'user_role',
-  //   joinColumns: [
-  //       {name: 'user_id'},
-  //   ],
-  //   inverseJoinColumns: [
-  //       {name: 'role_id'},
-  //   ],
-  // })
-  // roles: UserRole[] = [];
 
   @Field(() => [String], {nullable: 'items'})
   @Column({

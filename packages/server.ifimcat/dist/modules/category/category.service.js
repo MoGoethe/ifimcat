@@ -26,6 +26,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const category_entity_1 = require("./entity/category.entity");
+const userRoles_constants_1 = require("../../constants/userRoles.constants");
 let CategoryService = class CategoryService {
     constructor(categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -60,6 +61,14 @@ let CategoryService = class CategoryService {
                 throw new common_1.NotFoundException("删除失败，内容不存在");
             }
             return this.categoryRepository.remove(category);
+        });
+    }
+    getAdminCategories(admin) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (admin.roles.includes(userRoles_constants_1.UserRoleType.ADMIN)) {
+                return this.categoryRepository.find();
+            }
+            return this.categoryRepository.find({ where: { author: admin } });
         });
     }
 };

@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], Blog.prototype, "description", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column("text"),
     graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], Blog.prototype, "body", void 0);
@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], Blog.prototype, "author", void 0);
 __decorate([
-    typeorm_1.Column({ default: false }),
+    typeorm_1.Column({ default: true }),
     graphql_1.Field(() => Boolean),
     __metadata("design:type", Boolean)
 ], Blog.prototype, "is_show", void 0);

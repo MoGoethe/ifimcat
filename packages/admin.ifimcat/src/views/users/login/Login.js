@@ -15,6 +15,10 @@ import {
   CInputGroupText,
   CRow,
   CInvalidFeedback,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { useMutation } from '@apollo/react-hooks';
@@ -25,6 +29,9 @@ import { isEmail } from '../../../utils/validate';
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailValidate, setEmailValidate] = useState({});
+  const [passwordValidate, setPasswordValidate] = useState({});
+  const [modal, setModal] = useState({show: false, info: ''});
   const dispatch = useDispatch();
   const [login, { loading }] = useMutation(M_LOGIN, {
     variables: {
@@ -32,23 +39,33 @@ const Login = (props) => {
       password,
     },
     onCompleted(data) {
-      localStorage.setItem('has_been_login', data.login.email);
-      dispatch({type: SET_CURRENT_USER, currentUser: data.login});
-      props.history.push("/dashboard");
+      if (data.login) {
+        localStorage.setItem('has_been_login', data.login.email);
+        dispatch({type: SET_CURRENT_USER, currentUser: data.login});
+        props.history.push("/dashboard");
+      }
     },
-    onError(err) {
-      // 错误信息处理
-      console.log(err);
+    onError({graphQLErrors}) {
+      setModal({show: true, info: graphQLErrors[0].message});
     }
   });
 
-  const emailValidate = {};
-  if (isEmail(email) && email.length > 0) {
-    emailValidate.valid = true;
-  } else if (email.length > 0) {
-    emailValidate.invalid = true;
-    emailValidate.message = '邮箱格式错误';
+  const toggle = () => {
+    setModal({show: false, info: ''});
   }
+
+  const submit = () => {
+    if (!isEmail(email)) {
+      setEmailValidate({invalid: true, message: "邮箱格式错误"});
+      return;
+    }
+    setEmailValidate({valid: true});
+    if (password.length < 6) {
+      setPasswordValidate({invalid: true, message: "密码长度至少为6"});
+      return;
+    }
+    login();
+  };
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center user-bg--full">
@@ -73,8 +90,7 @@ const Login = (props) => {
                         autoComplete="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        valid={emailValidate.valid}
-                        invalid={emailValidate.invalid}
+                        {...emailValidate}
                       />
                       <CInvalidFeedback>{emailValidate.message}</CInvalidFeedback>
                     </CInputGroup>
@@ -90,14 +106,13 @@ const Login = (props) => {
                         autoComplete="current-password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        valid={password.length >= 6}
-                        invalid={password.length < 6 && password.length !== 0}
+                        {...passwordValidate}
                       />
-                      <CInvalidFeedback>密码长度不能小于6</CInvalidFeedback>
+                      <CInvalidFeedback>{passwordValidate.message}</CInvalidFeedback>
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" className="px-4" disabled={loading} onClick={() => login()}>登录</CButton>
+                        <CButton color="primary" className="px-4" disabled={loading} onClick={() => submit()}>登录</CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
                         <CButton color="link" className="px-0" to="/forgot-password">忘记密码?</CButton>
@@ -110,7 +125,7 @@ const Login = (props) => {
                 <CCardBody>
                   <div>
                     <h2 className="text-center">注册账户</h2>
-                    <p>如果我是喵，ifimcat.com是歌德巴赫的个人博客，这里是它的管理后台，如果你也想加入一起写作，
+                    <p>【如果我是喵】ifimcat.com是歌德巴赫的个人博客，这里是它的管理后台，如果你也想加入一起写作，
                     发布你的博客的话，立即注册吧！</p>
                     <p className="text-center">
                       <Link to="/register">
@@ -121,6 +136,16 @@ const Login = (props) => {
                 </CCardBody>
               </CCard>
             </CCardGroup>
+            <CModal
+              show={modal.show}
+              onClose={toggle}
+            >
+              <CModalHeader closeButton>提示</CModalHeader>
+              <CModalBody>{modal.info}</CModalBody>
+              <CModalFooter>
+                <CButton color="info" onClick={toggle}>我知道了</CButton>
+              </CModalFooter>
+            </CModal>
           </CCol>
         </CRow>
       </CContainer>

@@ -29,7 +29,7 @@ const TheContent = (props) => {
   }
 
   return (
-    <AuthContext.Provider value={{ currentUser: data }}>
+    <AuthContext.Provider value={{...data}}>
       <main className="c-main">
         <CContainer fluid>
           <Suspense fallback={fallbackLoading}>

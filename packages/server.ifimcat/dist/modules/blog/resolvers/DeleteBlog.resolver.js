@@ -32,7 +32,7 @@ let DeleteBlogResolver = class DeleteBlogResolver {
     constructor(blogService) {
         this.blogService = blogService;
     }
-    createBlog(id) {
+    deleteBlog(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.blogService.deleteBlog(id);
         });
@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], DeleteBlogResolver.prototype, "createBlog", null);
+], DeleteBlogResolver.prototype, "deleteBlog", null);
 DeleteBlogResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [blog_service_1.BlogService])

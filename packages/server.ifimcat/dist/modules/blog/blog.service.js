@@ -29,6 +29,7 @@ const typeorm_2 = require("typeorm");
 const tag_entity_1 = require("../tag/entity/tag.entity");
 const topic_entity_1 = require("../topic/entity/topic.entity");
 const category_entity_1 = require("../category/entity/category.entity");
+const userRoles_constants_1 = require("../../constants/userRoles.constants");
 let BlogService = class BlogService {
     constructor(blogRepository) {
         this.blogRepository = blogRepository;
@@ -38,12 +39,25 @@ let BlogService = class BlogService {
     }
     getBlogs() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.blogRepository.find();
+            return yield this.blogRepository.find({ relations: ['author', 'topic', 'category', 'tags'] });
         });
     }
     createBlog(author, createBlogInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.blogRepository.create(Object.assign(Object.assign({}, createBlogInput), { author })).save();
+            const { title, description, body, categoryId, topicId, tagsId } = createBlogInput;
+            const category = yield category_entity_1.Category.findOneOrFail(categoryId);
+            const topic = yield topic_entity_1.Topic.findOneOrFail(topicId);
+            const tags = yield tag_entity_1.Tag.findByIds(tagsId);
+            const blog = yield this.blogRepository.create({
+                title,
+                description,
+                body,
+                category,
+                topic,
+                tags,
+                author
+            });
+            return yield blog.save();
         });
     }
     deleteBlog(id) {
@@ -72,9 +86,10 @@ let BlogService = class BlogService {
                 blog.glance = glance;
             if (awesome)
                 blog.awesome = awesome;
-            blog.is_show = is_show;
+            if (is_show)
+                blog.is_show = is_show;
             if (updateBlogInput.tags) {
-                const tags = yield tag_entity_1.Tag.findByIds([updateBlogInput.tags]);
+                const tags = yield tag_entity_1.Tag.findByIds(updateBlogInput.tags);
                 if (!tags.length) {
                     throw new common_1.NotFoundException("该博客至少需要一个标签");
                 }
@@ -95,6 +110,19 @@ let BlogService = class BlogService {
                 blog.category = category;
             }
             return this.blogRepository.save(blog);
+        });
+    }
+    getAdminBlogs(admin) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (admin.roles.includes(userRoles_constants_1.UserRoleType.ADMIN)) {
+                return this.blogRepository.find({ relations: ['author', 'topic', 'category', 'tags'] });
+            }
+            return this.blogRepository.find({ where: { author: admin }, relations: ['author', 'topic', 'category', 'tags'] });
+        });
+    }
+    getBlogByKey(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.blogRepository.findOneOrFail({ key });
         });
     }
 };

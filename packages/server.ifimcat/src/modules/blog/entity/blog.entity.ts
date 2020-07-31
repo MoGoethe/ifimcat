@@ -29,7 +29,7 @@ export class Blog extends AbstractEntity{
   @Field(() => String)
   description: string;
 
-  @Column()
+  @Column("text")
   @Field(() => String)
   body: string;
 
@@ -58,7 +58,7 @@ export class Blog extends AbstractEntity{
   @ManyToOne(() => User, user => user.blogs)
   author: User;
 
-  @Column({default: false})
+  @Column({default: true})
   @Field(() => Boolean)
   is_show: boolean;
 }

@@ -5,9 +5,9 @@ import {
   UpdateDateColumn,
   BaseEntity,
   Column,
+  Generated,
 } from 'typeorm';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { v4 } from 'uuid';
 
 @Entity()
 @ObjectType()
@@ -16,7 +16,8 @@ export abstract class AbstractEntity extends BaseEntity{
   @Field(() => Int)
   id: number;
 
-  @Column('varchar', {default: v4()})
+  @Column()
+  @Generated("uuid")
   @Field(() => String)
   key: string;
 

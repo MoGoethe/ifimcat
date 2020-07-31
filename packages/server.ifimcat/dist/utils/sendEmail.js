@@ -14,27 +14,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const config_1 = __importDefault(require("../config"));
 function sendMail(email, url) {
     return __awaiter(this, void 0, void 0, function* () {
-        const account = yield nodemailer_1.default.createTestAccount();
+        const { host, port, secure, auth: { user, pass }, tls: { rejectUnauthorized } } = config_1.default.mailServer;
         const transporter = nodemailer_1.default.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false,
+            host,
+            port: Number(port),
+            secure: !!secure,
             auth: {
-                user: account.user,
-                pass: account.pass,
+                user,
+                pass,
+            },
+            tls: {
+                rejectUnauthorized: !!rejectUnauthorized,
             }
         });
-        const info = yield transporter.sendMail({
-            from: '"Fred Foo 👻" <foo@example.com>',
+        const output = `
+    <h3>您正在使用Ifimcat, 点击链接查看详情</h3>
+    <p style="font-size:14px"><a href="${url}" style="color:#321fdb">${url}</a></p>
+  `;
+        let mailOptions = {
+            from: user,
             to: email,
-            subject: "Hello ✔",
-            text: "Hello world?",
-            html: `<a hrf="${url}">${url}</a>`
-        });
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer_1.default.getTestMessageUrl(info));
+            subject: '欢迎使用Ifimcat',
+            html: output
+        };
+        yield transporter.sendMail(mailOptions);
     });
 }
 exports.sendMail = sendMail;

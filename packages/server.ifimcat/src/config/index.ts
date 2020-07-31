@@ -45,5 +45,17 @@ export default {
     email: process.env.ADMIN_EMAIL || 'admin@qq.com',
     password: process.env.ADMIN_PASSWORD || 'admin',
     username: process.env.ADMIN_USERNAME || 'admin',
+  },
+  mailServer: {
+    host: process.env.MAILSERVER_HOST || 'test.example.com',
+    port: process.env.MAILSERVER_PORT || 456,
+    secure: process.env.MAILSERVER_SECURE || false,
+    auth: {
+      user: process.env.MAILSERVER_AUTH_USER || 'user',
+      pass: process.env.MAILSERVER_AUTH_PASS || 'pass',
+    },
+    tls: {
+      rejectUnauthorized:process.env.MAILSERVER_TLS_REJECTUNAUTHORIZED || false,
+    }
   }
 };

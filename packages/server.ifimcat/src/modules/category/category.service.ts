@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { Category } from "./entity/category.entity";
 import { CreateCategoryInput } from "./input/createCategory.input";
 import { User } from "../user/entity/user.entity";
+import { UserRoleType } from "../../constants/userRoles.constants";
 
 @Injectable()
 export class CategoryService {
@@ -39,6 +40,13 @@ export class CategoryService {
       throw new NotFoundException("删除失败，内容不存在");
     }
     return this.categoryRepository.remove(category)
+  }
+
+  async getAdminCategories(admin: User): Promise<Category[]> {
+    if (admin.roles.includes(UserRoleType.ADMIN)) {
+      return this.categoryRepository.find()
+    }
+    return this.categoryRepository.find({where: {author: admin}})
   }
 
 }

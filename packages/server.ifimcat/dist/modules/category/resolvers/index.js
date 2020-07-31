@@ -14,4 +14,5 @@ __exportStar(require("./GetCategories.resolver"), exports);
 __exportStar(require("./UpdateCategory.resolver"), exports);
 __exportStar(require("./DeleteCategory.resolver"), exports);
 __exportStar(require("./CreateCategory.resolver"), exports);
+__exportStar(require("./GetAdminCategories.resolver"), exports);
 //# sourceMappingURL=index.js.map

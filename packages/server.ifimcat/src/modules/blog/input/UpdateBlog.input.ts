@@ -6,45 +6,45 @@ import { IsNameAlreadyExist } from "../../topic/decorator/IsNameAlreadyExist";
 export class UpdateBlogInput {
 
   @IsNotEmpty()
-  @Field()
+  @Field(() => Int)
   id: number;
 
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(24)
   @IsNameAlreadyExist({message: "此标题已存在"})
-  @Field()
-  title: string;
+  @Field(() => String, {nullable: true})
+  title?: string;
 
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(128)
-  @Field()
-  description: string;
+  @Field(() => String, {nullable: true})
+  description?: string;
 
   @IsNotEmpty()
   @MinLength(64)
-  @Field()
-  body: string;
+  @Field(() => String, {nullable: true})
+  body?: string;
 
-  @Field(() => [Number])
+  @Field(() => [Int], {nullable: true})
   tags?: number[];
 
   @IsNotEmpty()
-  @Field(() => Number)
+  @Field(() => Int, {nullable: true})
   category?: number;
 
-  @Field(() => Number)
+  @Field(() => Int, {nullable: true})
   topic?: number;
 
   @Min(0)
-  @Field(() => Int)
-  glance: number;
+  @Field(() => Int, {nullable: true})
+  glance?: number;
 
   @Min(0)
-  @Field(() => Int)
-  awesome: number;
+  @Field(() => Int, {nullable: true})
+  awesome?: number;
 
-  @Field(() => Boolean)
-  is_show: boolean;
+  @Field(() => Boolean, {nullable: true})
+  is_show?: boolean;
 }
