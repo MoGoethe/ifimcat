@@ -36,7 +36,7 @@ let CategoryService = class CategoryService {
     }
     getCategories() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.categoryRepository.find();
+            return this.categoryRepository.find({ relations: ['author', 'blogs'] });
         });
     }
     createCategory(author, createCategorynput) {

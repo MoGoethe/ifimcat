@@ -26,25 +26,27 @@ const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("../entity/user.entity");
 const user_service_1 = require("../user.service");
 const updateUser_input_1 = require("../input/updateUser.input");
+const userRoles_constants_1 = require("../../../constants/userRoles.constants");
+const auth_guard_1 = require("../../../auth/auth.guard");
+const common_1 = require("@nestjs/common");
 let UpdateUserResolver = class UpdateUserResolver {
     constructor(userService) {
         this.userService = userService;
     }
-    confirmUser(updateUserData, ctx) {
+    updateUser(updateUserData) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userId = ctx.req.session && ctx.req.session.userId || -1;
-            return this.userService.updateUser(userId, updateUserData);
+            return this.userService.updateUser(updateUserData);
         });
     }
 };
 __decorate([
-    graphql_1.Mutation(() => Boolean),
+    graphql_1.Mutation(() => user_entity_1.User, { nullable: true }),
+    common_1.UseGuards(new auth_guard_1.GQLAuthGuard(userRoles_constants_1.UserRoleType.ADMIN)),
     __param(0, graphql_1.Args('data')),
-    __param(1, graphql_1.Context()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [updateUser_input_1.UpdateUserInput, Object]),
+    __metadata("design:paramtypes", [updateUser_input_1.UpdateUserInput]),
     __metadata("design:returntype", Promise)
-], UpdateUserResolver.prototype, "confirmUser", null);
+], UpdateUserResolver.prototype, "updateUser", null);
 UpdateUserResolver = __decorate([
     graphql_1.Resolver(user_entity_1.User),
     __metadata("design:paramtypes", [user_service_1.UserService])

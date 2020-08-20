@@ -12,11 +12,11 @@ export class UpdateBlogResolver {
   constructor(private readonly blogService: BlogService){}
 
   @UseGuards(new GQLAuthGuard(UserRoleType.EDITOR))
-  @Mutation(() => Blog)
+  @Mutation(() => Blog, {nullable: true})
   async updateBlog(
     @Context() context: GraphQLContext,
     @Args('data') updateBlogInput: UpdateBlogInput
-  ) {
+  ): Promise<Blog | undefined> {
     return this.blogService.updateBlog(context.req.currentUser!, updateBlogInput);
   }
 }

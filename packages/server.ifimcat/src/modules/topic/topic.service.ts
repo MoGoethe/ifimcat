@@ -17,7 +17,7 @@ export class TopicService {
   }
 
   async getTopics(): Promise<Topic[]> {
-    return this.topicRepository.find();
+    return this.topicRepository.find({ relations: ['author', 'blogs'] });
   }
 
   async createTopic(author: User, createTopicInput: CreateTopicInput): Promise<Topic> {

@@ -47,6 +47,11 @@ let GetBlogsResolver = class GetBlogsResolver {
             return this.blogService.getBlogByKey(key);
         });
     }
+    getBlogById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.blogService.getBlogById(id);
+        });
+    }
 };
 __decorate([
     graphql_1.Query(() => [blog_entity_1.Blog], { nullable: "itemsAndList" }),
@@ -69,6 +74,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], GetBlogsResolver.prototype, "getBlogByKey", null);
+__decorate([
+    graphql_1.Query(() => blog_entity_1.Blog, { nullable: true }),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], GetBlogsResolver.prototype, "getBlogById", null);
 GetBlogsResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [blog_service_1.BlogService])

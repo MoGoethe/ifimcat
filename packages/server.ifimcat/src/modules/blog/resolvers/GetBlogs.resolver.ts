@@ -25,4 +25,9 @@ export class GetBlogsResolver {
   async getBlogByKey(@Args('key') key: string) {
     return this.blogService.getBlogByKey(key)
   }
+
+  @Query(() => Blog, {nullable: true})
+  async getBlogById(@Args('id') id: number) {
+    return this.blogService.getBlogById(id)
+  }
 }

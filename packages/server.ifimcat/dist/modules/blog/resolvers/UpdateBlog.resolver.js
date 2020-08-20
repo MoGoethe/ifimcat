@@ -41,7 +41,7 @@ let UpdateBlogResolver = class UpdateBlogResolver {
 };
 __decorate([
     common_1.UseGuards(new auth_guard_1.GQLAuthGuard(userRoles_constants_1.UserRoleType.EDITOR)),
-    graphql_1.Mutation(() => blog_entity_1.Blog),
+    graphql_1.Mutation(() => blog_entity_1.Blog, { nullable: true }),
     __param(0, graphql_1.Context()),
     __param(1, graphql_1.Args('data')),
     __metadata("design:type", Function),

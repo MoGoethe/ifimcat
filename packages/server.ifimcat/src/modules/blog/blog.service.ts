@@ -26,19 +26,19 @@ export class BlogService {
   }
 
   async createBlog(author: User, createBlogInput: CreateBlogInput): Promise<Blog> {
-    const { title, description, body, categoryId, topicId, tagsId } = createBlogInput;
+    const { title, description, body, category, topic, tags } = createBlogInput;
 
-    const category = await Category.findOneOrFail(categoryId);
-    const topic = await Topic.findOneOrFail(topicId);
+    const _category = await Category.findOneOrFail(category);
+    const _topic = await Topic.findOneOrFail(topic);
     
-    const tags = await Tag.findByIds(tagsId);
+    const _tags = await Tag.findByIds(tags);
     const blog = await this.blogRepository.create({
       title,
       description,
       body,
-      category,
-      topic,
-      tags,
+      category: _category,
+      topic: _topic,
+      tags: _tags,
       author
     });
     return await blog.save()
@@ -52,7 +52,7 @@ export class BlogService {
     return this.blogRepository.remove(blog);
   }
 
-  async updateBlog(author: User, updateBlogInput: UpdateBlogInput): Promise<Blog> {
+  async updateBlog(author: User, updateBlogInput: UpdateBlogInput): Promise<Blog | undefined> {
     const blog = await this.blogRepository.findOne(updateBlogInput.id, {where: {author}})
     const { title, description, body, glance, awesome, is_show } = updateBlogInput;
 
@@ -64,7 +64,7 @@ export class BlogService {
     if (body) blog.body = body;
     if (glance) blog.glance = glance;
     if (awesome) blog.awesome = awesome;
-    if (is_show) blog.is_show = is_show;
+    if (is_show !== undefined) blog.is_show = is_show;
 
     if (updateBlogInput.tags) {
       const tags = await Tag.findByIds(updateBlogInput.tags);
@@ -87,8 +87,9 @@ export class BlogService {
       }
       blog.category = category;
     }
+    await this.blogRepository.save(blog)
 
-    return this.blogRepository.save(blog);
+    return this.blogRepository.findOne({ id: updateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags']});
   }
 
   async getAdminBlogs(admin: User): Promise<Blog[]> {
@@ -99,6 +100,14 @@ export class BlogService {
   }
 
   async getBlogByKey(key: string): Promise<Blog | null> {
-    return this.blogRepository.findOneOrFail({key});
+    const blog = await this.blogRepository.findOne({ key }, { relations: ['author', 'topic', 'category', 'tags'] });
+    if (blog) {
+      return blog;
+    }
+    return null;
+  }
+
+  async getBlogById(id: number): Promise<Blog | undefined> {
+    return this.blogRepository.findOne(id, { relations: ['author', 'topic', 'category', 'tags'] })
   }
 }

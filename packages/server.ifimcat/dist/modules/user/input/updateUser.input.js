@@ -11,25 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const class_validator_1 = require("class-validator");
-const IsEmailAlreadyExist_1 = require("../decorator/IsEmailAlreadyExist");
+const userRoles_constants_1 = require("../../../constants/userRoles.constants");
+graphql_1.registerEnumType(userRoles_constants_1.UserRoleType, { name: "UserRoleType" });
 let UpdateUserInput = class UpdateUserInput {
 };
 __decorate([
-    graphql_1.Field(),
-    class_validator_1.IsEmail(),
-    IsEmailAlreadyExist_1.IsEmailAlreadyExist({ message: "Email is already in use!" }),
-    __metadata("design:type", String)
-], UpdateUserInput.prototype, "email", void 0);
+    graphql_1.Field(() => graphql_1.Int),
+    __metadata("design:type", Number)
+], UpdateUserInput.prototype, "userId", void 0);
 __decorate([
-    graphql_1.Field(),
-    class_validator_1.MinLength(4),
+    graphql_1.Field(() => Boolean, { nullable: true }),
+    __metadata("design:type", Boolean)
+], UpdateUserInput.prototype, "forbid", void 0);
+__decorate([
+    graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateUserInput.prototype, "username", void 0);
 __decorate([
-    graphql_1.Field(),
-    __metadata("design:type", Number)
-], UpdateUserInput.prototype, "roleId", void 0);
+    graphql_1.Field(() => [userRoles_constants_1.UserRoleType], { nullable: true }),
+    __metadata("design:type", Array)
+], UpdateUserInput.prototype, "roles", void 0);
 UpdateUserInput = __decorate([
     graphql_1.InputType()
 ], UpdateUserInput);

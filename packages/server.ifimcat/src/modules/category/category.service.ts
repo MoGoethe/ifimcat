@@ -18,7 +18,7 @@ export class CategoryService {
   }
 
   async getCategories(): Promise<Category[]> {
-    return this.categoryRepository.find();
+    return this.categoryRepository.find({ relations: ['author', 'blogs']});
   }
 
   async createCategory(author: User, createCategorynput: CreateCategoryInput): Promise<Category> {

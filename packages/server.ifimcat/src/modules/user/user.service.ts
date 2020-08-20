@@ -38,9 +38,12 @@ export class UserService {
 
   async login(loginInput: LoginInput, req: Request): Promise<User> {
     const { email, password } = loginInput;
-    const user = await User.findOne({where: {email: email}});
+    const user = await User.findOne({ where: { email: email } });
     if (!user) {
       throw new UnauthorizedException('用户不存在');
+    }
+    if (user.forbid) {
+      throw new UnauthorizedException('用户已被禁用，请联系管理员');
     }
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
@@ -76,7 +79,7 @@ export class UserService {
     if (!userId) {
       return null;
     }
-    return await User.findOneOrFail({id: userId}, {relations: ['blogs', 'topics']});
+    return await User.findOneOrFail({id: userId}, {relations: ['blogs', 'topics', 'categories']});
   }
 
   async forgotPassword(email: string): Promise<boolean> {
@@ -90,6 +93,7 @@ export class UserService {
   
   async changePassword({password, token}: ChangePasswordInput): Promise<User | null> {
     const userId = await redis.get(forgotPasswordPrefix + token);
+    console.log(userId)
     if (!userId) {
       return null;
     }
@@ -103,16 +107,20 @@ export class UserService {
     return user;
   }
 
-  async updateUser( userId: string, {email, username, roleId}: UpdateUserInput): Promise<User | null> {
+  async updateUser({ userId, username, roles, forbid}: UpdateUserInput): Promise<User | null> {
     const user = await User.findOne(userId);
-    if (!user) {
-      return null
-    }
-    if (email) user.email = email;
-    if (username) user.username = username;
-    console.log(roleId)
+    if (!user) { return null }
 
-    return user
+    if (roles) { user.roles = roles; }
+    if (username) { user.username = username; }
+    if (forbid !== undefined) { user.forbid = forbid; }
+    await user.save();
+
+    return user;
+  }
+
+  async getUsers() {
+    return await this.userRepository.find({ relations: ['blogs', 'topics', 'categories']});
   }
 
   async __initSuperAdmin() {

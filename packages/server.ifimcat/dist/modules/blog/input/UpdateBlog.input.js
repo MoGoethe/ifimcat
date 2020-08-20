@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateBlogInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
-const IsNameAlreadyExist_1 = require("../../topic/decorator/IsNameAlreadyExist");
+const IsTitleAlreadyExist_1 = require("../decorator/IsTitleAlreadyExist");
 let UpdateBlogInput = class UpdateBlogInput {
 };
 __decorate([
@@ -24,7 +24,7 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(2),
     class_validator_1.MaxLength(24),
-    IsNameAlreadyExist_1.IsNameAlreadyExist({ message: "此标题已存在" }),
+    IsTitleAlreadyExist_1.IsTitleAlreadyExist({ message: "此标题已存在" }),
     graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateBlogInput.prototype, "title", void 0);

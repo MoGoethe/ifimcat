@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const abstract_entity_1 = require("../../../shared/abstract.entity");
 const user_entity_1 = require("../../user/entity/user.entity");
+const blog_entity_1 = require("../../blog/entity/blog.entity");
 let Tag = class Tag extends abstract_entity_1.AbstractEntity {
 };
 __decorate([
@@ -24,9 +25,15 @@ __decorate([
 ], Tag.prototype, "name", void 0);
 __decorate([
     graphql_1.Field(() => user_entity_1.User),
-    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.tags, { eager: true }),
+    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.tags),
     __metadata("design:type", user_entity_1.User)
 ], Tag.prototype, "author", void 0);
+__decorate([
+    graphql_1.Field(() => [blog_entity_1.Blog], { nullable: 'itemsAndList' }),
+    typeorm_1.ManyToMany(() => blog_entity_1.Blog, { onDelete: "CASCADE" }),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Tag.prototype, "blogs", void 0);
 Tag = __decorate([
     graphql_1.ObjectType(),
     typeorm_1.Entity('tags')

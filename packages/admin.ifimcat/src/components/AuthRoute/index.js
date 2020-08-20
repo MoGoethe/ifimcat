@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getCookie } from "../../utils/cookie";
+import { AuthContext } from '../../conext/Auth.context'
 
 function AuthRoute(props) {
-  const cookie = getCookie();
-  if (cookie) { return (<Route {...props} />) }
+  const ctx = useContext(AuthContext);
+  if (ctx.currentUser) { return (<Route {...props} />) }
   return (<Redirect from="/" to="/login" />)
 }
 

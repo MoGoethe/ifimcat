@@ -25,13 +25,13 @@ __decorate([
 ], Category.prototype, "name", void 0);
 __decorate([
     graphql_1.Field(() => user_entity_1.User),
-    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.categories, { eager: true }),
+    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.categories),
     __metadata("design:type", user_entity_1.User)
 ], Category.prototype, "author", void 0);
 __decorate([
-    graphql_1.Field(() => blog_entity_1.Blog),
+    graphql_1.Field(() => [blog_entity_1.Blog], { nullable: 'itemsAndList' }),
     typeorm_1.OneToMany(() => blog_entity_1.Blog, blog => blog.category),
-    __metadata("design:type", blog_entity_1.Blog)
+    __metadata("design:type", Array)
 ], Category.prototype, "blogs", void 0);
 Category = __decorate([
     graphql_1.ObjectType(),

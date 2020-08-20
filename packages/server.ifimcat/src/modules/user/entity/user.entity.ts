@@ -16,45 +16,49 @@ import { Tag } from '../../tag/entity/tag.entity';
 
 @ObjectType()
 @Entity('users')
-export class User extends AbstractEntity{
+export class User extends AbstractEntity {
   @Column()
   @Field(() => String)
-  @Index({unique: true})
+  @Index({ unique: true })
   email: string;
 
   @Column()
   @Field(() => String)
   username: string;
 
+  @Column({default: false})
+  @Field(() => Boolean)
+  forbid: boolean;
+
   @Column()
   password: string;
 
-  @Field(() => [String], {nullable: 'items'})
+  @Field(() => [String], { nullable: 'items' })
   @Column({
     type: 'set',
     enum: UserRoleType,
-    default: [UserRoleType.GHOST]
+    default: [UserRoleType.GHOST],
   })
   roles: UserRoleType[];
 
   @Field(() => Boolean)
-  @Column('bool', {default: false})
+  @Column('bool', { default: false })
   confirmed: boolean;
 
-  @Field(() => [Blog], {nullable: 'itemsAndList'})
+  @Field(() => [Blog], { nullable: 'itemsAndList' })
   @OneToMany(() => Blog, blog => blog.author)
   blogs: Blog[];
 
-  @Field(() => [Topic], {nullable: 'itemsAndList'})
+  @Field(() => [Topic], { nullable: 'itemsAndList' })
   @OneToMany(() => Topic, topic => topic.author)
   topics: Topic[];
 
-  @Field(() => [Category], {nullable: 'itemsAndList'})
+  @Field(() => [Category], { nullable: 'itemsAndList' })
   @OneToMany(() => Category, category => category.author)
   categories: Category[];
 
-  @Field(() => [Tag], {nullable: 'itemsAndList'})
-  @OneToMany(() => Tag, tag => tag.author)
+  @Field(() => [Tag], { nullable: 'itemsAndList' })
+  @OneToMany(() => Tag, tag => tag.author )
   tags: Tag[];
 
   @BeforeInsert()

@@ -9,8 +9,8 @@ import { Blog } from "../entity/blog.entity";
 @ValidatorConstraint({ async: true })
 export class IsTitleAlreadyExistConstraint implements ValidatorConstraintInterface {
   async validate(title: any) {
-    const blog = await Blog.findOne({where: {title}});
-    return !blog
+    const blog = await Blog.find({ where: { title } });
+    return blog.length < 1
   }
 }
 

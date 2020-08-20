@@ -5,3 +5,5 @@ export * from './ConfirmUser.resolver';
 export * from './CurrentUser.resolver';
 export * from './ChangePassword.resolver';
 export * from './ForgotPassword.resolver';
+export * from './GetUsers.resolver';
+export * from './UpdateUser.resolver';

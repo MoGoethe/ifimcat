@@ -18,6 +18,7 @@ const fallbackLoading = (
 
 const TheContent = (props) => {
   const { loading, data } = useQuery(Q_CURRENT_USER, {
+    fetchPolicy: "network-only",
     onError(err) {
       console.log(err);
       props.history.push('/500');
@@ -27,7 +28,6 @@ const TheContent = (props) => {
   if (loading) {
     return fallbackLoading;
   }
-
   return (
     <AuthContext.Provider value={{...data}}>
       <main className="c-main">

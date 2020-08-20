@@ -25,11 +25,11 @@ export class CreateBlogInput {
 
   @IsNotEmpty()
   @Field(() => Number, {nullable: true})
-  categoryId: number;
+  category: number;
 
   @Field(() => Number, {nullable: true})
-  topicId?: number;
+  topic?: number;
 
   @Field(() => [Number], {nullable: 'itemsAndList'})
-  tagsId: number[];
+  tags: number[];
 }

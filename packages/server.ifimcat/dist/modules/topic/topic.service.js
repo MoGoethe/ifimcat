@@ -35,7 +35,7 @@ let TopicService = class TopicService {
     }
     getTopics() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.topicRepository.find();
+            return this.topicRepository.find({ relations: ['author', 'blogs'] });
         });
     }
     createTopic(author, createTopicInput) {

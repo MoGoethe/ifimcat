@@ -14,11 +14,11 @@ export class Category extends AbstractEntity{
   name: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.categories, {eager: true})
+  @ManyToOne(() => User, user => user.categories)
   author: User;
 
-  @Field(() => Blog)
+  @Field(() => [Blog], { nullable: 'itemsAndList' })
   @OneToMany(() => Blog, blog => blog.category)
-  blogs: Blog;
+  blogs: Blog[];
 
 }

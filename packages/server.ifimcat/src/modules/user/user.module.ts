@@ -10,9 +10,10 @@ import {
   ChangePasswordResolver,
   ForgetPasswordResolver,
   LogoutResolver,
+  GetUsersResolver,
+  UpdateUserResolver,
 } from './resolvers';
 import { User } from './entity/user.entity';
-// import { UserRole } from '../userRole/entity/userRole.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
@@ -25,7 +26,9 @@ import { User } from './entity/user.entity';
     ConfirmUserResolver,
     CurrentUserResolver,
     ChangePasswordResolver,
-    ForgetPasswordResolver
+    ForgetPasswordResolver,
+    GetUsersResolver,
+    UpdateUserResolver,
   ],
 })
 export class UserModule {};

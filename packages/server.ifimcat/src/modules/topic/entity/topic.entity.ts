@@ -14,10 +14,10 @@ export class Topic extends AbstractEntity{
   name: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.topics, {eager: true})
+  @ManyToOne(() => User, user => user.topics)
   author: User;
 
-  @Field(() => Blog)
+  @Field(() => [Blog], {nullable: 'itemsAndList'})
   @OneToMany(() => Blog, blog => blog.topic)
-  blogs: Blog;
+  blogs: Blog[];
 }

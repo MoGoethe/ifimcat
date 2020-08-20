@@ -47,7 +47,9 @@ const topic_module_1 = require("./modules/topic/topic.module");
 const blog_module_1 = require("./modules/blog/blog.module");
 const category_module_1 = require("./modules/category/category.module");
 const tag_module_1 = require("./modules/tag/tag.module");
+const upload_module_1 = require("./modules/upload/upload.module");
 const RedisStore = connect_redis_1.default(express_session_1.default);
+console.log(path_1.join(__dirname, '../dist/', 'client'));
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -58,6 +60,7 @@ AppModule = __decorate([
             blog_module_1.BlogModule,
             user_module_1.UserModule,
             topic_module_1.TopicModule,
+            upload_module_1.UploadModule,
             nestjs_session_1.SessionModule.forRoot({
                 session: {
                     store: new RedisStore({
@@ -68,7 +71,7 @@ AppModule = __decorate([
                     resave: false,
                     saveUninitialized: false,
                     cookie: {
-                        httpOnly: false,
+                        httpOnly: true,
                         secure: config_1.isProductionEnvironment,
                         maxAge: 1000 * 60 * 60 * 24,
                     },
@@ -78,13 +81,13 @@ AppModule = __decorate([
                 autoSchemaFile: 'schema.gql',
                 context: ({ req, res }) => ({ req, res }),
                 uploads: {
-                    maxFileSize: 10000000,
+                    maxFileSize: 1000000000,
                     maxFiles: 10,
                 },
                 cors: config_1.default.cors,
             }),
             typeorm_1.TypeOrmModule.forRoot(typeorm_2.typeOrmConfig),
-            serve_static_1.ServeStaticModule.forRoot({ rootPath: path_1.join(__dirname, '..', 'client') }),
+            serve_static_1.ServeStaticModule.forRoot({ rootPath: path_1.join(__dirname, '../dist/', 'client') }),
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

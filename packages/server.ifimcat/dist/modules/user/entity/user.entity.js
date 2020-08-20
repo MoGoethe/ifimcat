@@ -50,6 +50,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
+    typeorm_1.Column({ default: false }),
+    graphql_1.Field(() => Boolean),
+    __metadata("design:type", Boolean)
+], User.prototype, "forbid", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
@@ -58,7 +63,7 @@ __decorate([
     typeorm_1.Column({
         type: 'set',
         enum: userRoles_constants_1.UserRoleType,
-        default: [userRoles_constants_1.UserRoleType.GHOST]
+        default: [userRoles_constants_1.UserRoleType.GHOST],
     }),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);

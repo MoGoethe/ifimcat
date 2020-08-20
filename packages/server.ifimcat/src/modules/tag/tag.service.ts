@@ -17,7 +17,7 @@ export class TagService {
   }
 
   async getTags(): Promise<Tag[]> {
-    return this.tagRepository.find();
+    return this.tagRepository.find({ relations: ['author', 'blogs'] });
   }
 
   async createTag(author: User, createTagInput: CreateTagInput): Promise<Tag> {

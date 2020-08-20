@@ -44,17 +44,17 @@ let BlogService = class BlogService {
     }
     createBlog(author, createBlogInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { title, description, body, categoryId, topicId, tagsId } = createBlogInput;
-            const category = yield category_entity_1.Category.findOneOrFail(categoryId);
-            const topic = yield topic_entity_1.Topic.findOneOrFail(topicId);
-            const tags = yield tag_entity_1.Tag.findByIds(tagsId);
+            const { title, description, body, category, topic, tags } = createBlogInput;
+            const _category = yield category_entity_1.Category.findOneOrFail(category);
+            const _topic = yield topic_entity_1.Topic.findOneOrFail(topic);
+            const _tags = yield tag_entity_1.Tag.findByIds(tags);
             const blog = yield this.blogRepository.create({
                 title,
                 description,
                 body,
-                category,
-                topic,
-                tags,
+                category: _category,
+                topic: _topic,
+                tags: _tags,
                 author
             });
             return yield blog.save();
@@ -86,7 +86,7 @@ let BlogService = class BlogService {
                 blog.glance = glance;
             if (awesome)
                 blog.awesome = awesome;
-            if (is_show)
+            if (is_show !== undefined)
                 blog.is_show = is_show;
             if (updateBlogInput.tags) {
                 const tags = yield tag_entity_1.Tag.findByIds(updateBlogInput.tags);
@@ -109,7 +109,8 @@ let BlogService = class BlogService {
                 }
                 blog.category = category;
             }
-            return this.blogRepository.save(blog);
+            yield this.blogRepository.save(blog);
+            return this.blogRepository.findOne({ id: updateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags'] });
         });
     }
     getAdminBlogs(admin) {
@@ -122,7 +123,16 @@ let BlogService = class BlogService {
     }
     getBlogByKey(key) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.blogRepository.findOneOrFail({ key });
+            const blog = yield this.blogRepository.findOne({ key }, { relations: ['author', 'topic', 'category', 'tags'] });
+            if (blog) {
+                return blog;
+            }
+            return null;
+        });
+    }
+    getBlogById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.blogRepository.findOne(id, { relations: ['author', 'topic', 'category', 'tags'] });
         });
     }
 };

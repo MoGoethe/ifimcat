@@ -17,4 +17,6 @@ __exportStar(require("./ConfirmUser.resolver"), exports);
 __exportStar(require("./CurrentUser.resolver"), exports);
 __exportStar(require("./ChangePassword.resolver"), exports);
 __exportStar(require("./ForgotPassword.resolver"), exports);
+__exportStar(require("./GetUsers.resolver"), exports);
+__exportStar(require("./UpdateUser.resolver"), exports);
 //# sourceMappingURL=index.js.map

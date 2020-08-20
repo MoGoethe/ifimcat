@@ -59,6 +59,9 @@ let UserService = class UserService {
             if (!user) {
                 throw new common_1.UnauthorizedException('用户不存在');
             }
+            if (user.forbid) {
+                throw new common_1.UnauthorizedException('用户已被禁用，请联系管理员');
+            }
             const valid = yield bcryptjs_1.default.compare(password, user.password);
             if (!valid) {
                 throw new common_1.UnauthorizedException('密码错误');
@@ -96,7 +99,7 @@ let UserService = class UserService {
             if (!userId) {
                 return null;
             }
-            return yield user_entity_1.User.findOneOrFail({ id: userId }, { relations: ['blogs', 'topics'] });
+            return yield user_entity_1.User.findOneOrFail({ id: userId }, { relations: ['blogs', 'topics', 'categories'] });
         });
     }
     forgotPassword(email) {
@@ -112,6 +115,7 @@ let UserService = class UserService {
     changePassword({ password, token }) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = yield redis_1.redis.get(redisPrefixes_1.forgotPasswordPrefix + token);
+            console.log(userId);
             if (!userId) {
                 return null;
             }
@@ -125,18 +129,28 @@ let UserService = class UserService {
             return user;
         });
     }
-    updateUser(userId, { email, username, roleId }) {
+    updateUser({ userId, username, roles, forbid }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield user_entity_1.User.findOne(userId);
             if (!user) {
                 return null;
             }
-            if (email)
-                user.email = email;
-            if (username)
+            if (roles) {
+                user.roles = roles;
+            }
+            if (username) {
                 user.username = username;
-            console.log(roleId);
+            }
+            if (forbid !== undefined) {
+                user.forbid = forbid;
+            }
+            yield user.save();
             return user;
+        });
+    }
+    getUsers() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.find({ relations: ['blogs', 'topics', 'categories'] });
         });
     }
     __initSuperAdmin() {

@@ -13,7 +13,7 @@ import { TOGGLE_SLIDEBAR } from '../actions';
 // routes config
 // import routes from '../routes';
 
-const TheHeader = () => {
+const TheHeader = (props) => {
   const dispatch = useDispatch();
   const { sidebarShow } = useSelector(state => state.sildeBar);
   const toggleSidebar = () => {
@@ -28,11 +28,9 @@ const TheHeader = () => {
 
   return (
     <CHeader withSubheader>
-      
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
         <CIcon name="logo" height="48" alt="Logo"/>
       </CHeaderBrand>
-
       <CSubheader className="px-3 justify-content-between">
         <CToggler
           inHeader
@@ -45,7 +43,7 @@ const TheHeader = () => {
           onClick={toggleSidebar}
         />
         <div className="d-md-down-none mfe-2 c-subheader-nav">
-          <CButton color="primary" size="sm">
+          <CButton color="primary" size="sm" onClick={() => props.history.push('/editor')}>
             <CIcon name="cil-pencil" />&nbsp;&nbsp;写博客
           </CButton>
         </div>

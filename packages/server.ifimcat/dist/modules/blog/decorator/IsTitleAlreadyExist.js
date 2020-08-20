@@ -21,8 +21,8 @@ const blog_entity_1 = require("../entity/blog.entity");
 let IsTitleAlreadyExistConstraint = class IsTitleAlreadyExistConstraint {
     validate(title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const blog = yield blog_entity_1.Blog.findOne({ where: { title } });
-            return !blog;
+            const blog = yield blog_entity_1.Blog.find({ where: { title } });
+            return blog.length < 1;
         });
     }
 };

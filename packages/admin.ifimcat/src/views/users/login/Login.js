@@ -25,6 +25,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { SET_CURRENT_USER } from '../../../actions';
 import { M_LOGIN } from '../../../queries';
 import { isEmail } from '../../../utils/validate';
+import notificaty from '../../../components/Notificaty';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -45,8 +46,12 @@ const Login = (props) => {
         props.history.push("/dashboard");
       }
     },
-    onError({graphQLErrors}) {
-      setModal({show: true, info: graphQLErrors[0].message});
+    onError({ graphQLErrors }) {
+      if (graphQLErrors[0].message) {
+        setModal({ show: true, info: graphQLErrors[0].message });
+        return
+      }
+      notificaty.error("服务器异常，请稍后再试！");
     }
   });
 

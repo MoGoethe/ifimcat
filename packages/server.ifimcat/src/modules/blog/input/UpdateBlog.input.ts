@@ -1,6 +1,6 @@
 import { InputType, Field, Int } from "@nestjs/graphql";
 import { IsNotEmpty, MinLength, MaxLength, Min } from "class-validator";
-import { IsNameAlreadyExist } from "../../topic/decorator/IsNameAlreadyExist";
+import { IsTitleAlreadyExist } from "../decorator/IsTitleAlreadyExist";
 
 @InputType('UpdateBlogInput')
 export class UpdateBlogInput {
@@ -12,7 +12,7 @@ export class UpdateBlogInput {
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(24)
-  @IsNameAlreadyExist({message: "此标题已存在"})
+  @IsTitleAlreadyExist({message: "此标题已存在"})
   @Field(() => String, {nullable: true})
   title?: string;
 

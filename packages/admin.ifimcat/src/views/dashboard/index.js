@@ -1,4 +1,4 @@
-import React, { useContext, lazy } from 'react'
+import React, { lazy } from 'react'
 import {
   CBadge,
   CButton,
@@ -13,15 +13,12 @@ import {
   CCallout
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { AuthContext } from '../../conext/Auth.context'
 import MainChartExample from '../../components/charts/MainChartExample.js'
 
 const WidgetsDropdown = lazy(() => import('../../components/widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../../components/widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
-  const ctx = useContext(AuthContext);
-  console.log(ctx);
   return (
     <>
       <WidgetsDropdown />

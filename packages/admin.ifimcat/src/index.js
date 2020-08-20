@@ -17,7 +17,8 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
     console.log(graphQLErrors)
   }
   if (networkError) {
-    window.location.href = '/500';
+    console.log(networkError)
+    // window.location.href = '/500';
   }
 })
 const uploadLink = createUploadLink({

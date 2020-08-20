@@ -35,7 +35,7 @@ let TagService = class TagService {
     }
     getTags() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.tagRepository.find();
+            return this.tagRepository.find({ relations: ['author', 'blogs'] });
         });
     }
     createTag(author, createTagInput) {

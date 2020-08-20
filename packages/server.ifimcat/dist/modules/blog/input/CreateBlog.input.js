@@ -40,15 +40,15 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     graphql_1.Field(() => Number, { nullable: true }),
     __metadata("design:type", Number)
-], CreateBlogInput.prototype, "categoryId", void 0);
+], CreateBlogInput.prototype, "category", void 0);
 __decorate([
     graphql_1.Field(() => Number, { nullable: true }),
     __metadata("design:type", Number)
-], CreateBlogInput.prototype, "topicId", void 0);
+], CreateBlogInput.prototype, "topic", void 0);
 __decorate([
     graphql_1.Field(() => [Number], { nullable: 'itemsAndList' }),
     __metadata("design:type", Array)
-], CreateBlogInput.prototype, "tagsId", void 0);
+], CreateBlogInput.prototype, "tags", void 0);
 CreateBlogInput = __decorate([
     graphql_1.InputType()
 ], CreateBlogInput);

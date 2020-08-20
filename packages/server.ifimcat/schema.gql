@@ -26,7 +26,7 @@ type Category {
   updateAt: DateTime!
   name: String!
   author: User!
-  blogs: Blog!
+  blogs: [Blog]
 }
 
 input ChangePasswordInput {
@@ -38,9 +38,9 @@ input CreateBlogInput {
   title: String!
   description: String!
   body: String!
-  categoryId: Float
-  topicId: Float
-  tagsId: [Float]
+  category: Float
+  topic: Float
+  tags: [Float]
 }
 
 input CreateCategoryInput {
@@ -72,27 +72,31 @@ type Mutation {
   confirmUser(token: String!): Boolean!
   changePassword(data: ChangePasswordInput!): User
   forgotPassword(email: String!): Boolean!
+  updateUser(data: UpdateUserInput!): User
   updateTopic(name: String!, id: Float!): Topic!
   deleteTopic(id: Float!): Topic!
   createTopic(data: CreateTopicInput!): Topic!
   createBlog(data: CreateBlogInput!): Blog!
   deleteBlog(id: Float!): Blog!
-  updateBlog(data: UpdateBlogInput!): Blog!
+  updateBlog(data: UpdateBlogInput!): Blog
   updateCategory(name: String!, id: Float!): Category!
   deleteCategory(id: Float!): Category!
   createCategory(data: CreateCategoryInput!): Category!
   updateTag(name: String!, id: Float!): Tag!
   deleteTag(id: Float!): Tag!
   createTag(data: CreateTagInput!): Tag!
+  fileUpload(file: Upload!): String!
 }
 
 type Query {
   hello: String
   currentUser: User
+  getUsers: [User]
   getTopics: [Topic]
   getBlogs: [Blog]
   getAdminBlogs: [Blog]
   getBlogByKey(key: String!): Blog
+  getBlogById(id: Float!): Blog
   getCategories: [Category]
   getAdminCategories: [Category]
   getTags: [Tag]
@@ -111,6 +115,7 @@ type Tag {
   updateAt: DateTime!
   name: String!
   author: User!
+  blogs: [Blog]
 }
 
 type Topic {
@@ -120,7 +125,7 @@ type Topic {
   updateAt: DateTime!
   name: String!
   author: User!
-  blogs: Blog!
+  blogs: [Blog]
 }
 
 input UpdateBlogInput {
@@ -136,6 +141,16 @@ input UpdateBlogInput {
   is_show: Boolean
 }
 
+input UpdateUserInput {
+  userId: Int!
+  forbid: Boolean
+  username: String
+  roles: [UserRoleType!]
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type User {
   id: Int!
   key: String!
@@ -143,10 +158,18 @@ type User {
   updateAt: DateTime!
   email: String!
   username: String!
+  forbid: Boolean!
   roles: [String]!
   confirmed: Boolean!
   blogs: [Blog]
   topics: [Topic]
   categories: [Category]
   tags: [Tag]
+}
+
+enum UserRoleType {
+  GHOST
+  EDITOR
+  PUBLISH
+  ADMIN
 }

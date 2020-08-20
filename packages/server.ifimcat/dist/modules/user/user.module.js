@@ -27,7 +27,9 @@ UserModule = __decorate([
             resolvers_1.ConfirmUserResolver,
             resolvers_1.CurrentUserResolver,
             resolvers_1.ChangePasswordResolver,
-            resolvers_1.ForgetPasswordResolver
+            resolvers_1.ForgetPasswordResolver,
+            resolvers_1.GetUsersResolver,
+            resolvers_1.UpdateUserResolver,
         ],
     })
 ], UserModule);

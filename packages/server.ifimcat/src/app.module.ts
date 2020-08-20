@@ -19,8 +19,10 @@ import { TopicModule } from './modules/topic/topic.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { CategoryModule } from './modules/category/category.module';
 import { TagModule } from './modules/tag/tag.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 const RedisStore = connectRedis(session);
+console.log(join(__dirname, '../dist/', 'client'))
 
 @Module({
   imports: [
@@ -29,6 +31,7 @@ const RedisStore = connectRedis(session);
     BlogModule,
     UserModule,
     TopicModule,
+    UploadModule,
     SessionModule.forRoot({
       session: {
         store: new RedisStore({
@@ -39,7 +42,7 @@ const RedisStore = connectRedis(session);
         resave: false,
         saveUninitialized: false,
         cookie: {
-          httpOnly: false,
+          httpOnly: true,
           secure: isProductionEnvironment,
           maxAge: 1000 * 60 * 60 * 24,
         },
@@ -49,13 +52,13 @@ const RedisStore = connectRedis(session);
       autoSchemaFile: 'schema.gql',
       context: ({ req, res }) => ({ req, res }),
       uploads: {
-        maxFileSize: 10000000,
+        maxFileSize: 1000000000,
         maxFiles: 10,
       },
       cors: config.cors,
     }),
     TypeOrmModule.forRoot(typeOrmConfig as TypeOrmModuleOptions),
-    ServeStaticModule.forRoot({rootPath: join(__dirname, '..', 'client')}),
+    ServeStaticModule.forRoot({rootPath: join(__dirname, '../dist/', 'client')}),
   ],
   controllers: [AppController],
   providers: [AppService],
