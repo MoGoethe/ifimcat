@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,4BAGI,UAAW,CACZ,EAGD,SAAS,CACT,QAAQ","file":"main.b6eecf7f.chunk.css","sourcesContent":["html,body{\n  width: 100%;\n  img{\n    width: 100%;\n  }\n}\n*{\n  padding:0;\n  margin:0;\n}"]}
