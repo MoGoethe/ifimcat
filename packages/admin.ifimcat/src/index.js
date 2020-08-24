@@ -12,24 +12,26 @@ import { createUploadLink } from "apollo-upload-client"
 import ReduxApp from './ReduxApp'
 import * as serviceWorker from './serviceWorker'
 
-const errorLink = onError(({graphQLErrors, networkError}) => {
-  if (graphQLErrors){
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
     console.log(graphQLErrors)
   }
   if (networkError) {
     console.log(networkError)
     // window.location.href = '/500';
   }
-})
+});
+
 const uploadLink = createUploadLink({
-  uri: `http://localhost:8008/graphql`,
+  uri: `/api/graphql`,
   credentials: 'include'
-})
-const link = ApolloLink.from([errorLink, uploadLink])
+});
+
+const link = ApolloLink.from([errorLink, uploadLink]);
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
-})
+});
 
 ReactDOM.render(
   <ApolloProvider client={client}>
