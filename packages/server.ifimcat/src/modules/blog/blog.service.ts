@@ -35,6 +35,7 @@ export class BlogService {
     const blog = await this.blogRepository.create({
       title,
       description,
+      draft: body,
       body,
       category: _category,
       topic: _topic,
@@ -53,8 +54,12 @@ export class BlogService {
   }
 
   async updateBlog(author: User, updateBlogInput: UpdateBlogInput): Promise<Blog | undefined> {
-    const blog = await this.blogRepository.findOne(updateBlogInput.id, {where: {author}})
-    const { title, description, body, glance, awesome, is_show } = updateBlogInput;
+    const blog = await this.blogRepository.findOne(updateBlogInput.id, { where: { author } });
+    const _blog = await this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
+    if (_blog) {
+      throw new NotFoundException("此标题已存在，请使用其他标题。");
+    }
+    const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
 
     if (!blog) {
       throw new NotFoundException("该内容不存在");
@@ -62,6 +67,7 @@ export class BlogService {
     if (title) blog.title = title;
     if (description) blog.description = description;
     if (body) blog.body = body;
+    if (draft) blog.draft = draft;
     if (glance) blog.glance = glance;
     if (awesome) blog.awesome = awesome;
     if (is_show !== undefined) blog.is_show = is_show;

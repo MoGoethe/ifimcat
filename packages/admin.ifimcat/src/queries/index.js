@@ -93,6 +93,7 @@ export const M_UPDATEBLOG = gql `
       title
       description
       body
+      draft
       tags {
         id
         key
@@ -123,6 +124,7 @@ export const Q_GETBLOGBYKEY = gql `
       title
       description
       body
+      draft
       tags {
         id
         key
@@ -153,6 +155,7 @@ export const M_CREATEBLOG = gql`
       title
       description
       body
+      draft
       tags {
         id
         key

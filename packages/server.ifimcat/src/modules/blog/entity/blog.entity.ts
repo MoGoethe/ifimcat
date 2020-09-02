@@ -5,6 +5,7 @@ import { User } from "../../user/entity/user.entity";
 import { Tag } from "../../tag/entity/tag.entity";
 import { Category } from "../../category/entity/category.entity";
 import { Topic } from "../../topic/entity/topic.entity";
+import { IsTitleAlreadyExist } from "../decorator/IsTitleAlreadyExist";
 
 /**
  * 博客主体
@@ -23,6 +24,7 @@ import { Topic } from "../../topic/entity/topic.entity";
 export class Blog extends AbstractEntity{
   @Column()
   @Field(() => String)
+  @IsTitleAlreadyExist({ message: "此标题已存在" })
   title: string;
 
   @Column()
@@ -32,6 +34,10 @@ export class Blog extends AbstractEntity{
   @Column("text")
   @Field(() => String)
   body: string;
+
+  @Column("text")
+  @Field(() => String)
+  draft: string;
 
   @Field(() => [Tag], {nullable: 'itemsAndList'})
   @ManyToMany(() => Tag)

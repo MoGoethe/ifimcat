@@ -42,13 +42,13 @@ const fields = [{
     key: 'createAt',
     label: "创建时间",
     _style: {
-      width: "168px",
+      width: "178px",
     }
   }, {
     key: 'updateAt',
     label: "最近更新时间",
     _style: {
-      width: "168px"
+      width: "178px"
     }
   },
   {
@@ -108,6 +108,7 @@ const Tag = () => {
       notificaty.destoryAll();
       const _tag = result.createTag;
       notificaty.success(`已创建新标签 ${_tag.name}`);
+      setCreateModalName('');
       toggleCreateModal();
     },
     refetchQueries: [{ query: Q_GETTAGS }],

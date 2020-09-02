@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import 'react-app-polyfill/ie11' // For IE 11 support
+import 'react-app-polyfill/stable'
+import './polyfill'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ApolloLink } from 'apollo-link'
+import { ApolloClient } from 'apollo-client'
+import { onError } from "apollo-link-error"
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
+import App from './App'
+import * as serviceWorker from './serviceWorker'
 
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    console.log(graphQLErrors)
+  }
+  if (networkError) {
+    console.log(networkError)
+    window.location.href = '/500';
+  }
+});
+
+const link = ApolloLink.from([errorLink]);
+const client = new ApolloClient({
+  link,
+  uri: "/graphql",
+  credentials: 'include',
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById('root')
-);
+)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

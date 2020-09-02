@@ -10,6 +10,7 @@ type Blog {
   title: String!
   description: String!
   body: String!
+  draft: String!
   tags: [Tag]
   category: Category!
   topic: Topic
@@ -38,7 +39,8 @@ input CreateBlogInput {
   title: String!
   description: String!
   body: String!
-  category: Float
+  draft: String!
+  category: Float!
   topic: Float
   tags: [Float]
 }
@@ -133,6 +135,7 @@ input UpdateBlogInput {
   title: String
   description: String
   body: String
+  draft: String
   tags: [Int!]
   category: Int
   topic: Int

@@ -7,14 +7,14 @@ export class CreateBlogInput {
   
   @IsNotEmpty()
   @MinLength(2)
-  @MaxLength(24)
+  @MaxLength(48)
   @IsTitleAlreadyExist({message: "此标题已存在"})
   @Field(() => String)
   title: string;
 
   @IsNotEmpty()
   @MinLength(8)
-  @MaxLength(128)
+  @MaxLength(256)
   @Field(() => String)
   description: string;
 
@@ -24,7 +24,12 @@ export class CreateBlogInput {
   body: string;
 
   @IsNotEmpty()
-  @Field(() => Number, {nullable: true})
+  @MinLength(64)
+  @Field(() => String)
+  draft: string;
+
+  @IsNotEmpty()
+  @Field(() => Number)
   category: number;
 
   @Field(() => Number, {nullable: true})

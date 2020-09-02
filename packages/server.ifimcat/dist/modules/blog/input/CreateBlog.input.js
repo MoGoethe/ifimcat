@@ -18,7 +18,7 @@ let CreateBlogInput = class CreateBlogInput {
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(2),
-    class_validator_1.MaxLength(24),
+    class_validator_1.MaxLength(48),
     IsTitleAlreadyExist_1.IsTitleAlreadyExist({ message: "此标题已存在" }),
     graphql_1.Field(() => String),
     __metadata("design:type", String)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(8),
-    class_validator_1.MaxLength(128),
+    class_validator_1.MaxLength(256),
     graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], CreateBlogInput.prototype, "description", void 0);
@@ -38,7 +38,13 @@ __decorate([
 ], CreateBlogInput.prototype, "body", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
-    graphql_1.Field(() => Number, { nullable: true }),
+    class_validator_1.MinLength(64),
+    graphql_1.Field(() => String),
+    __metadata("design:type", String)
+], CreateBlogInput.prototype, "draft", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    graphql_1.Field(() => Number),
     __metadata("design:type", Number)
 ], CreateBlogInput.prototype, "category", void 0);
 __decorate([

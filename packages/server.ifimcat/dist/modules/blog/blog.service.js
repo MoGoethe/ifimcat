@@ -51,6 +51,7 @@ let BlogService = class BlogService {
             const blog = yield this.blogRepository.create({
                 title,
                 description,
+                draft: body,
                 body,
                 category: _category,
                 topic: _topic,
@@ -72,7 +73,11 @@ let BlogService = class BlogService {
     updateBlog(author, updateBlogInput) {
         return __awaiter(this, void 0, void 0, function* () {
             const blog = yield this.blogRepository.findOne(updateBlogInput.id, { where: { author } });
-            const { title, description, body, glance, awesome, is_show } = updateBlogInput;
+            const _blog = yield this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
+            if (_blog) {
+                throw new common_1.NotFoundException("此标题已存在，请使用其他标题。");
+            }
+            const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
             if (!blog) {
                 throw new common_1.NotFoundException("该内容不存在");
             }
@@ -82,6 +87,8 @@ let BlogService = class BlogService {
                 blog.description = description;
             if (body)
                 blog.body = body;
+            if (draft)
+                blog.draft = draft;
             if (glance)
                 blog.glance = glance;
             if (awesome)

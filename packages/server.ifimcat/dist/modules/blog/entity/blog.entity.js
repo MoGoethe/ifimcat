@@ -17,11 +17,13 @@ const user_entity_1 = require("../../user/entity/user.entity");
 const tag_entity_1 = require("../../tag/entity/tag.entity");
 const category_entity_1 = require("../../category/entity/category.entity");
 const topic_entity_1 = require("../../topic/entity/topic.entity");
+const IsTitleAlreadyExist_1 = require("../decorator/IsTitleAlreadyExist");
 let Blog = class Blog extends abstract_entity_1.AbstractEntity {
 };
 __decorate([
     typeorm_1.Column(),
     graphql_1.Field(() => String),
+    IsTitleAlreadyExist_1.IsTitleAlreadyExist({ message: "此标题已存在" }),
     __metadata("design:type", String)
 ], Blog.prototype, "title", void 0);
 __decorate([
@@ -34,6 +36,11 @@ __decorate([
     graphql_1.Field(() => String),
     __metadata("design:type", String)
 ], Blog.prototype, "body", void 0);
+__decorate([
+    typeorm_1.Column("text"),
+    graphql_1.Field(() => String),
+    __metadata("design:type", String)
+], Blog.prototype, "draft", void 0);
 __decorate([
     graphql_1.Field(() => [tag_entity_1.Tag], { nullable: 'itemsAndList' }),
     typeorm_1.ManyToMany(() => tag_entity_1.Tag),

@@ -108,6 +108,7 @@ const Category = () => {
       notificaty.destoryAll();
       const _category = result.createCategory;
       notificaty.success(`以创建新类别 ${_category.name}`);
+      setCreateModalName('');
       toggleCreateModal();
     },
     refetchQueries: [{

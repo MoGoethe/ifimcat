@@ -42,13 +42,13 @@ const fields = [{
     key: 'createAt',
     label: "创建时间",
     _style: {
-      width: "168px",
+      width: "178px",
     }
   }, {
     key: 'updateAt',
     label: "最近更新时间",
     _style: {
-      width: "168px"
+      width: "178px"
     }
   },
   {
@@ -108,6 +108,7 @@ const Topic = () => {
       notificaty.destoryAll();
       const _topic = result.createTopic;
       notificaty.success(`已创建新专题 ${_topic.name}`);
+      setCreateModalName('');
       toggleCreateModal();
     },
     refetchQueries: [{ query: Q_GETTOPICS }],

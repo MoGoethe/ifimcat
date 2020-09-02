@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CButton,
@@ -21,7 +21,6 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { useMutation } from '@apollo/react-hooks';
-import notificaty from '../../../components/Notificaty';
 import { M_REGISTER } from '../../../queries';
 import { isEmail } from '../../../utils/validate'; 
 
@@ -84,13 +83,6 @@ const Register = () => {
     setRePasswordValidate({valid: true});
     register();
   }
-
-  useEffect(() => {
-    notificaty.loading('发送邮件中，请稍后...', {key: 'aaa'})
-    setTimeout(() => {
-      notificaty.close('aaa');
-    }, 3000)
-  })
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center user-bg--full">

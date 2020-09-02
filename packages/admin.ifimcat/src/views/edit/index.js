@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
 import {
   CCard,
@@ -34,11 +34,13 @@ import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/javascript/javascript';
 
 let uploadFile = null;
+let type = null;
+let initBlog = null;
 
 const Edit = (props) => {
   const codeMirrorRef = useRef();
   const blogKey = props.location.search.split('?blogKey=')[1] || ""
-  const [blog, setBlog] = useState({ topic: -1, tags: [], category: -1, body: "请输入内容..." });
+  const [blog, setBlog] = useState({ topic: -1, tags: [], category: -1, body: "" });
   const [editor, setEditor] = useState({ fullScreen: false, priview: true, edit: true });
   useQuery(Q_GETBLOGBYKEY, {
     variables: {
@@ -48,6 +50,7 @@ const Edit = (props) => {
     onCompleted(data) {
       notificaty.destoryAll();
       if (data.getBlogByKey) {
+        initBlog = data.getBlogByKey;
         setBlog({
           ...data.getBlogByKey,
           category: data.getBlogByKey.category.id,
@@ -68,26 +71,25 @@ const Edit = (props) => {
   const tags = useQuery(Q_GETTAGS);
   const topics = useQuery(Q_GETTOPICS);
 
-  const getVariableValues = () => {
-    const variables = {};
-    variables.id = blog.id;
-    variables.title = blog.title;
-    variables.description = blog.description;
-    variables.body = blog.body;
-    variables.category = Number(blog.category);
-    variables.topic = Number(blog.topic);
-    variables.tags = blog.tags.map(item => Number(item.id));
-    variables.glance = blog.glance;
-    variables.awesome = blog.awesome;
-    variables.is_show = blog.is_show;
-    return variables;
-  };
-
-  const [saveBlog] = useMutation(M_UPDATEBLOG, {
-    variables: { data: getVariableValues() },
+  const [updateBlog] = useMutation(M_UPDATEBLOG, {
+    variables: {
+      data: {
+        id: blog.id,
+        title: blog.title,
+        description: blog.description,
+        body: type === 'draft' ? initBlog.body : blog.body,
+        draft: blog.body,
+        category: Number(blog.category),
+        topic: Number(blog.topic),
+        tags: blog.tags.map(item => Number(item.id)),
+        glance: blog.glance,
+        awesome: blog.awesome,
+        is_show: blog.is_show,
+    } },
     onCompleted(data) {
       notificaty.destoryAll();
       if (data.updateBlog) {
+        console.log(data.updateBlog)
         notificaty.success("保存成功！");
         setBlog({
           ...data.updateBlog,
@@ -107,9 +109,23 @@ const Edit = (props) => {
   });
 
   const [createBlog] = useMutation(M_CREATEBLOG, {
-    variables: { data: getVariableValues() },
-    onCompleted() {
+    variables: {
+      data: {
+        id: blog.id,
+        title: blog.title,
+        description: blog.description,
+        body: type === 'draft' ? initBlog.body : blog.body,
+        draft: blog.body,
+        category: Number(blog.category),
+        topic: Number(blog.topic),
+        tags: blog.tags.map(item => Number(item.id)),
+        glance: blog.glance,
+        awesome: blog.awesome,
+        is_show: blog.is_show,
+    } },
+    onCompleted({createBlog}) {
       notificaty.destoryAll();
+      props.history.push(`/editor?blogKey=${createBlog.key}`)
       notificaty.success("文章已发布");
     },
     onError({ graphQLErrors }) {
@@ -159,7 +175,7 @@ const Edit = (props) => {
     setBlog({ ...blog, tags: nextTags })
   };
 
-  const parsetImageUpload = async (instance, event) => {
+  const parsetImageUpload = async (_, event) => {
     const items = (event.clipboardData || window.clipboardData).items;
     let file = null;
     if (items && items.length) {
@@ -178,15 +194,23 @@ const Edit = (props) => {
     }
   }
 
-  const publish = () => {
+  const update = () => {
     notificaty.loading("保存中，请稍后...");
-    saveBlog();
+    type = "update";
+    updateBlog();
   };
 
   const create = () => {
-    notificaty.loading("发布中，请稍后...");
+    notificaty.loading("创建中，请稍后...");
+    type = "create";
     createBlog();
   };
+
+  const saveDraft = () => {
+    notificaty.loading("保存中，请稍后...");
+    type = "draft";
+    updateBlog();
+  }
 
   const onEditorScroll = (_, { top, height }) => {
     const el = document.querySelector('#editor-preview');
@@ -294,8 +318,8 @@ const Edit = (props) => {
             <div className={editorCls}>
               <div className="editor-tool">
                 <div className="editor-tool-left">
-                  <CButton size="sm"><span alt="保存" className="caticon caticon-save" /></CButton>
-                  <CButton size="sm" onClick={publish}><span alt="发布" className="caticon caticon-publish" /></CButton>
+                  <CButton size="sm" onClick={saveDraft}><span title="保存草稿" className="caticon caticon-save" /></CButton>
+                  <CButton size="sm" onClick={blogKey ? update : create}><span title="发布" className="caticon caticon-publish" /></CButton>
                 </div>
                 <div className="editor-tool-right">
                   <CButton size="sm" onClick={() => setEditor({ ...editor, priview: !editor.priview, edit: true })}>
@@ -313,14 +337,14 @@ const Edit = (props) => {
                 <div className="editor-left">
                   <CodeMirror
                     className="cm-s-md-mirror"
-                    value={blog.body}
+                    value={blog.draft}
                     options={{
                       mode: 'markdown',
                       theme: 'material',
                       lineWrapping: true
                     }}
                     onBeforeChange={(editor, data, value) => {
-                      setBlog({ ...blog, body: value });
+                      setBlog({ ...blog, draft: value, body: value });
                     }}
                     onScroll={onEditorScroll}
                     onPaste={parsetImageUpload}
@@ -330,7 +354,7 @@ const Edit = (props) => {
                 <div className="editor-right">
                   <section
                     id="editor-preview"
-                    dangerouslySetInnerHTML={{ __html: markdownParser.render(blog.body || '') }}>
+                    dangerouslySetInnerHTML={{ __html: markdownParser.render(blog.draft || '') }}>
                   </section>
                 </div>
               </div>
@@ -338,8 +362,12 @@ const Edit = (props) => {
           </CCardBody>
           <CCardFooter>
             {
-              blogKey ? <CButton type="submit" color="primary" onClick={publish}>保存并发布博客</CButton>
-                : <CButton type="submit" color="primary" onClick={create}>发布博客</CButton>
+              blogKey ? (
+                <Fragment>
+                  <CButton type="submit" color="primary" onClick={saveDraft}>保存草稿</CButton>
+                  <CButton type="submit" color="primary" onClick={update}>保存并发布博客</CButton>
+                </Fragment>
+              ) : (<CButton type="submit" color="primary" onClick={create}>发布博客</CButton>)
             }
           </CCardFooter>
         </CCard>
