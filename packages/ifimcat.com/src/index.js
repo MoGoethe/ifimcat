@@ -17,14 +17,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
   if (networkError) {
     console.log(networkError)
-    window.location.href = '/500';
+    // window.location.href = '/500';
   }
 });
 
 const link = ApolloLink.from([errorLink]);
 const client = new ApolloClient({
   link,
-  uri: "/graphql",
+  uri: "/api/graphql",
   credentials: 'include',
   cache: new InMemoryCache(),
 });

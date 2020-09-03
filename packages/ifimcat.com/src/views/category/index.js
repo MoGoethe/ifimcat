@@ -1,12 +1,12 @@
 import React from "react";
 
-function Home(props) {
+function Category(props) {
 
   return (
     <div>
-      home1
+      Category
     </div>
   )
 };
 
-export default Home;
+export default Category;
