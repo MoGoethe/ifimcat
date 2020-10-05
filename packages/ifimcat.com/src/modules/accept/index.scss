@@ -1,0 +1,42 @@
+@import "../../styles/base";
+
+.if-accept{
+  background-color: $main;
+  padding: 28px 0;
+  &-main{
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+  }
+  &__text{
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    color: $gary;
+    font-size: 14px;
+    a{
+      display: inline;
+      color: $pink;
+      transition: all .25s;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+  &__btn{
+    display: block;
+    padding: 0 24px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 20px;
+    border: 2px solid $pink;
+    color: $pink;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .25s;
+    &:hover{
+      background-color: $pink;
+      color: #fff;
+    }
+  }
+}

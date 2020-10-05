@@ -22,7 +22,6 @@ import { TagModule } from './modules/tag/tag.module';
 import { UploadModule } from './modules/upload/upload.module';
 
 const RedisStore = connectRedis(session);
-console.log(join(__dirname, '../dist/', 'client'))
 
 @Module({
   imports: [
@@ -58,7 +57,10 @@ console.log(join(__dirname, '../dist/', 'client'))
       cors: config.cors,
     }),
     TypeOrmModule.forRoot(typeOrmConfig as TypeOrmModuleOptions),
-    ServeStaticModule.forRoot({rootPath: join(__dirname, '../dist/', 'client')}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../', 'assets'),
+      serveRoot: "/assets"
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

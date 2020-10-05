@@ -1,0 +1,23 @@
+@import "../../styles/base";
+
+.if-fullBtn{
+  display: block;
+  border: none;
+  width: 100%;
+  background-color: $blue;
+  color: #ffffff;
+  font-size: 40px;
+  text-align: center;
+  padding: 40px 0;
+  transition: background-color .25s;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 2px;
+  &:hover {
+    background-color: $darkBlue;
+  }
+  &--disabled{
+    opacity: .75;
+    cursor: not-allowed;
+  }
+}

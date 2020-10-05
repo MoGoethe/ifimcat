@@ -1,0 +1,13 @@
+@import "../../styles/base";
+
+.if-searchResult{
+  &__keywords{
+    font-size: 32px;
+    color: $main;
+    line-height: 2;
+    font-weight: bolder;
+    span{
+      color: $pink;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { BlogController } from "./blog.controller";
 import { BlogService } from "./blog.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Blog } from "./entity/blog.entity";
+import { Tag } from "../tag/entity/tag.entity";
 import {
   GetBlogsResolver,
   CreateBlogResolver,
@@ -11,7 +12,7 @@ import {
 } from './resolvers';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Blog])],
+  imports: [TypeOrmModule.forFeature([Blog, Tag])],
   controllers: [BlogController],
   providers: [
     BlogService,

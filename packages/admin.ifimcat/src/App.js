@@ -2,12 +2,6 @@ import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './scss/style.scss';
 
-const loading = (
-  <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse"></div>
-  </div>
-)
-
 // Containers
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
@@ -21,6 +15,12 @@ const ForgotPassword = React.lazy(() => import('./views/users/forgotPassword/For
 // breaks
 const Page404 = React.lazy(() => import('./views/breaks/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/breaks/page500/Page500'));
+
+const loading = (
+  <div className="pt-3 text-center">
+    <div className="sk-spinner sk-spinner-pulse"></div>
+  </div>
+)
 
 const App = () => {
   return (

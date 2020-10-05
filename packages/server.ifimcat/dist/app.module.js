@@ -49,7 +49,6 @@ const category_module_1 = require("./modules/category/category.module");
 const tag_module_1 = require("./modules/tag/tag.module");
 const upload_module_1 = require("./modules/upload/upload.module");
 const RedisStore = connect_redis_1.default(express_session_1.default);
-console.log(path_1.join(__dirname, '../dist/', 'client'));
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -87,7 +86,10 @@ AppModule = __decorate([
                 cors: config_1.default.cors,
             }),
             typeorm_1.TypeOrmModule.forRoot(typeorm_2.typeOrmConfig),
-            serve_static_1.ServeStaticModule.forRoot({ rootPath: path_1.join(__dirname, '../dist/', 'client') }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: path_1.join(__dirname, '../', 'assets'),
+                serveRoot: "/assets"
+            })
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

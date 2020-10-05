@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Tag } from "./entity/tag.entity";
 import { CreateTagInput } from "./input/createTag.input";
+import { UpdateTagInput } from "./input/updateTag.input";
 import { User } from "../user/entity/user.entity";
 
 @Injectable()
@@ -24,13 +25,14 @@ export class TagService {
     return this.tagRepository.create({...createTagInput, author}).save();
   }
 
-  async updateTag(id: number, name: string): Promise<Tag> {
-    const tag =  await this.tagRepository.findOne(id);
+  async updateTag(updateTagInput: UpdateTagInput): Promise<Tag | undefined> {
+    const tag = await this.tagRepository.findOne(updateTagInput.id);
     if (!tag) {
       throw new NotFoundException("修改失败，内容不存在");
     }
-    tag.name = name;
-    return this.tagRepository.save(tag);
+    Object.assign(tag, updateTagInput);
+    await this.tagRepository.save(tag);
+    return this.tagRepository.findOne(updateTagInput.id, { relations: ['author', 'blogs'] });
   }
 
   async deleteTag(id: number): Promise<Tag> {

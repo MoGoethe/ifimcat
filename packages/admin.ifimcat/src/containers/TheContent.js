@@ -1,11 +1,12 @@
-import React, { Suspense } from 'react'
+import React, { Suspense } from 'react';
 import {
   Redirect,
-  Switch
-} from 'react-router-dom'
-import { CContainer, CFade } from '@coreui/react'
-import AuthRoute from '../components/AuthRoute'
-import routes from '../routes'
+  Switch,
+  useHistory,
+} from 'react-router-dom';
+import { CContainer, CFade } from '@coreui/react';
+import AuthRoute from '../components/AuthRoute';
+import routes from '../routes';
 import { useQuery } from '@apollo/react-hooks';
 import { Q_CURRENT_USER } from '../queries';
 import { AuthContext } from '../conext/Auth.context';
@@ -14,14 +15,15 @@ const fallbackLoading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
-)
+);
 
 const TheContent = (props) => {
+  const history = useHistory();
   const { loading, data } = useQuery(Q_CURRENT_USER, {
     fetchPolicy: "network-only",
     onError(err) {
       console.log(err);
-      props.history.push('/500');
+      history.push('/500');
     }
   });
 

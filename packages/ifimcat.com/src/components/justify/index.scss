@@ -1,0 +1,9 @@
+.if-justify{
+  display: flex;
+  &--left{
+    display: block;
+  }
+  &--right{
+    flex: 1;
+  }
+}

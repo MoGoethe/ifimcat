@@ -43,14 +43,15 @@ let TagService = class TagService {
             return this.tagRepository.create(Object.assign(Object.assign({}, createTagInput), { author })).save();
         });
     }
-    updateTag(id, name) {
+    updateTag(updateTagInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            const tag = yield this.tagRepository.findOne(id);
+            const tag = yield this.tagRepository.findOne(updateTagInput.id);
             if (!tag) {
                 throw new common_1.NotFoundException("修改失败，内容不存在");
             }
-            tag.name = name;
-            return this.tagRepository.save(tag);
+            Object.assign(tag, updateTagInput);
+            yield this.tagRepository.save(tag);
+            return this.tagRepository.findOne(updateTagInput.id, { relations: ['author', 'blogs'] });
         });
     }
     deleteTag(id) {

@@ -26,6 +26,9 @@ type Category {
   createAt: DateTime!
   updateAt: DateTime!
   name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
   author: User!
   blogs: [Blog]
 }
@@ -47,14 +50,20 @@ input CreateBlogInput {
 
 input CreateCategoryInput {
   name: String!
+  slogan: String!
+  description: String!
 }
 
 input CreateTagInput {
   name: String!
+  slogan: String!
+  description: String!
 }
 
 input CreateTopicInput {
   name: String!
+  slogan: String!
+  description: String!
 }
 
 """
@@ -75,16 +84,16 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User
   forgotPassword(email: String!): Boolean!
   updateUser(data: UpdateUserInput!): User
-  updateTopic(name: String!, id: Float!): Topic!
+  updateTopic(data: UpdateTopicInput!): Topic!
   deleteTopic(id: Float!): Topic!
   createTopic(data: CreateTopicInput!): Topic!
   createBlog(data: CreateBlogInput!): Blog!
   deleteBlog(id: Float!): Blog!
   updateBlog(data: UpdateBlogInput!): Blog
-  updateCategory(name: String!, id: Float!): Category!
+  updateCategory(data: UpdateCategoryInput!): Category!
   deleteCategory(id: Float!): Category!
   createCategory(data: CreateCategoryInput!): Category!
-  updateTag(name: String!, id: Float!): Tag!
+  updateTag(data: UpdateTagInput!): Tag!
   deleteTag(id: Float!): Tag!
   createTag(data: CreateTagInput!): Tag!
   fileUpload(file: Upload!): String!
@@ -116,6 +125,9 @@ type Tag {
   createAt: DateTime!
   updateAt: DateTime!
   name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
   author: User!
   blogs: [Blog]
 }
@@ -126,6 +138,9 @@ type Topic {
   createAt: DateTime!
   updateAt: DateTime!
   name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
   author: User!
   blogs: [Blog]
 }
@@ -142,6 +157,30 @@ input UpdateBlogInput {
   glance: Int
   awesome: Int
   is_show: Boolean
+}
+
+input UpdateCategoryInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
+}
+
+input UpdateTagInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
+}
+
+input UpdateTopicInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
 }
 
 input UpdateUserInput {

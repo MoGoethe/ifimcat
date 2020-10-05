@@ -40,6 +40,7 @@ const Login = (props) => {
       password,
     },
     onCompleted(data) {
+      notificaty.destoryAll();
       if (data.login) {
         localStorage.setItem('has_been_login', data.login.email);
         dispatch({type: SET_CURRENT_USER, currentUser: data.login});
@@ -47,6 +48,7 @@ const Login = (props) => {
       }
     },
     onError({ graphQLErrors }) {
+      notificaty.destoryAll();
       if (graphQLErrors[0].message) {
         setModal({ show: true, info: graphQLErrors[0].message });
         return
@@ -69,6 +71,7 @@ const Login = (props) => {
       setPasswordValidate({invalid: true, message: "密码长度至少为6"});
       return;
     }
+    notificaty.loading("登录中，请稍后...")
     login();
   };
 

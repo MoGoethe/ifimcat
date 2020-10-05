@@ -31,7 +31,6 @@ let UploadResolver = class UploadResolver {
     }
     fileUpload(file) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(file);
             return this.uploadService.fileUpload(file);
         });
     }

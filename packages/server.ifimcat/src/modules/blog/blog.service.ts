@@ -14,10 +14,13 @@ import { UserRoleType } from "../../constants/userRoles.constants";
 export class BlogService {
   constructor(
     @InjectRepository(Blog)
-    private readonly blogRepository: Repository<Blog>
+    private readonly blogRepository: Repository<Blog>,
+    @InjectRepository(Tag)
+    private readonly tagRepository: Repository<Tag>
   ){}
 
   hello(): string {
+    console.log(this.tagRepository)
     return 'world'
   }
 
@@ -31,7 +34,7 @@ export class BlogService {
     const _category = await Category.findOneOrFail(category);
     const _topic = await Topic.findOneOrFail(topic);
     
-    const _tags = await Tag.findByIds(tags);
+    const _tags = await Tag.findByIds(tags, {relations: ['blogs']});
     const blog = await this.blogRepository.create({
       title,
       description,
@@ -42,28 +45,37 @@ export class BlogService {
       tags: _tags,
       author
     });
-    return await blog.save()
+    const result = await blog.save();
+    _tags.map(async tag => {
+      tag.blogs.push(result);
+      await this.tagRepository.save(tag);
+    })
+    return result;
   }
 
   async deleteBlog(id: number): Promise<Blog> {
-    const blog = await this.blogRepository.findOne(id)
+    const blog = await this.blogRepository.findOne(id, { relations: ['tags'] })
     if (!blog) {
       throw new NotFoundException("该内容不存在");
     }
+    blog.tags.map(async tag => {
+      const tagBlogs = tag.blogs.filter(item => item.id != blog.id);
+      tag.blogs = tagBlogs;
+      await this.tagRepository.save(tag);
+    })
     return this.blogRepository.remove(blog);
   }
 
   async updateBlog(author: User, updateBlogInput: UpdateBlogInput): Promise<Blog | undefined> {
-    const blog = await this.blogRepository.findOne(updateBlogInput.id, { where: { author } });
-    const _blog = await this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
-    if (_blog) {
-      throw new NotFoundException("此标题已存在，请使用其他标题。");
-    }
-    const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
-
+    const blog = await this.blogRepository.findOne(updateBlogInput.id, { where: { author },relations: ['tags', 'topic', 'category'] });
     if (!blog) {
       throw new NotFoundException("该内容不存在");
     }
+    const _blog = await this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
+    if (_blog && (_blog.id != blog.id)) {
+      throw new NotFoundException("此标题已存在，请使用其他标题。");
+    }
+    const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
     if (title) blog.title = title;
     if (description) blog.description = description;
     if (body) blog.body = body;
@@ -74,15 +86,30 @@ export class BlogService {
 
     if (updateBlogInput.tags) {
       const tags = await Tag.findByIds(updateBlogInput.tags);
+      const originTagIds = blog.tags.map(oTag => oTag.id);
+      
+      const restultTagIds = [...originTagIds, ...updateBlogInput.tags].filter((item, index, self) => {
+        return self.indexOf(item) == index;
+      });
       if (!tags.length) {
         throw new NotFoundException("该博客至少需要一个标签");
       }
+      const resultTags = await Tag.findByIds(restultTagIds, { relations: ['blogs'] });
+      resultTags.map(async rTag => {
+        const tagBlogIndex = rTag.blogs.findIndex(item => item.id === blog.id);
+        if (tagBlogIndex === -1) {
+          rTag.blogs.push(blog);
+        } else {
+          rTag.blogs.splice(tagBlogIndex, 1);
+        }
+        await this.tagRepository.save(rTag);
+      })
       blog.tags = tags;
     }
     if (updateBlogInput.topic) {
       const topic = await Topic.findOne({id: updateBlogInput.topic});
       if (!topic) {
-        throw new NotFoundException("该话题不存在");
+        throw new NotFoundException("该专题不存在");
       }
       blog.topic = topic;
     }

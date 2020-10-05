@@ -21,6 +21,16 @@ __decorate([
     IsNameAlreadyExist_1.IsNameAlreadyExist({ message: "此名称已存在" }),
     __metadata("design:type", String)
 ], CreateTagInput.prototype, "name", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], CreateTagInput.prototype, "slogan", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], CreateTagInput.prototype, "description", void 0);
 CreateTagInput = __decorate([
     graphql_1.InputType()
 ], CreateTagInput);

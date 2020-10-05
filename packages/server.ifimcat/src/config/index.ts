@@ -33,6 +33,7 @@ export default {
   cors: {
     origin: [
       "http://localhost:8007",
+      "http://localhost:8009",
       "http://admin.ifimcat.com",
       "https://admin.ifimcat.com",
       "http://ifimcat.com",

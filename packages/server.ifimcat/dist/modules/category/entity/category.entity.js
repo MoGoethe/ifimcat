@@ -24,6 +24,21 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "name", void 0);
 __decorate([
+    typeorm_1.Column(),
+    graphql_1.Field(() => String),
+    __metadata("design:type", String)
+], Category.prototype, "slogan", void 0);
+__decorate([
+    typeorm_1.Column(),
+    graphql_1.Field(() => String),
+    __metadata("design:type", String)
+], Category.prototype, "description", void 0);
+__decorate([
+    typeorm_1.Column({ default: 0 }),
+    graphql_1.Field(() => Number),
+    __metadata("design:type", Number)
+], Category.prototype, "glance", void 0);
+__decorate([
     graphql_1.Field(() => user_entity_1.User),
     typeorm_1.ManyToOne(() => user_entity_1.User, user => user.categories),
     __metadata("design:type", user_entity_1.User)

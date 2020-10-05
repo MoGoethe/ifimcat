@@ -10,4 +10,12 @@ export class CreateCategoryInput {
   @IsNameAlreadyExist({message: "此名称已存在"})
   name: string;
 
+  @IsNotEmpty()
+  @Field()
+  slogan: string;
+
+  @IsNotEmpty()
+  @Field()
+  description: string;
+
 }

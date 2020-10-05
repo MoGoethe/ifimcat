@@ -49,14 +49,14 @@ let UploadService = class UploadService {
         return __awaiter(this, void 0, void 0, function* () {
             const ext = filename.match(/\.[a-z]+$/);
             const md5Filename = yield checksumFile_1.checksumFile('md5', createReadStream);
-            const dir = path_1.default.join(__dirname, "/../../client/upload");
+            const dir = path_1.default.join(__dirname, "/../../../assets/upload");
             const filePath = `${dir}/${md5Filename}${ext}`;
             yield mkdir_1.default(dir);
             const address = config_1.isProductionEnvironment ? `http://${config_1.default.host}` : `http://${config_1.default.host}:${config_1.default.port}`;
             return new Promise((resolve, reject) => {
                 createReadStream()
                     .pipe(fs_1.createWriteStream(filePath))
-                    .on('finish', () => resolve(`${address}/upload/${md5Filename}${ext}`))
+                    .on('finish', () => resolve(`${address}/assets/upload/${md5Filename}${ext}`))
                     .on('error', () => reject(false));
             });
         });

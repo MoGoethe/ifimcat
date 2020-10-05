@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Topic } from "./entity/topic.entity";
 import { CreateTopicInput } from "./input/createTopic.input";
+import { UpdateTopicInput } from "./input/updateTopic.input";
 import { User } from "../user/entity/user.entity";
 
 @Injectable()
@@ -24,13 +25,14 @@ export class TopicService {
     return this.topicRepository.create({...createTopicInput, author}).save();
   }
 
-  async updateTopic(id: number, name: string): Promise<Topic> {
-    const topic =  await this.topicRepository.findOne(id);
+  async updateTopic(updateTopicInput: UpdateTopicInput): Promise<Topic|undefined> {
+    const topic = await this.topicRepository.findOne(updateTopicInput.id);
     if (!topic) {
       throw new NotFoundException("修改失败，内容不存在");
     }
-    topic.name = name;
-    return this.topicRepository.save(topic);
+    Object.assign(topic, updateTopicInput);
+    await this.topicRepository.save(topic);
+    return this.topicRepository.findOne(updateTopicInput.id, { relations: ['author', 'blogs'] });
   }
 
   async deleteTopic(id: number): Promise<Topic> {

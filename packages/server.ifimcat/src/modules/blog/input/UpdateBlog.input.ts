@@ -8,46 +8,41 @@ export class UpdateBlogInput {
   @Field(() => Int)
   id: number;
 
-  @IsNotEmpty()
   @MinLength(2)
-  @MaxLength(24)
+  @MaxLength(48)
   @Field(() => String, {nullable: true})
-  title?: string;
+  title: string;
 
-  @IsNotEmpty()
   @MinLength(8)
-  @MaxLength(128)
+  @MaxLength(256)
   @Field(() => String, {nullable: true})
-  description?: string;
+  description: string;
 
-  @IsNotEmpty()
   @MinLength(64)
   @Field(() => String, {nullable: true})
-  body?: string;
+  body: string;
 
-  @IsNotEmpty()
   @MinLength(64)
   @Field(() => String, { nullable: true })
-  draft?: string;
+  draft: string;
 
   @Field(() => [Int], {nullable: true})
-  tags?: number[];
-
-  @IsNotEmpty()
-  @Field(() => Int, {nullable: true})
-  category?: number;
+  tags: number[];
 
   @Field(() => Int, {nullable: true})
-  topic?: number;
+  category: number;
 
-  @Min(0)
   @Field(() => Int, {nullable: true})
-  glance?: number;
+  topic: number;
 
   @Min(0)
   @Field(() => Int, {nullable: true})
-  awesome?: number;
+  glance: number;
+
+  @Min(0)
+  @Field(() => Int, {nullable: true})
+  awesome: number;
 
   @Field(() => Boolean, {nullable: true})
-  is_show?: boolean;
+  is_show: boolean;
 }

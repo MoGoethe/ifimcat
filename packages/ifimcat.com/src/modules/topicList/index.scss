@@ -1,0 +1,21 @@
+@import "../../styles/base";
+
+.if-topicList {
+  &-list{
+    margin-right: -12px;
+    margin-bottom: -12px;
+  }
+  &__topic{
+    display: block;
+    margin-right: 12px;
+    line-height: 24px;
+    padding: 16px 0;
+    font-size: 14px;
+    color: $main;
+    transition: all .25s;
+    border-bottom: 1px solid #f9f9f9;
+    &:hover {
+      color: $pink;
+    }
+  }
+}

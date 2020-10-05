@@ -43,14 +43,15 @@ let TopicService = class TopicService {
             return this.topicRepository.create(Object.assign(Object.assign({}, createTopicInput), { author })).save();
         });
     }
-    updateTopic(id, name) {
+    updateTopic(updateTopicInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            const topic = yield this.topicRepository.findOne(id);
+            const topic = yield this.topicRepository.findOne(updateTopicInput.id);
             if (!topic) {
                 throw new common_1.NotFoundException("修改失败，内容不存在");
             }
-            topic.name = name;
-            return this.topicRepository.save(topic);
+            Object.assign(topic, updateTopicInput);
+            yield this.topicRepository.save(topic);
+            return this.topicRepository.findOne(updateTopicInput.id, { relations: ['author', 'blogs'] });
         });
     }
     deleteTopic(id) {

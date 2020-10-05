@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import { ApolloLink } from 'apollo-link'
 import { ApolloClient } from 'apollo-client'
 import { onError } from "apollo-link-error"
+import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
 import App from './App'
@@ -21,11 +22,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-const link = ApolloLink.from([errorLink]);
-const client = new ApolloClient({
-  link,
+const httpLink = createHttpLink({
   uri: "/api/graphql",
   credentials: 'include',
+});
+const link = ApolloLink.from([errorLink, httpLink]);
+const client = new ApolloClient({
+  link,
   cache: new InMemoryCache(),
 });
 

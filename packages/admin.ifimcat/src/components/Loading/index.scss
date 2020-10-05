@@ -65,3 +65,42 @@
     transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
   }
 }
+
+
+.loading-bar {
+  $loadbar-height: 4px;
+  $loadbar-bg: #dddddd;
+  $light-color: #321fdb;
+  
+  width: 100%;
+  height: $loadbar-height;
+  background-color: $loadbar-bg;
+  
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  top: 0;
+  z-index: 2001;
+  
+  .light {
+    $light-side-color: transparentize($light-color, 1);
+
+    width: 280px;
+    height: $loadbar-height;
+    background-color: $light-color;
+    background: linear-gradient(90deg, $light-side-color, $light-color 40%, $light-color 50%, $light-side-color 80%);
+
+    position: absolute;
+    left: 0;
+
+    animation: light-kf 1.2s linear infinite;
+    will-change: left;
+  }
+}
+
+@keyframes light-kf {
+  0% { left: -1%; }
+  100% { left: 101%; }
+}

@@ -1,0 +1,11 @@
+@import "../../styles/base";
+
+.if-module {
+  &-hd{
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: $main;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $gary;
+  }
+}

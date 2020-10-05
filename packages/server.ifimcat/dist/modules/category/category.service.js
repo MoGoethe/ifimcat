@@ -44,14 +44,15 @@ let CategoryService = class CategoryService {
             return this.categoryRepository.create(Object.assign(Object.assign({}, createCategorynput), { author })).save();
         });
     }
-    updateCategory(id, name) {
+    updateCategory(updateCategoryInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            const category = yield this.categoryRepository.findOne(id);
+            const category = yield this.categoryRepository.findOne(updateCategoryInput.id);
             if (!category) {
                 throw new common_1.NotFoundException("修改失败，内容不存在");
             }
-            category.name = name;
-            return this.categoryRepository.save(category);
+            Object.assign(category, updateCategoryInput);
+            yield this.categoryRepository.save(category);
+            return this.categoryRepository.findOne(updateCategoryInput.id, { relations: ['author', 'blogs'] });
         });
     }
     deleteCategory(id) {

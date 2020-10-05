@@ -13,6 +13,18 @@ export class Topic extends AbstractEntity{
   @Index({unique: true})
   name: string;
 
+  @Column()
+  @Field(() => String)
+  slogan: string;
+
+  @Column()
+  @Field(() => String)
+  description: string;
+
+  @Column({ default: 0 })
+  @Field(() => Number)
+  glance: number;
+
   @Field(() => User)
   @ManyToOne(() => User, user => user.topics)
   author: User;

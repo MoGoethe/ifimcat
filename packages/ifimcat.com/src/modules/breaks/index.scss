@@ -1,0 +1,22 @@
+@import "../../styles/base";
+
+.if-break {
+  padding: 248px 0 128px;
+  text-align: center;
+  background: transparent url("./img/breaks.gif") no-repeat top center;
+  background-size: 400px;
+  &__title {
+    font-family: "Brush Script Std";
+    font-size: 56px;
+    color: $main;
+    line-height: 1.5;
+    span{
+      color: $pink;
+    }
+  }
+  &__description{
+    line-height: 2;
+    font-size: 24px;
+    color: $weakMain;
+  }
+}

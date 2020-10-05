@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Category } from "./entity/category.entity";
 import { CreateCategoryInput } from "./input/createCategory.input";
+import { UpdateCategoryInput } from "./input/updateCategory.input";
 import { User } from "../user/entity/user.entity";
 import { UserRoleType } from "../../constants/userRoles.constants";
 
@@ -25,13 +26,14 @@ export class CategoryService {
     return this.categoryRepository.create({...createCategorynput, author}).save();
   }
 
-  async updateCategory(id: number, name: string): Promise<Category> {
-    const category =  await this.categoryRepository.findOne(id);
+  async updateCategory(updateCategoryInput: UpdateCategoryInput): Promise<Category | undefined> {
+    const category = await this.categoryRepository.findOne(updateCategoryInput.id);
     if (!category) {
       throw new NotFoundException("修改失败，内容不存在");
     }
-    category.name = name;
-    return this.categoryRepository.save(category);
+    Object.assign(category, updateCategoryInput);
+    await this.categoryRepository.save(category);
+    return this.categoryRepository.findOne(updateCategoryInput.id, { relations: ['author', 'blogs'] });
   }
 
   async deleteCategory(id: number): Promise<Category> {

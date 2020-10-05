@@ -186,6 +186,8 @@ export const Q_GETCATEGORIES = gql`
       id
       key
       name
+      slogan
+      description
       author {
         username
       }
@@ -232,6 +234,8 @@ export const Q_GETTAGS = gql `
       id
       key
       name
+      slogan
+      description
       author {
         username
       }
@@ -278,6 +282,8 @@ export const Q_GETTOPICS = gql `
       id
       key
       name
+      slogan
+      description
       author {
         username
       }

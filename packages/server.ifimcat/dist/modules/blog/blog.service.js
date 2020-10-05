@@ -31,10 +31,12 @@ const topic_entity_1 = require("../topic/entity/topic.entity");
 const category_entity_1 = require("../category/entity/category.entity");
 const userRoles_constants_1 = require("../../constants/userRoles.constants");
 let BlogService = class BlogService {
-    constructor(blogRepository) {
+    constructor(blogRepository, tagRepository) {
         this.blogRepository = blogRepository;
+        this.tagRepository = tagRepository;
     }
     hello() {
+        console.log(this.tagRepository);
         return 'world';
     }
     getBlogs() {
@@ -47,7 +49,7 @@ let BlogService = class BlogService {
             const { title, description, body, category, topic, tags } = createBlogInput;
             const _category = yield category_entity_1.Category.findOneOrFail(category);
             const _topic = yield topic_entity_1.Topic.findOneOrFail(topic);
-            const _tags = yield tag_entity_1.Tag.findByIds(tags);
+            const _tags = yield tag_entity_1.Tag.findByIds(tags, { relations: ['blogs'] });
             const blog = yield this.blogRepository.create({
                 title,
                 description,
@@ -58,29 +60,39 @@ let BlogService = class BlogService {
                 tags: _tags,
                 author
             });
-            return yield blog.save();
+            const result = yield blog.save();
+            _tags.map((tag) => __awaiter(this, void 0, void 0, function* () {
+                tag.blogs.push(result);
+                yield this.tagRepository.save(tag);
+            }));
+            return result;
         });
     }
     deleteBlog(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const blog = yield this.blogRepository.findOne(id);
+            const blog = yield this.blogRepository.findOne(id, { relations: ['tags'] });
             if (!blog) {
                 throw new common_1.NotFoundException("该内容不存在");
             }
+            blog.tags.map((tag) => __awaiter(this, void 0, void 0, function* () {
+                const tagBlogs = tag.blogs.filter(item => item.id != blog.id);
+                tag.blogs = tagBlogs;
+                yield this.tagRepository.save(tag);
+            }));
             return this.blogRepository.remove(blog);
         });
     }
     updateBlog(author, updateBlogInput) {
         return __awaiter(this, void 0, void 0, function* () {
-            const blog = yield this.blogRepository.findOne(updateBlogInput.id, { where: { author } });
-            const _blog = yield this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
-            if (_blog) {
-                throw new common_1.NotFoundException("此标题已存在，请使用其他标题。");
-            }
-            const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
+            const blog = yield this.blogRepository.findOne(updateBlogInput.id, { where: { author }, relations: ['tags', 'topic', 'category'] });
             if (!blog) {
                 throw new common_1.NotFoundException("该内容不存在");
             }
+            const _blog = yield this.blogRepository.findOne({ where: { title: updateBlogInput.title } });
+            if (_blog && (_blog.id != blog.id)) {
+                throw new common_1.NotFoundException("此标题已存在，请使用其他标题。");
+            }
+            const { title, description, body, glance, awesome, is_show, draft } = updateBlogInput;
             if (title)
                 blog.title = title;
             if (description)
@@ -97,15 +109,30 @@ let BlogService = class BlogService {
                 blog.is_show = is_show;
             if (updateBlogInput.tags) {
                 const tags = yield tag_entity_1.Tag.findByIds(updateBlogInput.tags);
+                const originTagIds = blog.tags.map(oTag => oTag.id);
+                const restultTagIds = [...originTagIds, ...updateBlogInput.tags].filter((item, index, self) => {
+                    return self.indexOf(item) == index;
+                });
                 if (!tags.length) {
                     throw new common_1.NotFoundException("该博客至少需要一个标签");
                 }
+                const resultTags = yield tag_entity_1.Tag.findByIds(restultTagIds, { relations: ['blogs'] });
+                resultTags.map((rTag) => __awaiter(this, void 0, void 0, function* () {
+                    const tagBlogIndex = rTag.blogs.findIndex(item => item.id === blog.id);
+                    if (tagBlogIndex === -1) {
+                        rTag.blogs.push(blog);
+                    }
+                    else {
+                        rTag.blogs.splice(tagBlogIndex, 1);
+                    }
+                    yield this.tagRepository.save(rTag);
+                }));
                 blog.tags = tags;
             }
             if (updateBlogInput.topic) {
                 const topic = yield topic_entity_1.Topic.findOne({ id: updateBlogInput.topic });
                 if (!topic) {
-                    throw new common_1.NotFoundException("该话题不存在");
+                    throw new common_1.NotFoundException("该专题不存在");
                 }
                 blog.topic = topic;
             }
@@ -146,7 +173,9 @@ let BlogService = class BlogService {
 BlogService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(blog_entity_1.Blog)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, typeorm_1.InjectRepository(tag_entity_1.Tag)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], BlogService);
 exports.BlogService = BlogService;
 //# sourceMappingURL=blog.service.js.map

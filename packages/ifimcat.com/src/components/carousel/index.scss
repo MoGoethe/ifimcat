@@ -1,0 +1,134 @@
+.if-carousel{
+  width: 100%;
+  height: 294px;
+  position: relative;
+  box-sizing: border-box;
+  &__list{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    &--transition{
+      &-enter,
+      &-appear{
+        opacity: 0;
+        transition: all .5s ease;
+        &-active{
+          opacity: 1;
+          transition: all .5s ease;
+        }
+        &-done{
+          transition: all .5s ease;
+          opacity: 1;
+        }
+      }
+      &-exit{
+        opacity: 1;
+        transition: all .5s ease;
+        &-active{
+          opacity: 0;
+          transition: all .5s ease;
+        }
+        &-done{
+          transition: all .5s ease;
+          opacity: 0;
+        }
+      }
+    }
+  }
+  &__item{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  &__dot{
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    &-item{
+      width: 40px;
+      height: 16px;
+      display: inline-block;
+      margin: 0 5px;
+      cursor: pointer;
+      align-items: center;
+      &:before{
+        content: '';
+        display: block;
+        width: 100%;
+        height: 4px;
+        background-color: rgba(255,255,255,0.35);
+        margin-top: 6px;
+      }
+      &.actived{
+        &:before {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+  &__action{
+    position: absolute;
+    height: 0;
+    width: 100%;
+    max-width: 1180px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    &--left,
+    &--right{
+      width: 40px;
+      height: 40px;
+      display: block;
+      position: absolute;
+      margin-top: -20px;
+      background-size: 36px;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+    &--left{
+      left: 0;
+      margin-left: -40px;
+      background-image: url("./img/arrow-left.svg");
+    }
+    &--right{
+      right: 0;
+      margin-right: -40px;
+      background-image: url("./img/arrow-right.svg");
+    }
+  }
+  &-main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding:24px;
+    box-sizing: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__title{
+    height: 48px;
+    font-size: 32px;
+    color: #FFFFFF;
+    line-height: 48px;
+    margin-bottom: 12px;
+  }
+  &__description{
+    height: 52px;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 26px;
+    margin-bottom: 28px;
+  }
+  .carousel-content{
+    max-width: 50%;
+  }
+}

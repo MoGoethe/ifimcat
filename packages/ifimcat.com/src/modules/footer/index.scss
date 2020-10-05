@@ -1,0 +1,28 @@
+@import "../../styles/base";
+
+.if-footer{
+  color: #6e6d7a;
+  padding: 44px 0;
+  border-top: 1px solid #f9f9f9;
+  .if-col{
+    &:nth-child(2) {
+      text-align: center;
+    }
+    &:last-child{
+      text-align: right;
+    }
+  }
+  &-info{
+    font-size: 14px;
+  }
+  a{
+    display: inline;
+    color: $main;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  b{
+    color: $main;
+  }
+}

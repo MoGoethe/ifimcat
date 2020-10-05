@@ -14,14 +14,14 @@ export class UploadService {
   }: FileUpload): Promise<any> {
     const ext = filename.match(/\.[a-z]+$/);
     const md5Filename = await checksumFile('md5', createReadStream);
-    const dir = path.join(__dirname, "/../../client/upload");
+    const dir = path.join(__dirname, "/../../../assets/upload");
     const filePath = `${dir}/${md5Filename}${ext}`;
     await dirExists(dir);
     const address = isProductionEnvironment ? `http://${config.host}` : `http://${config.host}:${config.port}`;
     return new Promise((resolve, reject) => {
       createReadStream()
         .pipe(createWriteStream(filePath))
-        .on('finish', () => resolve(`${address}/upload/${md5Filename}${ext}`))
+        .on('finish', () => resolve(`${address}/assets/upload/${md5Filename}${ext}`))
         .on('error', () => reject(false));
     });
   }
