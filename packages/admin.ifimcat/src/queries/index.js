@@ -201,8 +201,8 @@ export const Q_GETCATEGORIES = gql`
 `;
 // 更新类别
 export const M_UPDATECATEGORY = gql`
-  mutation($id: Float!, $name: String!) {
-    updateCategory(id: $id, name: $name) {
+  mutation($data: UpdateCategoryInput!) {
+    updateCategory(data: $data) {
       id
       name
     }
@@ -249,8 +249,8 @@ export const Q_GETTAGS = gql `
 `;
 // 更新标签
 export const M_UPDATETAG = gql `
-  mutation($id: Float!, $name: String!) {
-    updateTag(id: $id, name: $name) {
+  mutation($data: UpdateTagInput!) {
+    updateTag(data: $data) {
       id
       name
     }
@@ -297,8 +297,8 @@ export const Q_GETTOPICS = gql `
 `;
 // 更新专题名称
 export const M_UPDATETOPIC = gql `
-  mutation($id: Float!, $name: String!) {
-    updateTopic(id: $id, name: $name) {
+  mutation($data: UpdateTopicInput!) {
+    updateTopic(data: $data) {
       id
       name
     }

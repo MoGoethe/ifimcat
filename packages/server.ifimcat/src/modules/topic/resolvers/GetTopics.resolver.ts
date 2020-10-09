@@ -1,6 +1,7 @@
 import { 
   Resolver,
-  Query
+  Query,
+  Args
 } from "@nestjs/graphql";
 import { TopicService } from "../topic.service";
 import { Topic } from "../entity/topic.entity";
@@ -12,5 +13,10 @@ export class GetTopicsResolver {
   @Query(() => [Topic], {nullable: 'itemsAndList'})
   async getTopics() {
     return this.topicService.getTopics();
+  }
+
+  @Query(() => Topic)
+  async getTopic(@Args('key') key: string) {
+    return this.topicService.getTopicByKey(key);
   }
 }

@@ -104,13 +104,17 @@ type Query {
   currentUser: User
   getUsers: [User]
   getTopics: [Topic]
+  getTopic(key: String!): Topic!
   getBlogs: [Blog]
   getAdminBlogs: [Blog]
   getBlogByKey(key: String!): Blog
   getBlogById(id: Float!): Blog
+  getBlogByKeywords(keywords: String!): [Blog]
   getCategories: [Category]
+  getCategory(key: String!): Category!
   getAdminCategories: [Category]
   getTags: [Tag]
+  getTag(key: String!): Tag!
 }
 
 input RegisterInput {

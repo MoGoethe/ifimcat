@@ -14,15 +14,17 @@ export function ArticleProfile(props) {
   const {
     data
   } = props;
+  if (!data) {
+    return null
+  }
   return (
     <div className="if-articleProfile">
       <div className="if-articleProfile-img">
-        <img src="https://dummyimage.com/640x240/CCC/aaa" alt="" />
-        {/* <img src={`/assets/illustrations/illu-0.jpg`} alt="" /> */}
+        <img src={`/assets/illustrations/illu-${data.id % PICTURECOUNT}.jpg`} alt="" />
       </div>
       <div className="if-articleProfile-tags">
         {
-          data.tags.map((tag, index) => (
+          (data.tags || []).map((tag, index) => (
             <a href={`/tag/${tag.key}`} className="if-articleProfile-tag" key={`if-articleProfile-tag--${index}`}>
               {tag.name}
             </a>

@@ -26,6 +26,7 @@ BlogModule = __decorate([
             resolvers_1.CreateBlogResolver,
             resolvers_1.DeleteBlogResolver,
             resolvers_1.UpdateBlogResolver,
+            resolvers_1.SearchBlogsResolver,
         ],
     })
 ], BlogModule);

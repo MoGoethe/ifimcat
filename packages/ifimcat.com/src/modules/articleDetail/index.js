@@ -6,10 +6,12 @@ import {
 import { Sticky } from "../../components/sticky";
 import { ArticleProfile } from "../articleList";
 import { markdownParser, dateTimeFormate } from '../../utils/tools';
-import "./index.scss";
 import {
-  articles
-} from "../../mock"
+  PICTURECOUNT
+} from "../../config";
+import { useQuery } from '@apollo/react-hooks';
+import { Q_CATEGORY } from "../../queries";
+import "./index.scss";
 
 export function ArticleDetail(props) {
 
@@ -17,13 +19,16 @@ export function ArticleDetail(props) {
     article = {},
   } = props;
 
+  const { data } = useQuery(Q_CATEGORY, {
+    variables: { key: article.category.key }
+  });
+
   return (
     <Fragment>
       <Row className="m-t-8n">
         <Col colSpan={24}>
           <div className="if-articleDetail-head">
-            <img src="https://dummyimage.com/640x240/CCC/aaa" className="if-articleDetail__img" alt="" />
-            {/* <img src={`/assets/picture/${data.id % PICTURECOUNT}`} className="if-articleDetail__img" alt="" /> */}
+            <img src={`/assets/illustrations/illu-${article.id % PICTURECOUNT}.jpg`} className="if-articleDetail__img" alt={article.title} />
             <h1 className="if-articleDetail__title">{article.title}</h1>
           </div>
         </Col>
@@ -85,13 +90,13 @@ export function ArticleDetail(props) {
           <div className="if-articleDetail-related">Read also </div>
         </Col>
         <Col colSpan={8}>
-          <ArticleProfile data={articles[0]} />
+          <ArticleProfile data={data?.getCategory?.blogs[0]} />
         </Col>
         <Col colSpan={8}>
-          <ArticleProfile data={articles[1]} />
+          <ArticleProfile data={data?.getCategory?.blogs[1]} />
         </Col>
         <Col colSpan={8}>
-          <ArticleProfile data={articles[2]} />
+          <ArticleProfile data={data?.getCategory?.blogs[2]} />
         </Col>
       </Row>
     </Fragment>

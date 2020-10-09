@@ -43,4 +43,8 @@ export class TopicService {
     return this.topicRepository.remove(topic)
   }
 
+  async getTopicByKey(key: string): Promise<Topic | undefined> {
+    return this.topicRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+  }
+
 }

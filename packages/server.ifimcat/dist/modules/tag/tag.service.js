@@ -63,6 +63,11 @@ let TagService = class TagService {
             return this.tagRepository.remove(tag);
         });
     }
+    getTagByKey(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.tagRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+        });
+    }
 };
 TagService = __decorate([
     common_1.Injectable(),

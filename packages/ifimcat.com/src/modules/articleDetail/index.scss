@@ -12,16 +12,19 @@
   &__img{
     width: 100%;
     display: block;
+    border: 1px solid #f9f9f9;
   }
   &__title{
     position: absolute;
     top: 48px;
     left: 0;
     font-size: 48px;
-    line-height: 2;
+    line-height: 1.6;
     color: $main;
     font-weight: bold;
     padding: 0 32px;
+    background-color: rgba($color: #fff, $alpha: 0.24);
+    margin: 0 40px;
   }
   &__text{
     line-height: 24px;

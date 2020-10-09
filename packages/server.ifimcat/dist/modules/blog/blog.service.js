@@ -169,6 +169,17 @@ let BlogService = class BlogService {
             return this.blogRepository.findOne(id, { relations: ['author', 'topic', 'category', 'tags'] });
         });
     }
+    getBlogByKeywords(keywrods) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.blogRepository.createQueryBuilder("blog")
+                .where("blog.title LIKE :keywrods")
+                .setParameters({
+                keywrods: '%' + keywrods + '%'
+            })
+                .orderBy("blog.id", "ASC")
+                .getMany();
+        });
+    }
 };
 BlogService = __decorate([
     common_1.Injectable(),

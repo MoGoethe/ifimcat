@@ -9,6 +9,7 @@ import {
   CreateBlogResolver,
   DeleteBlogResolver,
   UpdateBlogResolver,
+  SearchBlogsResolver,
 } from './resolvers';
 
 @Module({
@@ -20,6 +21,7 @@ import {
     CreateBlogResolver,
     DeleteBlogResolver,
     UpdateBlogResolver,
+    SearchBlogsResolver,
   ],
 })
 export class BlogModule {}

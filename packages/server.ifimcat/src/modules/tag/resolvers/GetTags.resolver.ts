@@ -1,6 +1,7 @@
 import { 
   Resolver,
-  Query
+  Query,
+  Args
 } from "@nestjs/graphql";
 import { TagService } from "../tag.service";
 import { Tag } from "../entity/tag.entity";
@@ -12,5 +13,10 @@ export class GetTagsResolver {
   @Query(() => [Tag], {nullable: 'itemsAndList'})
   async getTags() {
     return this.tagService.getTags();
+  }
+
+  @Query(() => Tag)
+  async getTag(@Args('key') key: string) {
+    return this.tagService.getTagByKey(key);
   }
 }

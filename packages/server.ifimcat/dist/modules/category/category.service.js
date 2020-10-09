@@ -72,6 +72,11 @@ let CategoryService = class CategoryService {
             return this.categoryRepository.find({ where: { author: admin } });
         });
     }
+    getCategoryByKey(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.categoryRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+        });
+    }
 };
 CategoryService = __decorate([
     common_1.Injectable(),

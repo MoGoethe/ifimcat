@@ -143,10 +143,10 @@ const ListTable = props => {
   });
 
   const toggleUpdateModal = () => {
-    console.log(updateModal);
     setUpdateModal({ ...updateModal, open: !updateModal.open });
   };
   const update = () => {
+    notificaty.loading("更新中，请稍后...");
     updateData();
   };
   const [updateData] = useMutation(updateMutation, {

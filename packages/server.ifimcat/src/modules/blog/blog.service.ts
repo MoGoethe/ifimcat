@@ -143,4 +143,14 @@ export class BlogService {
   async getBlogById(id: number): Promise<Blog | undefined> {
     return this.blogRepository.findOne(id, { relations: ['author', 'topic', 'category', 'tags'] })
   }
+
+  async getBlogByKeywords(keywrods: string): Promise<Blog[] | null> {
+    return this.blogRepository.createQueryBuilder("blog")
+      .where("blog.title LIKE :keywrods")
+      .setParameters({
+        keywrods: '%' + keywrods + '%'
+      })
+      .orderBy("blog.id", "ASC")
+      .getMany();
+  }
 }

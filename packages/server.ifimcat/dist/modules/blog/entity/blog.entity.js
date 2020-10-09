@@ -43,18 +43,18 @@ __decorate([
 ], Blog.prototype, "draft", void 0);
 __decorate([
     graphql_1.Field(() => [tag_entity_1.Tag], { nullable: 'itemsAndList' }),
-    typeorm_1.ManyToMany(() => tag_entity_1.Tag),
+    typeorm_1.ManyToMany(() => tag_entity_1.Tag, { eager: true }),
     typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], Blog.prototype, "tags", void 0);
 __decorate([
     graphql_1.Field(() => category_entity_1.Category),
-    typeorm_1.ManyToOne(() => category_entity_1.Category, category => category.blogs),
+    typeorm_1.ManyToOne(() => category_entity_1.Category, category => category.blogs, { eager: true }),
     __metadata("design:type", category_entity_1.Category)
 ], Blog.prototype, "category", void 0);
 __decorate([
     graphql_1.Field(() => topic_entity_1.Topic, { nullable: true }),
-    typeorm_1.ManyToOne(() => topic_entity_1.Topic, topic => topic.blogs),
+    typeorm_1.ManyToOne(() => topic_entity_1.Topic, topic => topic.blogs, { eager: true }),
     __metadata("design:type", Object)
 ], Blog.prototype, "topic", void 0);
 __decorate([
@@ -69,7 +69,7 @@ __decorate([
 ], Blog.prototype, "awesome", void 0);
 __decorate([
     graphql_1.Field(() => user_entity_1.User),
-    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.blogs),
+    typeorm_1.ManyToOne(() => user_entity_1.User, user => user.blogs, { eager: true }),
     __metadata("design:type", user_entity_1.User)
 ], Blog.prototype, "author", void 0);
 __decorate([

@@ -17,7 +17,6 @@ export class CreateBlogResolver {
     @Args('data') createBlogInput: CreateBlogInput,
     @Context() context: GraphQLContext
   ) {
-    console.log(context.req.currentUser)
     return this.blogService.createBlog(context.req.currentUser!, createBlogInput);
   }
 }

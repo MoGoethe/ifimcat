@@ -11,7 +11,7 @@ export function ClassifyScreen(props) {
   return (
     <div className="if-classifyScreen" {...rest}>
       <div className="if-classifyScreen-left">
-        <img src={`/assets/graphql-icon.svg`} className="if-classifyScreen__icon" alt={data.name}/>
+        <img src={`/assets/logos/${(data.name || '').toLowerCase()}-rect.svg`} className="if-classifyScreen__icon" alt={data.name}/>
       </div>
       <div className="if-classifyScreen-right">
         <h3 className="if-classifyScreen__title">{data.name}</h3>

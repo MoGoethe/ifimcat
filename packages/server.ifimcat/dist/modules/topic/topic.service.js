@@ -63,6 +63,11 @@ let TopicService = class TopicService {
             return this.topicRepository.remove(topic);
         });
     }
+    getTopicByKey(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.topicRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+        });
+    }
 };
 TopicService = __decorate([
     common_1.Injectable(),

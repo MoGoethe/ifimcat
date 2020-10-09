@@ -40,16 +40,16 @@ export class Blog extends AbstractEntity{
   draft: string;
 
   @Field(() => [Tag], {nullable: 'itemsAndList'})
-  @ManyToMany(() => Tag)
+  @ManyToMany(() => Tag, { eager: true })
   @JoinTable()
   tags: Tag[];
 
   @Field(() => Category)
-  @ManyToOne(() => Category, category => category.blogs)
+  @ManyToOne(() => Category, category => category.blogs, { eager: true })
   category: Category;
 
   @Field(() => Topic, {nullable: true})
-  @ManyToOne(() => Topic, topic => topic.blogs)
+  @ManyToOne(() => Topic, topic => topic.blogs, { eager: true })
   topic: Topic | null;
 
   @Column({default: 0})
@@ -61,7 +61,7 @@ export class Blog extends AbstractEntity{
   awesome: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.blogs)
+  @ManyToOne(() => User, user => user.blogs, { eager: true })
   author: User;
 
   @Column({default: true})

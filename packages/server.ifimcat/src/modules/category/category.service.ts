@@ -51,4 +51,7 @@ export class CategoryService {
     return this.categoryRepository.find({where: {author: admin}})
   }
 
+  async getCategoryByKey(key: string): Promise<Category | undefined> {
+    return this.categoryRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+  }
 }

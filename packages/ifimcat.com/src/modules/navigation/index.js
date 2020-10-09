@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import classNames from "classnames";
+import { useQuery } from '@apollo/react-hooks';
+import { Q_NAVIGATION } from "../../queries";
 import "./index.scss";
-import {
-  categories
-} from "../../mock";
+// import {
+//   categories
+// } from "../../mock";
 
 export function Navigation(props) {
 
@@ -13,6 +15,7 @@ export function Navigation(props) {
     ...rest
   } = props;
   const cls = classNames("if-navigation", className);
+  const { data = {} } = useQuery(Q_NAVIGATION);
 
   const [keywords, setKeywords] = useState("");
   const history = useHistory();
@@ -32,7 +35,7 @@ export function Navigation(props) {
         <a className="if-navigation__logo" href="/">Ifimcat.com</a>
         <div className="if-navigation-nav">
           {
-            categories.map((category, index) => (
+            data.getCategories && data.getCategories.map((category, index) => (
               <a href={`/category/${category.key}`} key={`category--${index}`} className="if-navigation-item">{category.name}</a>
             ))
           }

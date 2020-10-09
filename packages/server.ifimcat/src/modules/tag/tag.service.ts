@@ -43,4 +43,7 @@ export class TagService {
     return this.tagRepository.remove(tag)
   }
 
+  async getTagByKey(key: string): Promise<Tag | undefined> {
+    return this.tagRepository.findOne({ where: { key }, relations: ['blogs', 'author'] });
+  }
 }

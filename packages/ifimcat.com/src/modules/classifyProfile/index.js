@@ -13,8 +13,7 @@ export function ClassifyProfile(props) {
   return (
     <div {...rest} className="if-classifyProfile">
       <div className="if-classifyProfile-info">
-        <img src="https://dummyimage.com/240x240/CCC/aaa" className="if-classifyProfile-info__img" alt={data.name} />
-        {/* <img src={`/assets/picture/${data.id % PICTURECOUNT}`} className="if-classifyProfile-info__img" alt={article.title} /> */}
+        <img src={`/assets/logos/${(data.name || '').toLowerCase()}.svg`} className="if-classifyProfile-info__img" alt={data.nam} />
         <div className="if-classifyProfile-info__name">{data.name}</div>
       </div>
       <div className="if-classifyProfile-text p-b-4n">{data.subname}</div>

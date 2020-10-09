@@ -14,4 +14,5 @@ __exportStar(require("./CreateBlog.resolver"), exports);
 __exportStar(require("./GetBlogs.resolver"), exports);
 __exportStar(require("./DeleteBlog.resolver"), exports);
 __exportStar(require("./UpdateBlog.resolver"), exports);
+__exportStar(require("./SearchBlog.resolver"), exports);
 //# sourceMappingURL=index.js.map
