@@ -39,7 +39,9 @@ const config_1 = __importDefault(require("../../config"));
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
-        this.__initSuperAdmin();
+        setTimeout(() => {
+            this.__initSuperAdmin();
+        }, 3000);
     }
     hello() {
         return 'world';

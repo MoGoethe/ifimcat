@@ -22,7 +22,9 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>
   ){
-    this.__initSuperAdmin()
+    setTimeout(() => {
+      this.__initSuperAdmin()
+    }, 3000);
   }
 
   hello(): string {
