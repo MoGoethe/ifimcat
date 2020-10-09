@@ -1,4 +1,5 @@
 import React from "react";
+import { ListEmpty } from "../../components/listEmpty";
 import { PICTURECOUNT } from "../../config";
 import "./index.scss";
 
@@ -8,6 +9,13 @@ export function ClassifyList(props) {
     data = [],
     ...rest
   } = props;
+
+  if (!data.length) {
+    return <ListEmpty
+      title="List Empty"      
+      description="Sorry, but nothing matched your search terms. Please try again with some different keywords."
+    />
+  }
 
   return (
     <div {...rest} className="if-classifyList">

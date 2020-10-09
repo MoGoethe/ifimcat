@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { useHistory } from 'react-router-dom';
+import { ListEmpty } from "../../components/listEmpty";
 import { Container } from "../../components/container";
 import {
   Row,
@@ -7,15 +8,25 @@ import {
 } from "../../components/grid";
 import { FullButton } from "../../components/fullButton";
 import { ArticleProfile } from "../articleList";
+import { LoadingBar } from "../../components/loading";
+import { useQuery } from '@apollo/react-hooks';
+import { Q_SEARCH } from "../../queries";
 import "./index.scss";
-import {
-  articles
-} from "../../mock";
 
 export function SearchResult(props) {
   const history = useHistory();
   const keywords = history.location.search.split("?keywords=")[1]
   const { rowProps } = props;
+
+  const { data = {}, loading } = useQuery(Q_SEARCH, {
+    variables: { keywords }
+  });
+
+  console.log(data.getBlogByKeywords)
+
+  if (loading) {
+    return <LoadingBar />
+  }
 
   return (
     <Fragment>
@@ -24,7 +35,13 @@ export function SearchResult(props) {
           <div className="if-searchResult__keywords m-b-4n">Search results for: <span>{keywords}</span></div>
           <Row {...rowProps}>
             {
-              articles.map((article, index) => (
+              !data?.getBlogByKeywords.length && <ListEmpty
+                title="Nothing found"
+                description="Sorry, but nothing matched your search terms. Please try again with some different keywords."
+              />
+            }
+            {
+              data?.getBlogByKeywords.map((article, index) => (
                 <Col colSpan={8} key={`if-searchResult--${index}`}>
                   <ArticleProfile data={article} />
                 </Col>
