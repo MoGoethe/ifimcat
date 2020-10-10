@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import bcrypt from 'bcryptjs';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { RegisterInput } from './input/register.input';
@@ -38,7 +38,7 @@ export class UserService {
     return user;
   }
 
-  async login(loginInput: LoginInput, req: Request): Promise<User> {
+  async login(loginInput: LoginInput, req: Request, _res: Response): Promise<User> {
     const { email, password } = loginInput;
     const user = await User.findOne({ where: { email: email } });
     if (!user) {
@@ -51,7 +51,8 @@ export class UserService {
     if (!valid) {
       throw new UnauthorizedException('密码错误');
     }
-    req.session!.userId = user.id
+    req.session!.userId = user.id;
+    // res.cookie('cid', user.id);
     return user
   }
 

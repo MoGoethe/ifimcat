@@ -32,15 +32,7 @@ exports.default = {
         level: process.env.LOGGING_LEVEL || "debug"
     },
     cors: {
-        origin: [
-            "http://localhost:8007",
-            "http://localhost:8009",
-            "http://admin.ifimcat.com",
-            "https://admin.ifimcat.com",
-            "http://ifimcat.com",
-            "https://ifimcat.com",
-        ],
-        methods: ["POST", "GET", "PUT", "DELETE", "HEAD", "PATCH"],
+        origin: true,
         credentials: true
     },
     admin: {

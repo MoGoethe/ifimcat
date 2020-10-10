@@ -32,7 +32,7 @@ let LoginResolver = class LoginResolver {
     }
     login(loginData, ctx) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.userService.login(loginData, ctx.req);
+            return this.userService.login(loginData, ctx.req, ctx.res);
         });
     }
 };

@@ -54,7 +54,7 @@ let UserService = class UserService {
             return user;
         });
     }
-    login(loginInput, req) {
+    login(loginInput, req, _res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = loginInput;
             const user = yield user_entity_1.User.findOne({ where: { email: email } });

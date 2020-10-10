@@ -18,6 +18,6 @@ export class LoginResolver{
     @Args('data') loginData: LoginInput,
     @Context() ctx: GraphQLContext,
   ) {
-    return this.userService.login(loginData, ctx.req);
+    return this.userService.login(loginData, ctx.req, ctx.res);
   }
 }
