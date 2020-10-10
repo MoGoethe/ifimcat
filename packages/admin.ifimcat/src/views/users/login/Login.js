@@ -49,7 +49,7 @@ const Login = (props) => {
     },
     onError({ graphQLErrors }) {
       notificaty.destoryAll();
-      if (graphQLErrors[0].message) {
+      if (graphQLErrors[0]?.message) {
         setModal({ show: true, info: graphQLErrors[0].message });
         return
       }

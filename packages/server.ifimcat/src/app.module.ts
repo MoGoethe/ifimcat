@@ -13,7 +13,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { typeOrmConfig } from './config/typeorm';
 import { UserModule } from './modules/user/user.module';
-import config, { isProductionEnvironment } from './config';
+import config from './config';
 import { redis } from './redis';
 import { TopicModule } from './modules/topic/topic.module';
 import { BlogModule } from './modules/blog/blog.module';
@@ -42,7 +42,7 @@ const RedisStore = connectRedis(session);
         saveUninitialized: false,
         cookie: {
           httpOnly: true,
-          secure: isProductionEnvironment,
+          secure: false,
           maxAge: 1000 * 60 * 60 * 24,
         },
       }
