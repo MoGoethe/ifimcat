@@ -48,6 +48,7 @@ const RedisStore = connectRedis(session);
       }
     }),
     GraphQLModule.forRoot({
+      path: "/api/graphql",
       autoSchemaFile: 'schema.gql',
       context: ({ req, res }) => ({ req, res }),
       uploads: {

@@ -22,8 +22,6 @@ export function SearchResult(props) {
     variables: { keywords }
   });
 
-  console.log(data.getBlogByKeywords)
-
   if (loading) {
     return <LoadingBar />
   }

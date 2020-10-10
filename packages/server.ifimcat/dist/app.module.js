@@ -77,6 +77,7 @@ AppModule = __decorate([
                 }
             }),
             graphql_1.GraphQLModule.forRoot({
+                path: "/api/graphql",
                 autoSchemaFile: 'schema.gql',
                 context: ({ req, res }) => ({ req, res }),
                 uploads: {
