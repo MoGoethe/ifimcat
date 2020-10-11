@@ -22,6 +22,7 @@ export const Q_HOME = gql`
       key
       title
       tags{
+        key
         name
       }
     }
@@ -32,6 +33,15 @@ export const Q_HOME = gql`
     getTopics {
       key
       name
+    }
+    getCategories {
+      key
+      name
+      blogs {
+        id
+        key
+        title
+      }
     }
   }
 `;
@@ -162,7 +172,7 @@ export const Q_GETBLOGBYKEY = gql `
   }
 `;
 
-// 搜索
+// 关键字搜索
 export const Q_SEARCH = gql`
   query($keywords: String!) {
     getBlogByKeywords(keywords: $keywords){
@@ -177,3 +187,51 @@ export const Q_SEARCH = gql`
     }
   }
 `;
+
+// 浏览次数 + 1
+export const M_CATEGORY = gql`
+  mutation($data: UpdateCategoryInput!) {
+    updateCategory(data: $data) {
+      id
+      name
+      slogan
+      description
+      glance
+    }
+  }
+`;
+export const M_TAG = gql`
+  mutation($data: UpdateTagInput!) {
+    updateTag(data: $data) {
+      id
+      name
+      slogan
+      description
+      glance
+    }
+  }
+`;
+export const M_TOPIC = gql`
+  mutation($data: UpdateTopicInput!) {
+    updateTopic(data: $data) {
+      id
+      name
+      slogan
+      description
+      glance
+    }
+  }
+`;
+
+export const M_ARTICLE = gql`
+  mutation($data: UpdateBlogInput!) {
+    updateBlog(data: $data) {
+      id
+      awesome
+      glance
+    }
+  }
+`;
+
+
+

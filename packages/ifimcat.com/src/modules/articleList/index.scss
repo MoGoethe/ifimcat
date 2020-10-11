@@ -1,34 +1,38 @@
 @import "../../styles/base";
-
-.if-articleList{
-  
-}
-
 .if-articleProfile{
   display: block;
   &-img{
     width: 100%;
+    overflow: hidden;
+    display: block;
     img{
       display: block;
       width: 100%;
       box-sizing: border-box;
-      border: 1px solid #f3f3f3;
+      cursor: pointer;
+      transition: all .45s;
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
   &__title{
     line-height: 1.5;
     font-size: 24px;
     color: $main;
+    span,
     a{
       color: inherit;
       transition: color .25s;
+      cursor: pointer;
       &:hover {
         color: $pink;
       }
     }
   }
   &-tags{
-    line-height: 28px;
+    line-height: 40px;
+    cursor: pointer;
   }
   &-tag{
     display: inline-block;
@@ -37,6 +41,7 @@
     position: relative;
     font-size: 14px;
     transition: color .25s;
+    cursor: pointer;
     &:hover {
       color: $pink;
     }

@@ -32,11 +32,15 @@ export function Navigation(props) {
   return (
     <div className={cls} {...rest}>
       <div className="if-navigation--left">
-        <a className="if-navigation__logo" href="/">Ifimcat.com</a>
+        <span className="if-navigation__logo" onClick={() => history.push(`/`)}>Ifimcat.com</span>
         <div className="if-navigation-nav">
           {
             data.getCategories && data.getCategories.map((category, index) => (
-              <a href={`/category/${category.key}`} key={`category--${index}`} className="if-navigation-item">{category.name}</a>
+              <a
+                key={`category--${index}`}
+                className="if-navigation-item"
+                href={`/category/${category.key}`}
+              >{category.name}</a>
             ))
           }
         </div>

@@ -2,21 +2,20 @@
 
 .if-classifyProfile {
   &-info{
-    display: flex;
-    overflow: hidden;
     margin-bottom: 8px;
-    &__name{
+    &__solgan{
       flex: 1;
       @include nowrap();
-      font-size: 20px;
-      color: $weakMain;
+      font-size: 16px;
+      color: $main;
       line-height: 40px;
-      margin-left: 20px;
+      margin-top: 8px;
     }
     &__img{
       display: block;
-      width: 40px;
-      height: 40px;
+      width: auto;
+      height: 80px;
+      background-color: #f9f9f9;
     }
   }
   &-text{

@@ -16,4 +16,4 @@ export const BANNERBGCOLOR = [
   "#21bf73"
 ];
 
-export const PICTURECOUNT = 20;
+export const PICTURECOUNT = 50;

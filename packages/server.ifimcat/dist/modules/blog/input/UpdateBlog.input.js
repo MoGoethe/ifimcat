@@ -20,24 +20,18 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateBlogInput.prototype, "id", void 0);
 __decorate([
-    class_validator_1.MinLength(2),
-    class_validator_1.MaxLength(48),
     graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateBlogInput.prototype, "title", void 0);
 __decorate([
-    class_validator_1.MinLength(8),
-    class_validator_1.MaxLength(256),
     graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateBlogInput.prototype, "description", void 0);
 __decorate([
-    class_validator_1.MinLength(64),
     graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateBlogInput.prototype, "body", void 0);
 __decorate([
-    class_validator_1.MinLength(64),
     graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateBlogInput.prototype, "draft", void 0);
@@ -54,12 +48,10 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateBlogInput.prototype, "topic", void 0);
 __decorate([
-    class_validator_1.Min(0),
     graphql_1.Field(() => graphql_1.Int, { nullable: true }),
     __metadata("design:type", Number)
 ], UpdateBlogInput.prototype, "glance", void 0);
 __decorate([
-    class_validator_1.Min(0),
     graphql_1.Field(() => graphql_1.Int, { nullable: true }),
     __metadata("design:type", Number)
 ], UpdateBlogInput.prototype, "awesome", void 0);

@@ -14,11 +14,11 @@ import * as serviceWorker from './serviceWorker'
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    console.log(graphQLErrors)
+    window.location.href = '/500';
   }
   if (networkError) {
     console.log(networkError)
-    // window.location.href = '/500';
+    window.location.href = '/500';
   }
 });
 

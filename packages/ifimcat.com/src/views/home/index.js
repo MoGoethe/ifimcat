@@ -15,13 +15,9 @@ import { TagList } from "../../modules/tagList";
 import { TopicList } from "../../modules/topicList";
 import { useQuery } from '@apollo/react-hooks';
 import { Q_HOME } from "../../queries";
-import {
-  carouselData,
-} from "../../mock";
 
 function Home() {
   const { data={}, loading } = useQuery(Q_HOME);
-
   return (
     <Fragment>
       {loading && <LoadingBar />}
@@ -46,7 +42,7 @@ function Home() {
         </Row>
       </Container>
       <Container fullScreen={true}>
-        <Banner data={carouselData} height={440} action={true} dots={true} dealy={8000} />
+        <Banner data={data.getCategories} height={440} action={true} dots={true} dealy={8000} />
       </Container>
       <Container>
         <Footer />

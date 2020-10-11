@@ -13,12 +13,13 @@ export function ClassifyScreen(props) {
   if (regexp.test(data.name)) {
     name = pinyin(data.name, {
       style: pinyin.STYLE_NORMAL
-    }).join('').toLocaleLowerCase();
+    }).join('');
   }
+  name = name.toLocaleLowerCase();
   return (
     <div className="if-classifyScreen" {...rest}>
       <div className="if-classifyScreen-left">
-        <img src={`/assets/logos/${name}-rect.svg`} className="if-classifyScreen__icon" alt={data.name}/>
+        <img src={`/assets/logos/${name}.svg`} className="if-classifyScreen__icon" alt={data.name}/>
       </div>
       <div className="if-classifyScreen-right">
         <h3 className="if-classifyScreen__title">{data.name}</h3>

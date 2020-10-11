@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import classnames from "classnames";
 import {
   Row,
@@ -14,24 +15,30 @@ export function ArticleProfile(props) {
   const {
     data
   } = props;
+  const history = useHistory();
   if (!data) {
     return null
   }
   return (
     <div className="if-articleProfile">
-      <div className="if-articleProfile-img">
+      <a className="if-articleProfile-img" href={`/article/${data.key}`}>
         <img src={`/assets/illustrations/illu-${data.id % PICTURECOUNT}.jpg`} alt="" />
-      </div>
+      </a>
       <div className="if-articleProfile-tags">
         {
           (data.tags || []).map((tag, index) => (
-            <a href={`/tag/${tag.key}`} className="if-articleProfile-tag" key={`if-articleProfile-tag--${index}`}>
+            <span
+              onClick={() => history.push(`/tag/${tag.key}`)}
+              className="if-articleProfile-tag"
+              key={`if-articleProfile-tag--${index}`}>
               {tag.name}
-            </a>
+            </span>
           ))
         }
       </div>
-      <h3 className="if-articleProfile__title"><a href={`/article/${data.key}`}>{data.title}</a></h3>
+      <h3 className="if-articleProfile__title">
+        <a href={`/article/${data.key}`}>{data.title}</a>
+      </h3>
     </div>
   )
 }

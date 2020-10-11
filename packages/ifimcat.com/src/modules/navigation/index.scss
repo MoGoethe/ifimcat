@@ -25,6 +25,7 @@
     font-size: 28px;
     color: $main;
     font-family: "Brush Script Std";
+    cursor: pointer;
   }
   &-nav{
     display: block;
@@ -38,6 +39,7 @@
     text-decoration: none;
     font-size: 17px;
     position: relative;
+    cursor: pointer;
     letter-spacing: 1.4px;
     & + .if-navigation-item{
       margin-left: 24px;
@@ -84,7 +86,7 @@
       height: 40px;
       border: none;
       outline: none;
-      background-color: $weakMain;
+      background-color: $main;
       transition: background-color .25s;
       cursor: pointer;
       &:before,

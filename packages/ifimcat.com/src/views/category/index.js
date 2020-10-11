@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Container } from "../../components/container";
 import {
@@ -12,15 +12,32 @@ import { ClassifyList } from "../../modules/classifyList";
 import { ClassifyProfile } from "../../modules/classifyProfile";
 import { Footer } from "../../modules/footer";
 import { LoadingBar } from "../../components/loading";
-import { useQuery } from '@apollo/react-hooks';
-import { Q_CATEGORY } from "../../queries";
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { Q_CATEGORY, M_CATEGORY } from "../../queries";
 
 function CategoryPage() {
   const params = useParams();
   const { data = {}, loading } = useQuery(Q_CATEGORY, {
     variables: { key: params.key}
   });
-  
+
+  const [updateData] = useMutation(M_CATEGORY, {
+    variables: {
+      data: {
+        id: data.getCategory?.id,
+        glance: data.getCategory?.glance + 1,
+      }
+    }
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(updateData, 5000);
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [updateData])
+
+
   if (loading) {
     return <LoadingBar />
   }
