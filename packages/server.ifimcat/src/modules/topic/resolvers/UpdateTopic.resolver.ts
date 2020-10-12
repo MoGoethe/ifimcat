@@ -5,6 +5,7 @@ import { GQLAuthGuard } from "../../../auth/auth.guard";
 import { UseGuards } from "@nestjs/common";
 import { UserRoleType } from "../../../constants/userRoles.constants";
 import { UpdateTopicInput } from '../input/updateTopic.input';
+import { NAUpdateTopicInput } from "../input/naUpdateTopic.input";
 
 @Resolver()
 export class UpdateTopicResolver {
@@ -16,5 +17,12 @@ export class UpdateTopicResolver {
     @Args('data') updateTopicInput: UpdateTopicInput,
   ) {
     return this.topicService.updateTopic(updateTopicInput);
+  } 
+
+  @Mutation(() => Topic)
+  async naUpdateTopic(
+    @Args('data') naUpdateTopicInput: NAUpdateTopicInput,
+  ) {
+    return this.topicService.updateTopic(naUpdateTopicInput);
   }
 }

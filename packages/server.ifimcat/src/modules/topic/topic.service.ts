@@ -5,6 +5,7 @@ import { Topic } from "./entity/topic.entity";
 import { CreateTopicInput } from "./input/createTopic.input";
 import { UpdateTopicInput } from "./input/updateTopic.input";
 import { User } from "../user/entity/user.entity";
+import { NAUpdateTopicInput } from "./input/naUpdateTopic.input";
 
 @Injectable()
 export class TopicService {
@@ -25,7 +26,7 @@ export class TopicService {
     return this.topicRepository.create({...createTopicInput, author}).save();
   }
 
-  async updateTopic(updateTopicInput: UpdateTopicInput): Promise<Topic|undefined> {
+  async updateTopic(updateTopicInput: UpdateTopicInput | NAUpdateTopicInput): Promise<Topic|undefined> {
     const topic = await this.topicRepository.findOne(updateTopicInput.id);
     if (!topic) {
       throw new NotFoundException("修改失败，内容不存在");

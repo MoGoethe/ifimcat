@@ -28,7 +28,8 @@ const blog_service_1 = require("../blog.service");
 const common_1 = require("@nestjs/common");
 const auth_guard_1 = require("../../../auth/auth.guard");
 const userRoles_constants_1 = require("../../../constants/userRoles.constants");
-const UpdateBlog_input_1 = require("../input/UpdateBlog.input");
+const updateBlog_input_1 = require("../input/updateBlog.input");
+const naUpdateBlog_input_1 = require("../input/naUpdateBlog.input");
 let UpdateBlogResolver = class UpdateBlogResolver {
     constructor(blogService) {
         this.blogService = blogService;
@@ -38,6 +39,11 @@ let UpdateBlogResolver = class UpdateBlogResolver {
             return this.blogService.updateBlog(context.req.currentUser, updateBlogInput);
         });
     }
+    naUpdateBlog(naUpdateBlogInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.blogService.naUpdateBlog(naUpdateBlogInput);
+        });
+    }
 };
 __decorate([
     common_1.UseGuards(new auth_guard_1.GQLAuthGuard(userRoles_constants_1.UserRoleType.EDITOR)),
@@ -45,9 +51,16 @@ __decorate([
     __param(0, graphql_1.Context()),
     __param(1, graphql_1.Args('data')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, UpdateBlog_input_1.UpdateBlogInput]),
+    __metadata("design:paramtypes", [Object, updateBlog_input_1.UpdateBlogInput]),
     __metadata("design:returntype", Promise)
 ], UpdateBlogResolver.prototype, "updateBlog", null);
+__decorate([
+    graphql_1.Mutation(() => blog_entity_1.Blog, { nullable: true }),
+    __param(0, graphql_1.Args('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [naUpdateBlog_input_1.NAUpdateBlogInput]),
+    __metadata("design:returntype", Promise)
+], UpdateBlogResolver.prototype, "naUpdateBlog", null);
 UpdateBlogResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [blog_service_1.BlogService])

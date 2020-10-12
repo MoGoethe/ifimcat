@@ -5,6 +5,7 @@ import { GQLAuthGuard } from "../../../auth/auth.guard";
 import { UseGuards } from "@nestjs/common";
 import { UserRoleType } from "../../../constants/userRoles.constants";
 import { UpdateCategoryInput } from "../input/updateCategory.input";
+import { NAUpdateCategoryInput } from "../input/naUpdateCategory.input";
 
 @Resolver()
 export class UpdateCategoryResolver {
@@ -16,5 +17,12 @@ export class UpdateCategoryResolver {
     @Args('data') updateCategoryInput: UpdateCategoryInput,
   ) {
     return this.categoryService.updateCategory(updateCategoryInput);
+  }
+
+  @Mutation(() => Category)
+  async naUpdateCategory(
+    @Args('data') naUpdateCategoryInput: NAUpdateCategoryInput,
+  ) {
+    return this.categoryService.updateCategory(naUpdateCategoryInput);
   }
 }

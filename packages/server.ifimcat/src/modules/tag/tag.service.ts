@@ -5,6 +5,7 @@ import { Tag } from "./entity/tag.entity";
 import { CreateTagInput } from "./input/createTag.input";
 import { UpdateTagInput } from "./input/updateTag.input";
 import { User } from "../user/entity/user.entity";
+import { NAUpdateTagInput } from "./input/naUpdateTag.input";
 
 @Injectable()
 export class TagService {
@@ -25,7 +26,7 @@ export class TagService {
     return this.tagRepository.create({...createTagInput, author}).save();
   }
 
-  async updateTag(updateTagInput: UpdateTagInput): Promise<Tag | undefined> {
+  async updateTag(updateTagInput: UpdateTagInput | NAUpdateTagInput): Promise<Tag | undefined> {
     const tag = await this.tagRepository.findOne(updateTagInput.id);
     if (!tag) {
       throw new NotFoundException("修改失败，内容不存在");

@@ -85,18 +85,43 @@ type Mutation {
   forgotPassword(email: String!): Boolean!
   updateUser(data: UpdateUserInput!): User
   updateTopic(data: UpdateTopicInput!): Topic!
+  naUpdateTopic(data: NAUpdateTopicInput!): Topic!
   deleteTopic(id: Float!): Topic!
   createTopic(data: CreateTopicInput!): Topic!
   createBlog(data: CreateBlogInput!): Blog!
   deleteBlog(id: Float!): Blog!
   updateBlog(data: UpdateBlogInput!): Blog
+  naUpdateBlog(data: NAUpdateBlogInput!): Blog
   updateCategory(data: UpdateCategoryInput!): Category!
+  naUpdateCategory(data: NAUpdateCategoryInput!): Category!
   deleteCategory(id: Float!): Category!
   createCategory(data: CreateCategoryInput!): Category!
   updateTag(data: UpdateTagInput!): Tag!
+  naUpdateTag(data: NAUpdateTagInput!): Tag!
   deleteTag(id: Float!): Tag!
   createTag(data: CreateTagInput!): Tag!
   fileUpload(file: Upload!): String!
+}
+
+input NAUpdateBlogInput {
+  id: Int!
+  glance: Int
+  awesome: Int
+}
+
+input NAUpdateCategoryInput {
+  id: Float!
+  glance: Float
+}
+
+input NAUpdateTagInput {
+  id: Float!
+  glance: Float
+}
+
+input NAUpdateTopicInput {
+  id: Float!
+  glance: Float
 }
 
 type Query {

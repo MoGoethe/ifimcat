@@ -147,6 +147,21 @@ let BlogService = class BlogService {
             return this.blogRepository.findOne({ id: updateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags'] });
         });
     }
+    naUpdateBlog(naUpdateBlogInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const blog = yield this.blogRepository.findOne(naUpdateBlogInput.id, { relations: ['tags', 'topic', 'category'] });
+            if (!blog) {
+                throw new common_1.NotFoundException("该内容不存在");
+            }
+            const { glance, awesome } = naUpdateBlogInput;
+            if (glance)
+                blog.glance = glance;
+            if (awesome)
+                blog.awesome = awesome;
+            yield this.blogRepository.save(blog);
+            return this.blogRepository.findOne({ id: naUpdateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags'] });
+        });
+    }
     getAdminBlogs(admin) {
         return __awaiter(this, void 0, void 0, function* () {
             if (admin.roles.includes(userRoles_constants_1.UserRoleType.ADMIN)) {

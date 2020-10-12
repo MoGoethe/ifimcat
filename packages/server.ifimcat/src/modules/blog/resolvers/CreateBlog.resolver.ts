@@ -4,7 +4,7 @@ import { BlogService } from "../blog.service";
 import { UseGuards } from "@nestjs/common";
 import { GQLAuthGuard } from "../../../auth/auth.guard";
 import { UserRoleType } from "../../../constants/userRoles.constants";
-import { CreateBlogInput } from "../input/CreateBlog.input";
+import { CreateBlogInput } from "../input/createBlog.input";
 import { GraphQLContext } from "../../../shared/context";
 
 @Resolver()

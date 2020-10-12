@@ -29,6 +29,7 @@ const auth_guard_1 = require("../../../auth/auth.guard");
 const common_1 = require("@nestjs/common");
 const userRoles_constants_1 = require("../../../constants/userRoles.constants");
 const updateCategory_input_1 = require("../input/updateCategory.input");
+const naUpdateCategory_input_1 = require("../input/naUpdateCategory.input");
 let UpdateCategoryResolver = class UpdateCategoryResolver {
     constructor(categoryService) {
         this.categoryService = categoryService;
@@ -36,6 +37,11 @@ let UpdateCategoryResolver = class UpdateCategoryResolver {
     updateCategory(updateCategoryInput) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.categoryService.updateCategory(updateCategoryInput);
+        });
+    }
+    naUpdateCategory(naUpdateCategoryInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.categoryService.updateCategory(naUpdateCategoryInput);
         });
     }
 };
@@ -47,6 +53,13 @@ __decorate([
     __metadata("design:paramtypes", [updateCategory_input_1.UpdateCategoryInput]),
     __metadata("design:returntype", Promise)
 ], UpdateCategoryResolver.prototype, "updateCategory", null);
+__decorate([
+    graphql_1.Mutation(() => category_entity_1.Category),
+    __param(0, graphql_1.Args('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [naUpdateCategory_input_1.NAUpdateCategoryInput]),
+    __metadata("design:returntype", Promise)
+], UpdateCategoryResolver.prototype, "naUpdateCategory", null);
 UpdateCategoryResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [category_service_1.CategoryService])

@@ -6,6 +6,7 @@ import { CreateCategoryInput } from "./input/createCategory.input";
 import { UpdateCategoryInput } from "./input/updateCategory.input";
 import { User } from "../user/entity/user.entity";
 import { UserRoleType } from "../../constants/userRoles.constants";
+import { NAUpdateCategoryInput } from "./input/naUpdateCategory.input";
 
 @Injectable()
 export class CategoryService {
@@ -26,7 +27,7 @@ export class CategoryService {
     return this.categoryRepository.create({...createCategorynput, author}).save();
   }
 
-  async updateCategory(updateCategoryInput: UpdateCategoryInput): Promise<Category | undefined> {
+  async updateCategory(updateCategoryInput: UpdateCategoryInput | NAUpdateCategoryInput): Promise<Category | undefined> {
     const category = await this.categoryRepository.findOne(updateCategoryInput.id);
     if (!category) {
       throw new NotFoundException("修改失败，内容不存在");

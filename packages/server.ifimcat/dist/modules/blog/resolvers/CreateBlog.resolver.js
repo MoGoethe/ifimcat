@@ -28,7 +28,7 @@ const blog_service_1 = require("../blog.service");
 const common_1 = require("@nestjs/common");
 const auth_guard_1 = require("../../../auth/auth.guard");
 const userRoles_constants_1 = require("../../../constants/userRoles.constants");
-const CreateBlog_input_1 = require("../input/CreateBlog.input");
+const createBlog_input_1 = require("../input/createBlog.input");
 let CreateBlogResolver = class CreateBlogResolver {
     constructor(blogService) {
         this.blogService = blogService;
@@ -45,7 +45,7 @@ __decorate([
     __param(0, graphql_1.Args('data')),
     __param(1, graphql_1.Context()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateBlog_input_1.CreateBlogInput, Object]),
+    __metadata("design:paramtypes", [createBlog_input_1.CreateBlogInput, Object]),
     __metadata("design:returntype", Promise)
 ], CreateBlogResolver.prototype, "createBlog", null);
 CreateBlogResolver = __decorate([

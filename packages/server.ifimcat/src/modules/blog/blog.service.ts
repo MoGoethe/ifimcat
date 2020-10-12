@@ -2,13 +2,14 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Blog } from "./entity/blog.entity";
 import { Repository } from "typeorm";
-import { CreateBlogInput } from "./input/CreateBlog.input";
+import { CreateBlogInput } from "./input/createBlog.input";
 import { User } from "../user/entity/user.entity";
-import { UpdateBlogInput } from "./input/UpdateBlog.input";
+import { UpdateBlogInput } from "./input/updateBlog.input";
 import { Tag } from "../tag/entity/tag.entity";
 import { Topic } from "../topic/entity/topic.entity";
 import { Category } from "../category/entity/category.entity";
 import { UserRoleType } from "../../constants/userRoles.constants";
+import { NAUpdateBlogInput } from "./input/naUpdateBlog.input";
 
 @Injectable()
 export class BlogService {
@@ -123,6 +124,18 @@ export class BlogService {
     await this.blogRepository.save(blog)
 
     return this.blogRepository.findOne({ id: updateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags']});
+  }
+
+  async naUpdateBlog(naUpdateBlogInput: NAUpdateBlogInput): Promise<Blog | undefined> {
+    const blog = await this.blogRepository.findOne(naUpdateBlogInput.id, { relations: ['tags', 'topic', 'category'] });
+    if (!blog) {
+      throw new NotFoundException("该内容不存在");
+    }
+    const { glance, awesome } = naUpdateBlogInput;
+    if (glance) blog.glance = glance;
+    if (awesome) blog.awesome = awesome;
+    await this.blogRepository.save(blog);
+    return this.blogRepository.findOne({ id: naUpdateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags'] });
   }
 
   async getAdminBlogs(admin: User): Promise<Blog[]> {

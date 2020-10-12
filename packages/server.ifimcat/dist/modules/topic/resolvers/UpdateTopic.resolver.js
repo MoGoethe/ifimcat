@@ -29,6 +29,7 @@ const auth_guard_1 = require("../../../auth/auth.guard");
 const common_1 = require("@nestjs/common");
 const userRoles_constants_1 = require("../../../constants/userRoles.constants");
 const updateTopic_input_1 = require("../input/updateTopic.input");
+const naUpdateTopic_input_1 = require("../input/naUpdateTopic.input");
 let UpdateTopicResolver = class UpdateTopicResolver {
     constructor(topicService) {
         this.topicService = topicService;
@@ -36,6 +37,11 @@ let UpdateTopicResolver = class UpdateTopicResolver {
     updateTopic(updateTopicInput) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.topicService.updateTopic(updateTopicInput);
+        });
+    }
+    naUpdateTopic(naUpdateTopicInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.topicService.updateTopic(naUpdateTopicInput);
         });
     }
 };
@@ -47,6 +53,13 @@ __decorate([
     __metadata("design:paramtypes", [updateTopic_input_1.UpdateTopicInput]),
     __metadata("design:returntype", Promise)
 ], UpdateTopicResolver.prototype, "updateTopic", null);
+__decorate([
+    graphql_1.Mutation(() => topic_entity_1.Topic),
+    __param(0, graphql_1.Args('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [naUpdateTopic_input_1.NAUpdateTopicInput]),
+    __metadata("design:returntype", Promise)
+], UpdateTopicResolver.prototype, "naUpdateTopic", null);
 UpdateTopicResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [topic_service_1.TopicService])

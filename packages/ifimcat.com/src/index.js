@@ -17,7 +17,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     window.location.href = '/500';
   }
   if (networkError) {
-    console.log(networkError)
     window.location.href = '/500';
   }
 });

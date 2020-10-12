@@ -190,8 +190,8 @@ export const Q_SEARCH = gql`
 
 // 浏览次数 + 1
 export const M_CATEGORY = gql`
-  mutation($data: UpdateCategoryInput!) {
-    updateCategory(data: $data) {
+  mutation($data: NAUpdateCategoryInput!) {
+    naUpdateCategory(data: $data) {
       id
       name
       slogan
@@ -201,8 +201,8 @@ export const M_CATEGORY = gql`
   }
 `;
 export const M_TAG = gql`
-  mutation($data: UpdateTagInput!) {
-    updateTag(data: $data) {
+  mutation($data: NAUpdateTagInput!) {
+    naUpdateTag(data: $data) {
       id
       name
       slogan
@@ -212,8 +212,8 @@ export const M_TAG = gql`
   }
 `;
 export const M_TOPIC = gql`
-  mutation($data: UpdateTopicInput!) {
-    updateTopic(data: $data) {
+  mutation($data: NAUpdateTopicInput!) {
+    naUpdateTopic(data: $data) {
       id
       name
       slogan
@@ -224,8 +224,8 @@ export const M_TOPIC = gql`
 `;
 
 export const M_ARTICLE = gql`
-  mutation($data: UpdateBlogInput!) {
-    updateBlog(data: $data) {
+  mutation($data: NAUpdateBlogInput!) {
+    naUpdateBlog(data: $data) {
       id
       awesome
       glance

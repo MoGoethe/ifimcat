@@ -63,4 +63,4 @@ UpdateBlogInput = __decorate([
     graphql_1.InputType('UpdateBlogInput')
 ], UpdateBlogInput);
 exports.UpdateBlogInput = UpdateBlogInput;
-//# sourceMappingURL=UpdateBlog.input.js.map
+//# sourceMappingURL=updateBlog.input.js.map

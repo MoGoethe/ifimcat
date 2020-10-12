@@ -59,4 +59,4 @@ CreateBlogInput = __decorate([
     graphql_1.InputType()
 ], CreateBlogInput);
 exports.CreateBlogInput = CreateBlogInput;
-//# sourceMappingURL=CreateBlog.input.js.map
+//# sourceMappingURL=createBlog.input.js.map

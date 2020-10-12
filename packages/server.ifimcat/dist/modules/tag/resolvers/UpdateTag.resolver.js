@@ -29,6 +29,7 @@ const auth_guard_1 = require("../../../auth/auth.guard");
 const common_1 = require("@nestjs/common");
 const userRoles_constants_1 = require("../../../constants/userRoles.constants");
 const updateTag_input_1 = require("../input/updateTag.input");
+const naUpdateTag_input_1 = require("../input/naUpdateTag.input");
 let UpdateTagResolver = class UpdateTagResolver {
     constructor(tagService) {
         this.tagService = tagService;
@@ -36,6 +37,11 @@ let UpdateTagResolver = class UpdateTagResolver {
     updateTag(updateTagInput) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.tagService.updateTag(updateTagInput);
+        });
+    }
+    naUpdateTag(naUpdateTagInput) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.tagService.updateTag(naUpdateTagInput);
         });
     }
 };
@@ -47,6 +53,13 @@ __decorate([
     __metadata("design:paramtypes", [updateTag_input_1.UpdateTagInput]),
     __metadata("design:returntype", Promise)
 ], UpdateTagResolver.prototype, "updateTag", null);
+__decorate([
+    graphql_1.Mutation(() => tag_entity_1.Tag),
+    __param(0, graphql_1.Args('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [naUpdateTag_input_1.NAUpdateTagInput]),
+    __metadata("design:returntype", Promise)
+], UpdateTagResolver.prototype, "naUpdateTag", null);
 UpdateTagResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [tag_service_1.TagService])

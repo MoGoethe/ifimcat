@@ -5,7 +5,8 @@ import { UseGuards } from "@nestjs/common";
 import { GQLAuthGuard } from "../../../auth/auth.guard";
 import { UserRoleType } from "../../../constants/userRoles.constants";
 import { GraphQLContext } from "../../../shared/context";
-import { UpdateBlogInput } from "../input/UpdateBlog.input";
+import { UpdateBlogInput } from "../input/updateBlog.input";
+import { NAUpdateBlogInput } from "../input/naUpdateBlog.input";
 
 @Resolver()
 export class UpdateBlogResolver {
@@ -19,4 +20,12 @@ export class UpdateBlogResolver {
   ): Promise<Blog | undefined> {
     return this.blogService.updateBlog(context.req.currentUser!, updateBlogInput);
   }
+
+  @Mutation(() => Blog, { nullable: true })
+  async naUpdateBlog(
+    @Args('data') naUpdateBlogInput: NAUpdateBlogInput
+  ): Promise<Blog | undefined> {
+    return this.blogService.naUpdateBlog(naUpdateBlogInput);
+  }
+
 }

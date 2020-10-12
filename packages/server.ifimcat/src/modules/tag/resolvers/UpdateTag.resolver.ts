@@ -5,6 +5,7 @@ import { GQLAuthGuard } from "../../../auth/auth.guard";
 import { UseGuards } from "@nestjs/common";
 import { UserRoleType } from "../../../constants/userRoles.constants";
 import { UpdateTagInput } from "../input/updateTag.input";
+import { NAUpdateTagInput } from "../input/naUpdateTag.input";
 
 @Resolver()
 export class UpdateTagResolver {
@@ -16,5 +17,12 @@ export class UpdateTagResolver {
     @Args('data') updateTagInput: UpdateTagInput,
   ) {
     return this.tagService.updateTag(updateTagInput);
+  }
+
+  @Mutation(() => Tag)
+  async naUpdateTag(
+    @Args('data') naUpdateTagInput: NAUpdateTagInput,
+  ) {
+    return this.tagService.updateTag(naUpdateTagInput);
   }
 }
