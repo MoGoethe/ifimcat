@@ -1,0 +1,246 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Blog {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  title: String!
+  description: String!
+  body: String!
+  draft: String!
+  tags: [Tag]
+  category: Category!
+  topic: Topic
+  glance: Float!
+  awesome: Float!
+  author: User!
+  is_show: Boolean!
+}
+
+type Category {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
+  author: User!
+  blogs: [Blog]
+}
+
+input ChangePasswordInput {
+  password: String!
+  token: String!
+}
+
+input CreateBlogInput {
+  title: String!
+  description: String!
+  body: String!
+  draft: String!
+  category: Float!
+  topic: Float
+  tags: [Float]
+}
+
+input CreateCategoryInput {
+  name: String!
+  slogan: String!
+  description: String!
+}
+
+input CreateTagInput {
+  name: String!
+  slogan: String!
+  description: String!
+}
+
+input CreateTopicInput {
+  name: String!
+  slogan: String!
+  description: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  register(data: RegisterInput!): User!
+  login(data: LoginInput!): User!
+  logout: Boolean!
+  confirmUser(token: String!): Boolean!
+  changePassword(data: ChangePasswordInput!): User
+  forgotPassword(email: String!): Boolean!
+  updateUser(data: UpdateUserInput!): User
+  updateTopic(data: UpdateTopicInput!): Topic!
+  naUpdateTopic(data: NAUpdateTopicInput!): Topic!
+  deleteTopic(id: Float!): Topic!
+  createTopic(data: CreateTopicInput!): Topic!
+  createBlog(data: CreateBlogInput!): Blog!
+  deleteBlog(id: Float!): Blog!
+  updateBlog(data: UpdateBlogInput!): Blog
+  naUpdateBlog(data: NAUpdateBlogInput!): Blog
+  updateCategory(data: UpdateCategoryInput!): Category!
+  naUpdateCategory(data: NAUpdateCategoryInput!): Category!
+  deleteCategory(id: Float!): Category!
+  createCategory(data: CreateCategoryInput!): Category!
+  updateTag(data: UpdateTagInput!): Tag!
+  naUpdateTag(data: NAUpdateTagInput!): Tag!
+  deleteTag(id: Float!): Tag!
+  createTag(data: CreateTagInput!): Tag!
+  fileUpload(file: Upload!): String!
+}
+
+input NAUpdateBlogInput {
+  id: Int!
+  glance: Int
+  awesome: Int
+}
+
+input NAUpdateCategoryInput {
+  id: Float!
+  glance: Float
+}
+
+input NAUpdateTagInput {
+  id: Float!
+  glance: Float
+}
+
+input NAUpdateTopicInput {
+  id: Float!
+  glance: Float
+}
+
+type Query {
+  hello: String
+  currentUser: User
+  getUsers: [User]
+  getTopics: [Topic]
+  getTopic(key: String!): Topic!
+  getBlogs: [Blog]
+  getAdminBlogs: [Blog]
+  getBlogByKey(key: String!): Blog
+  getBlogById(id: Float!): Blog
+  getBlogByKeywords(keywords: String!): [Blog]
+  getCategories: [Category]
+  getCategory(key: String!): Category!
+  getAdminCategories: [Category]
+  getTags: [Tag]
+  getTag(key: String!): Tag!
+}
+
+input RegisterInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+type Tag {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
+  author: User!
+  blogs: [Blog]
+}
+
+type Topic {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  slogan: String!
+  description: String!
+  glance: Float!
+  author: User!
+  blogs: [Blog]
+}
+
+input UpdateBlogInput {
+  id: Int!
+  title: String
+  description: String
+  body: String
+  draft: String
+  tags: [Int!]
+  category: Int
+  topic: Int
+  glance: Int
+  awesome: Int
+  is_show: Boolean
+}
+
+input UpdateCategoryInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
+}
+
+input UpdateTagInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
+}
+
+input UpdateTopicInput {
+  id: Float!
+  name: String
+  slogan: String
+  description: String
+  glance: Float
+}
+
+input UpdateUserInput {
+  userId: Int!
+  forbid: Boolean
+  username: String
+  roles: [UserRoleType!]
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type User {
+  id: Int!
+  key: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  email: String!
+  username: String!
+  forbid: Boolean!
+  roles: [String]!
+  confirmed: Boolean!
+  blogs: [Blog]
+  topics: [Topic]
+  categories: [Category]
+  tags: [Tag]
+}
+
+enum UserRoleType {
+  GHOST
+  EDITOR
+  PUBLISH
+  ADMIN
+}

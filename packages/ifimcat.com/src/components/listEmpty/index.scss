@@ -1,0 +1,15 @@
+@import "../../styles/base";
+
+.if-listEmpty{
+  padding: 64px 0 128px;
+  line-height: 2;
+  &__title{
+    font-size: 48px;
+    color: $main;
+    font-weight: bold;
+  }
+  &__description{
+    font-size: 20px;
+    color:  $weakMain;
+  }
+}

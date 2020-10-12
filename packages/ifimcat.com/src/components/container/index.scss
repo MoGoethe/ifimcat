@@ -1,0 +1,18 @@
+@import "../../styles/base";
+
+.if-container{
+  display: flex;
+  &-main{
+    width: 1220px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+  &--fullScreen{
+    & > .if-container-main{
+      width: 100%;
+      padding: 0;
+    }
+  }
+}

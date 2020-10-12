@@ -1,0 +1,102 @@
+@import "../../styles/base";
+
+.if-classifyList {
+  &-item{
+    display: flex;
+    & + .if-classifyList-item{
+      margin-top: 24px;
+    }
+  }
+  &-left{
+    width: 120px;
+    height: 120px;
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+  }
+  &-right{
+    flex: 1;
+    margin-left: 24px;
+    overflow: hidden;
+  }
+  &-overview{
+    width: 100%;
+    height: 100%;
+    img{
+      display: block;
+      height: 120px;
+      width: 225px;
+      margin-left: -52px;
+    }
+  }
+  &__title{
+    line-height: 48px;
+    height: 48px;
+    font-size: 28px;
+    color: $main;
+    a{
+      color: inherit;
+      transition: color .25s;
+      @include nowrap();
+      &:hover{
+        color: $pink;
+      }
+    }
+  }
+  &-tags{
+    display: flex;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 8px;
+    a{
+      display: inline-block;
+      vertical-align: top;
+      font-size: 15px;
+      position: relative;
+      color: $weakMain;
+      transition: color .25s;
+      &:hover {
+        color: $pink;
+      }
+      & + a {
+        margin-left: 12px;
+        padding-left: 13px;
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          width: 1px;
+          height: 12px;
+          top: 50%;
+          margin-top: -6px;
+          background-color: #ddd;
+        }
+      }
+    }
+  }
+  &-info{
+    display: flex;
+    height: 32px;
+    line-height: 32px;
+  }
+  &__info{
+    color: $weakMain;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 15px;
+    background-size: 16px;
+    width: 64px;
+  }
+  &__awesome{
+    background-image: url("./img/like.svg");
+    cursor: pointer;
+    transition: color .25s;
+    &:hover{
+      color: $pink;
+    }
+  }
+  &__glance{
+    background-image: url("./img/glance.svg");
+  }
+}

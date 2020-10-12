@@ -1,0 +1,64 @@
+@import "../../styles/base";
+.if-articleProfile{
+  display: block;
+  &-img{
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    img{
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all .45s;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+  &__title{
+    line-height: 1.5;
+    font-size: 24px;
+    color: $main;
+    span,
+    a{
+      color: inherit;
+      transition: color .25s;
+      cursor: pointer;
+      &:hover {
+        color: $pink;
+      }
+    }
+  }
+  &-tags{
+    line-height: 40px;
+    cursor: pointer;
+  }
+  &-tag{
+    display: inline-block;
+    vertical-align: top;
+    color: $weakMain;
+    position: relative;
+    font-size: 14px;
+    transition: color .25s;
+    cursor: pointer;
+    &:hover {
+      color: $pink;
+    }
+    & + .if-articleProfile-tag{
+        margin-left: 12px;
+        padding-left: 13px;
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 12px;
+        top: 50%;
+        margin-top: -6px;
+        background-color: #ddd;
+      }
+    }
+  }
+}
