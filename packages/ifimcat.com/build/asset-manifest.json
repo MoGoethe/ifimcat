@@ -6,7 +6,7 @@
     "static/js/1.7f404f8b.chunk.js.map": "/static/js/1.7f404f8b.chunk.js.map",
     "static/js/2.cd2efc0d.chunk.js": "/static/js/2.cd2efc0d.chunk.js",
     "static/js/2.cd2efc0d.chunk.js.map": "/static/js/2.cd2efc0d.chunk.js.map",
-    "main.css": "/static/css/main.9309ca57.chunk.css",
+    "main.css": "/static/css/main.985062ba.chunk.css",
     "main.js": "/static/js/main.9c784499.chunk.js",
     "main.js.map": "/static/js/main.9c784499.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.63a2f1e1.js",
@@ -41,7 +41,7 @@
     "static/js/14.f1a88c81.chunk.js": "/static/js/14.f1a88c81.chunk.js",
     "static/js/14.f1a88c81.chunk.js.map": "/static/js/14.f1a88c81.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.9b3b073d44d58dfd59793edd6399e8c8.js": "/precache-manifest.9b3b073d44d58dfd59793edd6399e8c8.js",
+    "precache-manifest.fe740b630d3af019729a4103bafa7261.js": "/precache-manifest.fe740b630d3af019729a4103bafa7261.js",
     "service-worker.js": "/service-worker.js",
     "static/css/10.9dd300cd.chunk.css.map": "/static/css/10.9dd300cd.chunk.css.map",
     "static/css/11.d5781cc8.chunk.css.map": "/static/css/11.d5781cc8.chunk.css.map",
@@ -52,16 +52,17 @@
     "static/css/7.4072bc25.chunk.css.map": "/static/css/7.4072bc25.chunk.css.map",
     "static/css/8.9dd300cd.chunk.css.map": "/static/css/8.9dd300cd.chunk.css.map",
     "static/css/9.9dd300cd.chunk.css.map": "/static/css/9.9dd300cd.chunk.css.map",
-    "static/css/main.9309ca57.chunk.css.map": "/static/css/main.9309ca57.chunk.css.map",
+    "static/css/main.985062ba.chunk.css.map": "/static/css/main.985062ba.chunk.css.map",
     "static/js/0.4211bb03.chunk.js.LICENSE.txt": "/static/js/0.4211bb03.chunk.js.LICENSE.txt",
     "static/js/5.58ba7fb9.chunk.js.LICENSE.txt": "/static/js/5.58ba7fb9.chunk.js.LICENSE.txt",
     "static/js/6.d97e4bbd.chunk.js.LICENSE.txt": "/static/js/6.d97e4bbd.chunk.js.LICENSE.txt",
+    "static/media/basic.scss": "/static/media/BrushScriptStd.a32e717c.otf",
     "static/media/index.scss": "/static/media/web_heart_animation_edge.3c552872.png"
   },
   "entrypoints": [
     "static/js/runtime-main.63a2f1e1.js",
     "static/js/5.58ba7fb9.chunk.js",
-    "static/css/main.9309ca57.chunk.css",
+    "static/css/main.985062ba.chunk.css",
     "static/js/main.9c784499.chunk.js"
   ]
 }
