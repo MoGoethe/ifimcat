@@ -2,7 +2,7 @@
 
 .if-tagList {
   &-list{
-    margin-right: -8px;
+    margin-right: -12px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: -8px;
@@ -10,10 +10,10 @@
   &__tag{
     display: block;
     margin-right: 8px;
-    line-height: 24px;
+    line-height: 22px;
     border: 1px solid #f0f0f0;
     border-radius: 12px;
-    padding: 0 16px;
+    padding: 0 12px;
     margin-bottom: 8px;
     font-size: 13px;
     color: $main;
@@ -22,5 +22,14 @@
       border-color: $pink;
       color: $pink;
     }
+    // display: block;
+    // margin-right: 12px;
+    // line-height: 28px;
+    // font-size: 15px;
+    // color: $main;
+    // transition: all .25s;
+    // &:hover{
+    //   color: $pink;
+    // }
   }
 }

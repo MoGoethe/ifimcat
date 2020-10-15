@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="60px" viewBox="0 0 120 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>未命名</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="数据结构矩形">
+            <rect id="矩形" fill="#C55555" opacity="0" x="0" y="0" width="120" height="60"></rect>
+            <g id="编组-3" transform="translate(5.000000, 10.000000)">
+                <text id="Data-Structure" font-family="PingFangSC-Medium, PingFang SC" font-size="15" font-weight="400" line-spacing="16" fill="#2A363B">
+                    <tspan x="61.29" y="20">Data</tspan>
+                    <tspan x="45" y="36">Structure</tspan>
+                </text>
+                <g id="编组">
+                    <polygon id="矩形" fill-opacity="0" fill="#D8D8D8" points="0.5 0 40.5 0 40.5 40 0.5 40"></polygon>
+                    <circle id="椭圆形" fill="#2A363B" cx="20.5" cy="20" r="20"></circle>
+                    <circle id="椭圆形" stroke="#FF847C" stroke-width="1.09649123" fill="#E84A5F" cx="29.8640351" cy="9.38596491" r="3.8377193"></circle>
+                    <circle id="椭圆形" stroke="#FF847C" stroke-width="1.09649123" fill="#E84A5F" cx="7.38596491" cy="17.0614035" r="3.8377193"></circle>
+                    <circle id="椭圆形" stroke="#FF847C" stroke-width="1.09649123" fill="#E84A5F" cx="21.0921053" cy="20.3508772" r="3.8377193"></circle>
+                    <polygon id="矩形" fill="#FECEA8" points="26.7536566 13.611044 24.5524312 16.7547196 23.6542382 16.1257981 25.8554635 12.9821225"></polygon>
+                    <circle id="椭圆形" stroke="#FF847C" stroke-width="1.09649123" fill="#E84A5F" cx="28.2192982" cy="32.4122807" r="3.8377193"></circle>
+                    <polygon id="矩形" fill="#FECEA8" points="12.4600405 17.8018319 16.2272501 18.5341032 16.0180297 19.6104488 12.2508201 18.8781775"></polygon>
+                    <polygon id="矩形" fill="#FECEA8" points="24.1710666 24.4456749 26.0899262 27.7692373 25.1403369 28.317483 23.2214773 24.9939206"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>未命名</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="数据结构图标">
+            <polygon id="矩形" fill-opacity="0" fill="#D8D8D8" points="0 0 64 0 64 64 0 64"></polygon>
+            <circle id="椭圆形" fill="#2A363B" cx="32" cy="32" r="32"></circle>
+            <g id="编组" transform="translate(4.000000, 8.000000)">
+                <circle id="椭圆形" stroke="#FF847C" stroke-width="1.75438596" fill="#E84A5F" cx="42.9824561" cy="7.01754386" r="6.14035088"></circle>
+                <circle id="椭圆形" stroke="#FF847C" stroke-width="1.75438596" fill="#E84A5F" cx="7.01754386" cy="19.2982456" r="6.14035088"></circle>
+                <circle id="椭圆形" stroke="#FF847C" stroke-width="1.75438596" fill="#E84A5F" cx="28.9473684" cy="24.5614035" r="6.14035088"></circle>
+                <polygon id="矩形" fill="#FECEA8" points="38.0058505 13.7776704 34.4838899 18.8075514 33.0467811 17.8012769 36.5687417 12.771396"></polygon>
+                <circle id="椭圆形" stroke="#FF847C" stroke-width="1.75438596" fill="#E84A5F" cx="40.3508772" cy="43.8596491" r="6.14035088"></circle>
+                <polygon id="矩形" fill="#FECEA8" points="15.1360648 20.482931 21.1636001 21.6545652 20.8288475 23.3767181 14.8013122 22.2050839"></polygon>
+                <polygon id="矩形" fill="#FECEA8" points="33.8737065 31.1130799 36.9438819 36.4307797 35.4245391 37.3079727 32.3543637 31.9902729"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
