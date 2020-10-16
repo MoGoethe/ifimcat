@@ -88,29 +88,34 @@ export class BlogService {
     if (updateBlogInput.tags) {
       const tags = await Tag.findByIds(updateBlogInput.tags);
       const originTagIds = blog.tags.map(oTag => oTag.id);
-      
-      const restultTagIds = [...originTagIds, ...updateBlogInput.tags].filter((item, index, self) => {
-        return self.indexOf(item) == index;
-      });
+      const oTags = await Tag.findByIds(originTagIds, { relations: ['blogs'] });
+
       if (!tags.length) {
         throw new NotFoundException("该博客至少需要一个标签");
       }
-      const resultTags = await Tag.findByIds(restultTagIds, { relations: ['blogs'] });
-      resultTags.map(async rTag => {
-        const tagBlogIndex = rTag.blogs.findIndex(item => item.id === blog.id);
-        if (tagBlogIndex === -1) {
-          rTag.blogs.push(blog);
-        } else {
-          rTag.blogs.splice(tagBlogIndex, 1);
+      oTags.map(async oTag => {
+        const tagBlogIndex = oTag.blogs.findIndex(item => item.id === blog.id);
+        if (tagBlogIndex !== -1) {
+          oTag.blogs.splice(tagBlogIndex, 1);
         }
-        await this.tagRepository.save(rTag);
+        await this.tagRepository.save(oTag);
+      })
+      tags.map(async tag => {
+        const tagBlogIndex = tag.blogs.findIndex(item => item.id === blog.id);
+        if (tagBlogIndex === -1) {
+          tag.blogs.push(blog);
+        }
+        await this.tagRepository.save(blog);
       })
       blog.tags = tags;
     }
     if (updateBlogInput.topic) {
-      const topic = await Topic.findOne({id: updateBlogInput.topic});
-      if (!topic) {
-        throw new NotFoundException("该专题不存在");
+      let topic = null;
+      if (updateBlogInput.topic !== -1) {
+        topic = await Topic.findOne({ id: updateBlogInput.topic });
+        if (!topic) {
+          throw new NotFoundException("该专题不存在");
+        }
       }
       blog.topic = topic;
     }

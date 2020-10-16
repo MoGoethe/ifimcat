@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useState, useRef, Fragment, useEffect } from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
 import {
   CCard,
@@ -19,6 +19,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import classnames from "classnames";
 import notificaty from "../../components/Notificaty"
 import { markdownParser } from '../../utils/tools';
+import CIcon from '@coreui/icons-react';
 import {
   Q_GETBLOGBYKEY,
   Q_GETCATEGORIES,
@@ -33,7 +34,6 @@ import {
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/javascript/javascript';
 
-let uploadFile = null;
 let type = null;
 let initBlog = null;
 
@@ -42,6 +42,7 @@ const Edit = (props) => {
   const blogKey = props.location.search.split('?blogKey=')[1] || ""
   const [blog, setBlog] = useState({ topic: -1, tags: [], category: -1, body: "" });
   const [editor, setEditor] = useState({ fullScreen: false, priview: true, edit: true });
+  const [file, setFile] = useState(null);
   useQuery(Q_GETBLOGBYKEY, {
     variables: {
       key: blogKey,
@@ -54,7 +55,7 @@ const Edit = (props) => {
         setBlog({
           ...data.getBlogByKey,
           category: data.getBlogByKey.category.id,
-          topic: data.getBlogByKey.topic.id,
+          topic: data.getBlogByKey.topic?.id || -1,
         });
       }
     },
@@ -89,21 +90,17 @@ const Edit = (props) => {
     onCompleted(data) {
       notificaty.destoryAll();
       if (data.updateBlog) {
-        console.log(data.updateBlog)
         notificaty.success("保存成功！");
         setBlog({
           ...data.updateBlog,
           category: data.updateBlog.category.id,
-          topic: data.updateBlog.topic.id,
+          topic: data.updateBlog.topic?.id || -1,
         });
       }
     },
-    onError({ graphQLErrors }) {
+    onError(err) {
       notificaty.destoryAll();
-      if (graphQLErrors[0] && graphQLErrors[0].message) {
-        notificaty.error(graphQLErrors[0].message);
-        return
-      }
+      console.log(err);
       notificaty.error('出错啦，服务器异常，请稍后再试！');
     }
   });
@@ -140,7 +137,7 @@ const Edit = (props) => {
 
   const [uploadImages] = useMutation(M_UPLOAD, {
     variables: {
-      file: uploadFile,
+      file,
     },
     onCompleted(data) {
       notificaty.destoryAll();
@@ -185,14 +182,35 @@ const Edit = (props) => {
     }
     if (file) {
       if (file && Math.ceil(file.size / 1024) > 1024) {
-        notificaty.warning("文件过大，不能上传！")
+        notificaty.warning("文件过大，不能上传！");
+        return;
       }
-
       notificaty.loading("图片上传中...", 0);
-      uploadFile = file;
-      uploadImages();
+      setFile(file);
     }
   }
+
+  const btnFile = () => {
+    document.getElementById("btn_file").click();
+  }
+
+  const btnFileUpload = e => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file && Math.ceil(file.size / 1024) > 1024) {
+        notificaty.warning("文件过大，不能上传！");
+        return;
+      }
+      notificaty.loading("图片上传中...", 0);
+      setFile(file);
+    }
+  }
+
+  useEffect(() => {
+    if (file) {
+      uploadImages();
+    }
+  }, [file, uploadImages])
 
   const update = () => {
     notificaty.loading("保存中，请稍后...");
@@ -253,30 +271,11 @@ const Edit = (props) => {
             <CFormGroup row>
               <CCol xs="6">
                 <CFormGroup>
-                  <CLabel htmlFor="topic">专题</CLabel>
-                  <CSelect
-                    custom
-                    name="topic"
-                    id="topic"
-                    value={blog.topic}
-                    onChange={e => setBlog({...blog, topic: e.target.value})}
-                  >
-                    <option value={-1}>请选择专题</option>
-                    {
-                      topics.data && topics.data.getTopics && topics.data.getTopics.map(item => {
-                        return <option key={item.key} value={item.id}>{item.name}</option>
-                      })
-                    }
-                  </CSelect>
-                </CFormGroup>
-              </CCol>
-              <CCol xs="6">
-                <CFormGroup>
                   <CLabel htmlFor="category">类别</CLabel>
                   <CSelect
                     custom
-                    name="topic"
-                    id="topic"
+                    name="category"
+                    id="category"
                     value={blog.category}
                     onChange={e => setBlog({...blog, category: e.target.value})}
                   >
@@ -289,9 +288,28 @@ const Edit = (props) => {
                   </CSelect>
                 </CFormGroup>
               </CCol>
+              <CCol xs="6">
+                <CFormGroup>
+                  <CLabel htmlFor="topic">专题</CLabel>
+                  <CSelect
+                    custom
+                    name="topic"
+                    id="topic"
+                    value={blog.topic}
+                    onChange={e => { console.log(e.target.value); setBlog({ ...blog, topic: e.target.value }) }}
+                  >
+                    <option value={-1}>请选择专题</option>
+                    {
+                      topics.data && topics.data.getTopics && topics.data.getTopics.map(item => {
+                        return <option key={item.key} value={item.id}>{item.name}</option>
+                      })
+                    }
+                  </CSelect>
+                </CFormGroup>
+              </CCol>
             </CFormGroup>
             <CFormGroup>
-              <CLabel htmlFor="topic">标签</CLabel>
+              <CLabel htmlFor="tag">标签</CLabel>
               <div className="form-group-checkbox--list">
                 {
                   tags.data && tags.data.getTags && tags.data.getTags.map((item, index) => {
@@ -310,6 +328,7 @@ const Edit = (props) => {
                 }
               </div>
             </CFormGroup>
+            <input type="file" id="btn_file" onChange={btnFileUpload} style={{ display: "none"}} />
           </CCardBody>
         </CCard>
         <CCard>
@@ -318,8 +337,9 @@ const Edit = (props) => {
             <div className={editorCls}>
               <div className="editor-tool">
                 <div className="editor-tool-left">
-                  <CButton size="sm" onClick={saveDraft}><span title="保存草稿" className="caticon caticon-save" /></CButton>
-                  <CButton size="sm" onClick={blogKey ? update : create}><span title="发布" className="caticon caticon-publish" /></CButton>
+                  <CButton size="sm" onClick={saveDraft}><CIcon name="cil-save" height="48" alt="save" /></CButton>
+                  <CButton size="sm" onClick={blogKey ? update : create}><CIcon name="cil-send" height="48" alt="save" /></CButton>
+                  <CButton size="sm" onClick={btnFile}><CIcon name="cil-image-plus" height="48" alt="save" /></CButton>
                 </div>
                 <div className="editor-tool-right">
                   <CButton size="sm" onClick={() => setEditor({ ...editor, priview: !editor.priview, edit: true })}>

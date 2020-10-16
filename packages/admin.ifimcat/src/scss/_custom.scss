@@ -64,6 +64,8 @@ table td .link+.link {
   }
   .cm-s-material.CodeMirror {
     height: 756px;
+    max-width: 720px;
+    margin: 0 auto;
   }
   &-tool{
     display: flex;
@@ -222,10 +224,16 @@ table td .link+.link {
   border: 1px solid #d8dbe0;
   &-tool{
     background-color: #d8dbe0;
+    .c-icon{
+      width: 18px;
+      height: 18px;
+    }
   }
 }
 #editor-preview {
   height: 756px;
+  max-width: 720px;
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 7px 20px 20px;
   font-size: 15px;

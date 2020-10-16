@@ -110,29 +110,33 @@ let BlogService = class BlogService {
             if (updateBlogInput.tags) {
                 const tags = yield tag_entity_1.Tag.findByIds(updateBlogInput.tags);
                 const originTagIds = blog.tags.map(oTag => oTag.id);
-                const restultTagIds = [...originTagIds, ...updateBlogInput.tags].filter((item, index, self) => {
-                    return self.indexOf(item) == index;
-                });
+                const oTags = yield tag_entity_1.Tag.findByIds(originTagIds, { relations: ['blogs'] });
                 if (!tags.length) {
                     throw new common_1.NotFoundException("该博客至少需要一个标签");
                 }
-                const resultTags = yield tag_entity_1.Tag.findByIds(restultTagIds, { relations: ['blogs'] });
-                resultTags.map((rTag) => __awaiter(this, void 0, void 0, function* () {
-                    const tagBlogIndex = rTag.blogs.findIndex(item => item.id === blog.id);
+                oTags.map((oTag) => __awaiter(this, void 0, void 0, function* () {
+                    const tagBlogIndex = oTag.blogs.findIndex(item => item.id === blog.id);
+                    if (tagBlogIndex !== -1) {
+                        oTag.blogs.splice(tagBlogIndex, 1);
+                    }
+                    yield this.tagRepository.save(oTag);
+                }));
+                tags.map((tag) => __awaiter(this, void 0, void 0, function* () {
+                    const tagBlogIndex = tag.blogs.findIndex(item => item.id === blog.id);
                     if (tagBlogIndex === -1) {
-                        rTag.blogs.push(blog);
+                        tag.blogs.push(blog);
                     }
-                    else {
-                        rTag.blogs.splice(tagBlogIndex, 1);
-                    }
-                    yield this.tagRepository.save(rTag);
+                    yield this.tagRepository.save(blog);
                 }));
                 blog.tags = tags;
             }
             if (updateBlogInput.topic) {
-                const topic = yield topic_entity_1.Topic.findOne({ id: updateBlogInput.topic });
-                if (!topic) {
-                    throw new common_1.NotFoundException("该专题不存在");
+                let topic = null;
+                if (updateBlogInput.topic !== -1) {
+                    topic = yield topic_entity_1.Topic.findOne({ id: updateBlogInput.topic });
+                    if (!topic) {
+                        throw new common_1.NotFoundException("该专题不存在");
+                    }
                 }
                 blog.topic = topic;
             }

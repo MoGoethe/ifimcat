@@ -1220,7 +1220,7 @@
   resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-3.2.2.tgz#78e392175373779f6c2d613d85a70eb03beaa149"
   integrity sha512-LvQPLTigUeqOsZFmzXSl2Uz3Wx4Y0nvm3MJTVOEoyKl3tGhkBbe7P41He7277jxz3PyoiSX5vbRj8+WMHQIJTg==
 
-"@coreui/icons-react@^1.0.1", "@coreui/icons-react@^1.0.2":
+"@coreui/icons-react@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@coreui/icons-react/-/icons-react-1.0.2.tgz#643de07d690983636be31b3b1800b5db219df26b"
   integrity sha512-e0llVB8U850Wghkner9UjXkf9U1DlL771Rh5AFPwwIw+yptt1KjpJoCMyLw4FYSUSEAqH7tZaGbo0Iefm9+6jA==
