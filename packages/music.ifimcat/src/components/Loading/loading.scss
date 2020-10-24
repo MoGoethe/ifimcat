@@ -1,0 +1,170 @@
+@import "../scss/base";
+
+.loading {
+    position: fixed;
+    z-index: 201;
+    top: 30%;
+    left: 50%;
+    width: 200px;
+    margin-left: -150px;
+    overflow: hidden;
+    border-radius:7px;
+    padding:20px 0;
+    background-color:rgba(0,43,35,.75);
+    display: none;
+    &.isloading{
+    	display: block;
+    }
+    .ball-scale-multiple {
+        position: relative;
+        -webkit-transform: translateY(-30px);
+        -ms-transform: translateY(-30px);
+        transform: translateY(-30px);
+    }
+    .ball-scale-multiple .ball-item:nth-child(2) {
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+    .ball-scale-multiple .ball-item:nth-child(3) {
+        -webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s;
+    }
+    .ball-scale-multiple .ball-item {
+        background-color: #fff;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        opacity: 0;
+        margin: 0;
+        width: 60px;
+        height: 60px;
+        -webkit-animation: ball-scale-multiple 1s 0s linear infinite;
+        animation: ball-scale-multiple 1s 0s linear infinite;
+    }
+
+    .transition-loader-inner {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .transition-loader-inner .ball-item {
+        width: 0;
+        height: 0;
+        border:3px solid #fff;
+        border-radius:5px;
+        opacity: 0;
+        display: inline-block;
+        margin: 0 6px;
+    }
+    .transition-loader-inner .ball-item:nth-child(1) {
+        -webkit-animation: loader 3s 600ms infinite ease-in-out;
+        animation: loader 3s 600ms infinite ease-in-out;
+    }
+    .transition-loader-inner .ball-item:nth-child(2) {
+        -webkit-animation: loader 3s 500ms infinite ease-in-out;
+        animation: loader 3s 500ms infinite ease-in-out;
+    }
+    .transition-loader-inner .ball-item:nth-child(3) {
+        -webkit-animation: loader 3s 400ms infinite ease-in-out;
+        animation: loader 3s 400ms infinite ease-in-out;
+    }
+    .transition-loader-inner .ball-item:nth-child(4) {
+        -webkit-animation: loader 3s 300ms infinite ease-in-out;
+        animation: loader 3s 300ms infinite ease-in-out;
+    }
+    .transition-loader-inner .ball-item:nth-child(5) {
+        -webkit-animation: loader 3s 200ms infinite ease-in-out;
+        animation: loader 3s 200ms infinite ease-in-out;
+    }
+    .transition-loader-inner .ball-item:nth-child(6) {
+        -webkit-animation: loader 3s 100ms infinite ease-in-out;
+        animation: loader 3s 100ms infinite ease-in-out;
+    }
+    .loading-text{
+    	text-align: center;
+    	width: 100%;
+    	@include box();
+    	margin-top: 15px;
+    	padding:0 10px;
+    	font-size: 13px;
+		color: #fff;
+		line-height: 18px;
+    }
+}
+
+
+@keyframes loader {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px) scale(1);
+    }
+    33% {
+        opacity: 1;
+        transform: translateX(0px) scale(2);
+    }
+    66% {
+        opacity: 1;
+        transform: translateX(0px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100px) scale(2);
+    }
+}
+
+@-webkit-keyframes loader {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-100px);
+    }
+    33% {
+        opacity: 1;
+        -webkit-transform: translateX(0px);
+    }
+    66% {
+        opacity: 1;
+        -webkit-transform: translateX(0px);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(100px);
+    }
+}
+
+@-webkit-keyframes ball-scale-multiple {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes ball-scale-multiple {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}

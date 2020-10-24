@@ -1,0 +1,147 @@
+@import "../Scss/base";
+
+.rank{
+	.rank-list-briefness{
+		display: block;
+		margin:20px 0 40px;
+		&:after{
+			@include floatFun();
+		}
+		.briefness-item{
+			margin-left:2.5%;
+			width: 30.83%;
+			float: left;
+			@include box();
+			border:1px solid #86EBC1;
+			border-radius:2px;
+			.item-link{
+				display: block;
+				width:100%;
+				position:relative;
+				img{
+					width:100%;
+					height: 68px;
+					display: block;
+				}
+                &:before {
+                    content: '';
+                    width: 0;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0) url(/static/logo.png) center no-repeat;
+                    background-size: 50px;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    z-index: 1;
+                    transition: all .2s;
+                }
+                &:hover {
+                	&:before{
+                        width: 100%;
+                        left: 0;
+                        background-color:rgba(0,0,0,.5);
+                    }
+                }
+			}
+			.item-list{
+				display: block;
+				.list-item{
+					display: block;
+					background-color:#86EBC1;
+					@include box();
+					padding:0 10px;
+					cursor: pointer;
+					transition: background-color .25s;
+					&:nth-child(even){
+						background-color:#B5F7D9;
+					}
+					&:after{
+						@include floatFun();
+					}
+					&:hover{
+						background-color:#34D19A;
+					}
+					span{
+						display: block;
+						float: left;
+						height: 36px;
+						line-height: 36px;
+						@include nowrap();
+					}
+					.item-num{
+						width: 10%;
+						font-size: 14px;
+						color: #999;
+						&.hot-color{
+							font-weight: bold;
+							color: #f5222d;
+						}
+					}
+					.item-name{
+						width: 65%;
+						font-size: 15px;
+						color: #666;
+					}
+					.item-singer{
+						width: 25%;
+						font-size: 13px;
+						color: #999;
+						text-indent:5px;
+						text-align: right;
+					}
+
+				}
+			}
+		}
+
+	}
+	.rank-list-all{
+		display: block;
+		&:after{
+			@include floatFun();
+		}
+		.default-item-link{
+			display: block;
+			float:left;
+			width: 20%;
+			margin:0 2.5%;
+			margin-top: 20px;
+			.item-link{
+				display: block;
+				width:100%;
+				position:relative;
+				img{
+					width:100%;
+					display: block;
+				}
+                &:before {
+                    content: '';
+                    width: 0;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0) url(/static/logo.png) center no-repeat;
+                    background-size: 50px;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    z-index: 1;
+                    transition: all .2s;
+                }
+                &:hover {
+                	&:before{
+                        width: 100%;
+                        left: 0;
+                        background-color:rgba(0,0,0,.5);
+                    }
+                }
+			}
+			.item-name{
+				display: block;
+				width:100%;
+				height: 30px;
+				line-height: 30px;
+				font-size: 13px;
+				color: #fff;
+			}
+		}
+	}
+}

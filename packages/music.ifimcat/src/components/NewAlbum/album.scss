@@ -1,0 +1,94 @@
+@import "../Scss/base";
+.album{
+    display: block;
+    .album-list {
+        display: block;
+        width: 105%;
+        box-sizing: border-box;
+        margin-top: 20px;
+        font-family: "'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono', monospace";
+        &:after{
+            content: '.';
+            display: block;
+            visibility: hidden;
+            clear: both;
+            width: 100%;
+            height: 0;
+            font-size: 0;
+            zoom: 1;
+        }
+        .album-list-item {
+            display: block;
+            margin-bottom: 25px;
+            position: relative;
+            width: 15%;
+            float: left;
+            margin-right: 5%;
+            height: auto;
+            .item-link {
+                display: block;
+                width: 100%;
+                position: relative;
+                cursor: pointer;
+                box-shadow: 5px 5px 20px rgba(0, 0, 0, .35);
+                width: 100%;
+                display: block;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    &.item-cd {
+                        margin-left: 20px;
+                        transition: all .25s ease-out;
+                    }
+                    &.item-img {
+                        position: absolute;
+                        z-index: 0;
+                    }
+                }
+                &:before {
+                    content: '';
+                    width: 0;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0) url(/static/logo.png) center no-repeat;
+                    background-size: 50px;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    z-index: 1;
+                    transition: all .2s;
+                }
+            }
+            &:hover {
+                .item-link{
+                    &:before{
+                        width: 100%;
+                        left: 0;
+                        background-color:rgba(0,0,0,.5);
+                    }
+                    .item-cd {
+                        margin-left: 30px;
+                    }
+                }
+            }
+            .info-al{
+                font-size: 14px;
+                color: #fff;
+                display: block;
+                margin-top: 10px;
+                height: 20px;
+                line-height: 20px;
+                @include nowrap();
+            }
+            .info-ar{
+                color:#f3f3f3;
+                font-size: 12px;
+                margin-top: 2px;
+                height: 20px;
+                display: block;
+                line-height: 20px;
+                @include nowrap();
+            }
+        }
+    }
+}

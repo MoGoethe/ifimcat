@@ -1,0 +1,227 @@
+@import "../scss/base";
+
+.search{
+	display:block;
+
+	.search-input{
+		display: block;
+		width: 80%;
+		margin:0 auto;
+		&:after{
+			@include floatFun();
+		}
+		.input{
+			width:80%;
+			display: block;
+			float: left;
+			@include box();
+			height: 44px;
+			border:1px solid transparent;
+			transition: border .2s;
+			outline: none;
+			float: left;
+			padding:6px 15px;
+			line-height: 30px;
+			font-size: 15px;
+			color: #333;
+			&:focus{
+				border-color:#12c48b;
+			}
+		}
+		.button{
+			width: 20%;
+			@include box();
+			height: 44px;
+			float:left;
+			display: block;
+			outline: none;
+			border:none;
+			line-height: 44px;
+			text-align: center;
+			background-color: #069E73;
+			font-size: 16px;
+			transition: background-color .2s;
+			cursor: pointer;
+			color: #fff;
+			&:hover{
+				background-color:#00785A;
+			}
+		}
+	}
+	.search-tab{
+		display: block;
+		margin-top: 40px;
+		border-bottom:5px solid #00785A;
+		&:after{
+			@include floatFun();
+		}
+		.type-item{
+			display: block;
+			float:left;
+			width:auto;
+			padding:0 30px;
+			height: 34px;
+			line-height: 34px;
+			font-size: 14px;
+			background-color: #069E73;
+			color: #fff;
+			margin-right:5px;
+			cursor: pointer;
+			transition: background-color .2s;
+			&.active,
+			&:hover{
+				background-color:#00785A;
+			}
+		}
+	}
+	.search-result{
+		display: block;
+		width: 100%;
+		min-height:400px;
+		position:relative;
+		background:transparent url(/static/logo.png) center no-repeat;
+		background-size:200px;
+		.s-music-item{
+			height: 40px;
+			line-height: 40px;
+			text-indent: 15px;
+			border-bottom: 1px solid #B5F7D9;
+			color: #E6FFF3;
+			cursor: pointer;
+			transition: all .25s;
+			font-size: 15px;
+			position: relative;
+			display: flex;
+			span{
+				@include nowrap();
+			}
+			.item-num{
+				width: 60px;
+				position:absolute;
+				left:0;
+				bottom:0;
+				height: 40px;
+				z-index: 1;
+			}
+			.item-name{
+				width: 28%;
+				text-indent: 80px;
+			}
+			.item-singer{
+				width: 20%;
+			}
+			.item-album{
+				flex: 1;
+			}
+			.item-time{
+				width: 128px;
+			}
+			i{
+				font-size: 13px;
+				font-style: italic;
+			}
+			&:hover{
+				background-color:#fff !important;
+				color: #12c48b;
+			}
+			&:nth-child(5n){
+				background-color:#86EBC1;
+			}
+		}
+		.s-album-item{
+			display: block;
+			width: 100%;
+			border-bottom: 1px solid #B5F7D9;
+			cursor: pointer;
+			transition: all .25s;
+			.item-link{
+				display: block;
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				padding: 5px;
+				color: #E6FFF3;
+				@include box();
+				.item-img{
+					height: 50px;
+					width: 50px;
+					display: block;
+					float:left;
+				}
+				.item-name{
+					display: block;
+					height: 60px;
+					float:left;
+					width: auto;
+					font-size: 18px;
+					margin-left: 300px;	
+					max-width: 200px;
+					@include nowrap();
+				}
+				&:after{
+					@include floatFun();
+				}
+				&:hover{
+					background-color:#34D19A;
+				}
+			}
+			&:nth-child(5n){
+				background-color:#86EBC1;
+			}
+		}
+		.s-playlist-item{
+			display: block;
+			width: 100%;
+			cursor: pointer;
+			transition: all .25s;
+			border-bottom: 1px solid #B5F7D9;
+			&:nth-child(5n){
+				background-color:#86EBC1;
+			}
+			&:after{
+				@include floatFun();
+			}
+			&:hover{
+				background-color:#34D19A;
+				span{
+					color: #fff !important;
+				}
+			}
+			img,
+			span{
+				display: block;
+				float:left;
+				height: 50px;
+				color: #E6FFF3;
+				line-height: 50px;
+				@include nowrap();
+			}
+			.item-link{
+				display: block;
+				width: 100%;
+				height: 100%;
+				height: 60px;
+				@include box();
+				padding:5px;
+				color: #E6FFF3;
+			}
+			.item-img{
+				width: 50px;
+				height: 50px;
+			}
+			.item-name{
+				margin-left: 15px;
+				font-size: 15px;
+				width: 35%;
+			}
+			.item-conunt{
+				font-size: 13px;
+				width:80px;
+			}
+			.item-creater{
+				font-size: 13px;
+				width: 35%;
+			}
+		}
+	}
+}

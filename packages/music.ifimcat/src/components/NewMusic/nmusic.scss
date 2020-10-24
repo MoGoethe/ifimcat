@@ -1,0 +1,68 @@
+@import "../scss/base";
+
+.new-music {
+    display: block;
+    margin-top: 40px;
+    .new-list {
+        display: block;
+        &:after {
+            @include floatFun();
+        }
+        .m-list-item {
+            width: 49%;
+            background-color: #86EBC1;
+            float: left;
+            margin-top: 10px;
+            padding: 10px 10px 10px 75px;
+            cursor: pointer;
+            position: relative;
+            @include box();
+            &:after {
+                @include floatFun();
+            }
+            &:nth-child(odd) {
+                margin-right: 2%;
+            }
+            transition: all .25s;
+            &:hover {
+                background-color: #34D19A;
+            }
+            .item-img {
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                left: 10px;
+                top: 10px;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .item-info {
+                display: block;
+                .info-name {
+                    height: 30px;
+                    line-height: 30px;
+                    font-size: 16px;
+                    color: #fff;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    i {
+                        font-size: 12px;
+                    }
+                }
+                .info-singer {
+                    font-size: 13px;
+                    line-height: 20px;
+                    height: 20px;
+                    color: #fff;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

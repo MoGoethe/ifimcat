@@ -1,0 +1,184 @@
+@import "../Scss/base";
+.player{
+	width:100%;
+	display:block;
+	padding:30px 0;
+	background-color:rgba(43,71,82,.8);
+	z-index:99;
+	position:fixed;
+	left:0;
+	bottom:0;
+	.player-cd{
+		position:absolute;
+		display: block;
+		border-radius:100%;
+		right: 15px;
+		top: 15px;
+		width: 30px;
+		height: 30px;
+		z-index: 9;
+		background:#fff url(/static/logo.png) center no-repeat;
+		background-size:20px;
+		transition:background-color .2s;
+		&:hover{
+			background-color:#E6FFF3;
+		}
+	}
+	.player-i-a{
+		display: block;
+		width: 480px;
+		margin: 0 auto;
+		display: flex;
+		.i-photo{
+			width: 80px;
+			height: 80px;
+			border-radius:2px;
+			background-color:#fff;
+			overflow: hidden;
+			img{
+				display: block;
+				width: auto;
+				height: 100%;
+			}
+		}
+		.player-info{
+			display: block;
+			margin-left: 20px;
+			.i-text{
+				display: block;
+				margin-bottom: 9px;
+				line-height: 26px;
+				height: 26px;
+				text-indent: 6px;
+				&:after{
+					@include floatFun();
+				}
+				.title{
+					height: 100%;
+					color: #fff;
+					font-weight: bolder;
+					font-size: 20px;
+					display: block;
+					float:left;
+					max-width: 160px;
+					@include nowrap();
+				}
+				.actor{
+					height: 100%;
+					font-size: 14px;
+					margin-left: 15px;
+					color: #eee;
+					display: block;
+					float:left;
+					max-width: 120px;
+				}
+			}
+		}
+		.player-action{
+			height: 40px;
+			.p-btn{
+				border:1px solid #fff;
+				display: block;
+				float: left;
+				background-color:transparent;
+				width: 34px;
+				height: 34px;
+				line-height: 32px;
+				outline: none;
+				border-radius:100%;
+				cursor: pointer;
+				color: #fff;
+				margin: 5px;
+				transition: all .2s;
+				&.btn-list{
+					margin: 5px 20px;
+				}
+				&.p-lg-btn{
+					margin: 0 5px;
+					width: 40px;
+					height: 40px;
+					line-height: 35px;
+					font-size: 26px;
+				}
+				&:hover{
+					background-color:#fff;
+					border:1px solid #fff;
+					color: #12b48c;
+				}
+				&.is-mute{
+					position:relative;
+					background-color:#86EBC1;
+					border-color:#86EBC1;
+					&:hover{
+						color: #fff;
+					}
+					&:after{
+						content: '';
+						width: 100%;
+						height: 2px;
+						background-color:#fff;
+						position:absolute;
+						left: 0;
+						top: 50%;
+						margin-top: -1px;
+						transform: rotate(45deg);
+					}
+				}
+			}
+		}
+	}
+	.icon-bofang1{
+		text-indent: 3px;
+	}
+	.player-progress{
+		display: block;
+		width: 100%;
+		margin-top: 20px;
+		position:relative;
+		.progress{
+			width: 100%;
+			height: 1px;
+			background-color:#389275;
+			.progress-bar{
+				height: 1px;
+				width: 0;
+				transition: width 0.2s;
+				background-color:#00fdac;
+				box-shadow:1px 1px 1px rgba(4,253,273,.75),1px -1px 1px rgba(4,253,273,.75);
+			}
+		}
+		.progress-info{
+			position: absolute;
+			right: 20px;
+			top:-30px;
+			height: 30px;
+			line-height: 30px;
+			font-size: 13px;
+			color: #fff;
+		}
+	}
+	.audio{
+		display: block;
+		width: 0;
+		height:0;
+		overflow: hidden;
+	}
+	.audio-bg{
+		width:100%;
+		height: 100%;
+		position:absolute;
+		z-index: -1;
+		left: 0;
+		top: 0;
+		canvas{
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+
+
+
+
+

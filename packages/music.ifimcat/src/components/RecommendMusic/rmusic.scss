@@ -1,0 +1,113 @@
+.recommend-music {
+    display: block;
+    //margin-top: 40px;
+    .rm-list {
+        display: block;
+        width: 105%;
+        box-sizing: border-box;
+        margin-top: 10px;
+        font-family: "'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono', monospace";
+        &:after{
+            content: '.';
+            display: block;
+            visibility: hidden;
+            clear: both;
+            width: 100%;
+            height: 0;
+            font-size: 0;
+            zoom: 1;
+        }
+        .m-list-item {
+            display: block;
+            margin-bottom: 25px;
+            position: relative;
+            width: 15%;
+            float: left;
+            margin-right: 5%;
+            height: auto;
+            .item-link {
+                display: block;
+                width: 100%;
+                position: relative;
+                cursor: pointer;
+                box-shadow: 5px 5px 20px rgba(0, 0, 0, .35);
+                width: 100%;
+                display: block;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    &.item-cd {
+                        margin-left: 20px;
+                        transition: all .25s ease-out;
+                    }
+                    &.item-img {
+                        position: absolute;
+                        z-index: 0;
+                    }
+                }
+                &:before {
+                    content: '';
+                    width: 0;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0) url(/static/logo.png) center no-repeat;
+                    background-size: 50px;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    z-index: 1;
+                    transition: all .2s;
+                }
+            }
+            &:hover {
+                .item-link{
+                    &:before{
+                        width: 100%;
+                        left: 0;
+                        background-color:rgba(0,0,0,.5);
+                    }
+                    .item-cd {
+                        margin-left: 30px;
+                    }
+                } 
+                .item-tag {
+                    color: #12c48b;
+                }
+                .item-name {
+                    opacity: 0;
+                }
+            }
+        }
+        .item-tag {
+            font-size: 12px;
+            color: #fff;
+            left: 0;
+            line-height: 16px;
+            height: 16px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            transition: all .25s;
+            z-index: 2;
+            text-shadow: -1px 1px 2px rgba(0,0,0,.3);
+        }
+        .item-name {
+            line-height: 20px;
+            font-size: 13px;
+            margin-top: 10px;
+            color: #474283;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, .45);
+            color: #fff;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            display: block;
+            transition: all .25s ease-out;
+        }
+    }
+}
