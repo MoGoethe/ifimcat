@@ -1,0 +1,1 @@
+{"version":3,"sources":["views/home/index.js"],"names":["Home"],"mappings":"sIAAA,aAGeA,UAFF,kBAAM","file":"static/js/3.14304f55.chunk.js","sourcesContent":["import \"./index.scss\";\nconst Home = () => null;\n\nexport default Home;"],"sourceRoot":""}
