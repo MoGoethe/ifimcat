@@ -51,7 +51,7 @@ export function Navigation(props) {
             type="text"
             className="if-navigation-search__input"
             onChange={e => setKeywords(e.target.value)}
-            placeholder="keywords"
+            placeholder="Keywords"
             value={keywords}
             onKeyDown={onEnter}
           />

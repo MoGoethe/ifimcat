@@ -193,6 +193,9 @@
     padding: 0px;
     font-weight: bold;
     color: $main;
+    &:first-child{
+      margin-top: 0 !important;
+    }
   }
 
   h1 {
@@ -348,7 +351,7 @@
   }
 
   pre code span {
-    line-height: 26px;
+    line-height: 20px;
   }
 
   /*行内代码*/

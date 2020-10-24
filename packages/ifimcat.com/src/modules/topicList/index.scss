@@ -17,5 +17,8 @@
     &:hover {
       color: $pink;
     }
+    &:last-child{
+      border-bottom: none;
+    }
   }
 }

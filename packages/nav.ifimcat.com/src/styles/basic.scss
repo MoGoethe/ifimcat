@@ -1,0 +1,63 @@
+@charset 'utf-8';
+/*这些元素都建议重新初始化*/
+
+@font-face {
+  font-family: 'Brush Script Std';
+  src: url("./fonts/BrushScriptStd.otf");
+}
+
+body,div,dl,dt,dd,ul,ol,li,tr,td,th,
+h1,h2,h3,h4,h5,h6,hr,br,img,table,
+input,form,a,p,textarea{
+    padding:0;
+    margin:0;
+    font-family: Spoof,Helvetica,Arial,sans-serif;
+}
+
+/*去掉底部横线*/
+/*把a元素更改设置成块级元素，这个根据实际情况决定要不要*/
+a{
+    text-decoration:none;
+    display:block;
+  font-family: Formular,Helvetica,Arial,sans-serif;
+}
+/*img标签要清除border。*/
+/*display设为block设置为块级元素，默认为display:inline;
+存在下边线多出4px状况,所以一般设为block*/
+img{
+    border:0;
+    display:block;
+}
+/*清除浮动破坏带来的塌陷问题*/
+/*清除浮动的兼容IE*/
+.clearfloat {
+	zoom: 1;
+}
+.clearfloat:after {
+	display:block;
+	clear:both;
+	content:"";
+	visibility:hidden;
+	height:0;
+}
+
+@for $i from 1 through 20 {
+  .m-t-#{$i}n { margin-top: 4px * $i !important; }
+  .m-b-#{$i}n { margin-bottom: 4px * $i !important; }
+  .m-r-#{$i}n { margin-right: 4px * $i !important; }
+  .m-l-#{$i}n { margin-left: 4px * $i !important; }
+  .p-t-#{$i}n { padding-top: 4px * $i !important; }
+  .p-b-#{$i}n { padding-bottom: 4px * $i !important; }
+  .p-r-#{$i}n { padding-right: 4px * $i !important; }
+  .p-l-#{$i}n { padding-left: 4px * $i !important; }
+}
+
+.gray-hr {
+  height: 0;
+  border-top: 0;
+  border-color: #f9f9f9;
+}
+
+.classify-page{
+  background-color: #f9f9f9;
+}

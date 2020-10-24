@@ -1,0 +1,49 @@
+@import "./variables";
+
+@mixin clear(){
+  content: '.';
+  display: block;
+  visibility: hidden;
+  clear: both;
+  width: 100%;
+  height: 0;
+  font-size: 0;
+  zoom: 1;
+}
+@mixin nowrap(){
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@mixin flex(){
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+}
+@mixin flexBlock(){
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-flex: 1;
+  -webkit-box-pack: justify;
+}
+@mixin box(){
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+
+@mixin transite($attrName:all,$duration:0.35s){
+  transition: $attrName $duration;
+  -moz-transition: $attrName $duration;
+  -webkit-transition: $attrName $duration;
+  -o-transition: $attrName $duration;
+}
+
+@mixin linear($pos: left, $start:#fff, $end: #fff){
+  background: $start;
+  filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=#{$start},endColorStr=#{$end});
+  background: -ms-linear-gradient($pos,$start,$end); 
+  background: -moz-linear-gradient($pos,$start,$end);   
+  background: -o-linear-gradient($pos, $start, $end); 
+  background: -webkit-linear-gradient($pos, $start, $end); 
+}

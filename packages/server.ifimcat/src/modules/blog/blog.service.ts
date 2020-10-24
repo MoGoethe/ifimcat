@@ -126,7 +126,7 @@ export class BlogService {
       }
       blog.category = category;
     }
-    await this.blogRepository.save(blog)
+    await this.blogRepository.save(blog);
 
     return this.blogRepository.findOne({ id: updateBlogInput.id }, { relations: ['author', 'topic', 'category', 'tags']});
   }

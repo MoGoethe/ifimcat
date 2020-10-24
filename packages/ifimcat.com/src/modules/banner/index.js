@@ -4,7 +4,6 @@ import { BANNERBGCOLOR } from "../../config"
 import "./index.scss"
 
 function bannerItemRender(banner, index) {
-  console.log(banner)
   let bgColor = '';
   switch (index) {
     case 0: bgColor = BANNERBGCOLOR[0]; break;

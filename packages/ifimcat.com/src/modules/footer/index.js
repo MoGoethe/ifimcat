@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import classnames from "classnames";
 import {
   Row,
@@ -12,6 +12,9 @@ export function Footer(props) {
     className,
     ...rest
   } = props;
+  const eibook = 'eibook';
+  // const ifimcat = 'ifimcat';
+  const host = window.location.host;
 
   const cls = classnames("if-footer", className);
 
@@ -26,12 +29,22 @@ export function Footer(props) {
         </Col>
         <Col colSpan={8}>
           <div className="if-footer-info">
-            Copyright © 2020-2022 Ifimcat.com. |
-            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"> 粤ICP备17044077号</a>
+            Copyright © 2020-2022 Ifimcat.com.
+            {
+              host.includes(eibook) ?
+                <Fragment>|
+                  <a href="https://beian.miit.gov.cn/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    粤ICP备17044077号
+                  </a>
+                </Fragment> : null
+            }            
           </div>
         </Col>
         <Col colSpan={8}>
-          <div className="if-footer-info"><b>20,248 </b> articles in ifimcat</div>
+          <div className="if-footer-info"><b>10 </b> articles in ifimcat</div>
         </Col>
       </Row>
     </div>
